@@ -1,0 +1,12 @@
+2014/09/15 13:30:58 [error] [exception.CException] exception 'CException' with message 'Alias "gii.GiiModule" is invalid. Make sure it points to an existing PHP file and the file is readable.' in D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\YiiBase.php:322
+Stack trace:
+#0 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\YiiBase.php(196): YiiBase::import('gii.GiiModule', true)
+#1 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\base\CModule.php(282): YiiBase::createComponent('gii.GiiModule', 'gii', NULL, Array)
+#2 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CWebApplication.php(337): CModule->getModule('gii')
+#3 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CWebApplication.php(276): CWebApplication->createController('gii')
+#4 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CWebApplication.php(141): CWebApplication->runController('gii')
+#5 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#6 D:\Faisal\xampp\htdocs\hms\index.php(13): CApplication->run()
+#7 {main}
+REQUEST_URI=/hms/gii
+---
