@@ -20,24 +20,55 @@
 </head>
 
 <body>
+        <?php $this->widget('bootstrap.widgets.TbNavbar', array(
+            'brandLabel' => 'Housing Managment System',
+            'color' => TbHtml::NAVBAR_COLOR_INVERSE,
+            'collapse' => true,
+            'items' => array( array(
+                'class' => 'bootstrap.widgets.TbNav',
+                'items' => array(
+                    array('label'=>'Home', 'url'=>'/site/index'),
+                    array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
+                    array('label'=>'Contact', 'url'=>array('/site/contact')),
+                    array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+                    array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+                ),
+			)),
+        )); ?> 
+<div class="container-fluid" id="page">
 
-<div class="container" id="page">
-
-	<div id="header">
-		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
+	<!--div id="header">
+		<!--div id="logo"><?php // echo CHtml::encode(Yii::app()->name); ?></div>
 	</div><!-- header -->
 
-	<div id="mainmenu">
-		<?php $this->widget('zii.widgets.CMenu',array(
-			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-				array('label'=>'Contact', 'url'=>array('/site/contact')),
-				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-			),
-		)); ?>
-	</div><!-- mainmenu -->
+	<!--div id="mainmenu">
+		<?php //$this->widget('zii.widgets.CMenu',array(
+//			'items'=>array(
+//				array('label'=>'Home', 'url'=>array('/site/index')),
+//				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
+//				array('label'=>'Contact', 'url'=>array('/site/contact')),
+//				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+//				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+//			),
+//		)); ?>
+        
+       
+	<!--/div><!-- mainmenu -->
+        <?php $this->widget('bootstrap.widgets.TbNavbar', array(
+            'brandLabel' => 'Housing Managment System',
+            'color' => TbHtml::NAVBAR_COLOR_INVERSE,
+            'collapse' => true,
+            'items' => array( array(
+                'class' => 'bootstrap.widgets.TbNav',
+                'items' => array(
+                    array('label'=>'Home', 'url'=>'/site/index'),
+                    array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
+                    array('label'=>'Contact', 'url'=>array('/site/contact')),
+                    array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+                    array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+                ),
+			)),
+        )); ?> 
 	<?php if(isset($this->breadcrumbs)):?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
 			'links'=>$this->breadcrumbs,
