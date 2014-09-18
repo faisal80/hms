@@ -21,7 +21,7 @@ $this->menu = array(
 		'id',
 		'fullname',
 		'username',
-		'password',
+//		'password',
 		'date_format',
 		'create_user',
 		'create_time',

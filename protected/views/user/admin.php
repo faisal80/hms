@@ -31,7 +31,7 @@ Yii::app()->clientScript->registerScript('search', "
     or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
 </p>
 
-<?php echo CHtml::link('Advanced Search', '#', array('class' => 'search-button btn')); ?>
+<?php echo CHtml::link('Advanced Search', '#', array('class' => 'search-button btn btn-primary')); ?>
 <div class="search-form" style="display:none">
     <?php
     $this->renderPartial('_search', array(
@@ -45,20 +45,15 @@ $this->widget('booster.widgets.TbGridView', array(
     'id' => 'user-grid',
     'dataProvider' => $model->search(),
     'filter' => $model,
+    'type' => 'striped',
     'columns' => array(
         'id',
         'fullname',
         'username',
-        'password',
         'date_format',
-        'create_user',
-        /*
-          'create_time',
-          'update_user',
-          'update_time',
-         */
         array(
             'class' => 'booster.widgets.TbButtonColumn',
+            'htmlOptions' => array('nowrap'=>'nowrap'),
         ),
     ),
 ));

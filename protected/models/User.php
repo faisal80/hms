@@ -40,9 +40,10 @@ class User extends HMSActiveRecord
 		return array(
 			array('fullname, username, password, date_format, create_user, create_time, update_user', 'required'),
 			array('fullname, password', 'length', 'max'=>255),
+            array('username', 'unique'),
             array('password', 'compare'),  // This confirms the repeat password
 			array('username, date_format, create_user, update_user', 'length', 'max'=>10),
-			array('update_time', 'safe'),
+			array('update_time, password_repeat', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, fullname, username, password, date_format, create_user, create_time, update_user, update_time', 'safe', 'on'=>'search'),
@@ -70,6 +71,7 @@ class User extends HMSActiveRecord
 			'fullname' => 'User\'s Full Name',
 			'username' => 'Username',
 			'password' => 'Password',
+            'password_repeat' => 'Re-enter Password',
 			'date_format' => 'Date Format',
 			'create_user' => 'Create User',
 			'create_time' => 'Create Time',
@@ -144,7 +146,7 @@ class User extends HMSActiveRecord
 	protected function afterValidate()
 	{
 		parent::afterValidate();
-		$this->passwordd = $this->encrypt($this->password);
+		$this->password = $this->encrypt($this->password);
 	}
 	
 	public function encrypt($value)

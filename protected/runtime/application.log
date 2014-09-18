@@ -6582,3 +6582,192 @@ Stack trace:
 REQUEST_URI=/hms/user/site
 HTTP_REFERER=http://localhost/hms/user/site
 ---
+2014/09/18 13:00:47 [warning] [application] Failed to set unsafe attribute "password_repeat" of "User".
+in D:\Faisal\xampp\htdocs\hms\protected\controllers\UserController.php (66)
+in D:\Faisal\xampp\htdocs\hms\index.php (13)
+2014/09/18 13:00:47 [error] [exception.CException] exception 'CException' with message 'Property "User.passwordd" is not defined.' in D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\base\CComponent.php:173
+Stack trace:
+#0 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\db\ar\CActiveRecord.php(161): CComponent->__set('passwordd', 'b2086154f101464...')
+#1 D:\Faisal\xampp\htdocs\hms\protected\models\User.php(147): CActiveRecord->__set('passwordd', 'b2086154f101464...')
+#2 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\base\CModel.php(160): User->afterValidate()
+#3 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\db\ar\CActiveRecord.php(805): CModel->validate(NULL)
+#4 D:\Faisal\xampp\htdocs\hms\protected\controllers\UserController.php(67): CActiveRecord->save()
+#5 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\actions\CInlineAction.php(49): UserController->actionCreate()
+#6 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CController.php(291): CFilterChain->run()
+#13 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CWebApplication.php(282): CController->run('create')
+#15 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CWebApplication.php(141): CWebApplication->runController('user/create')
+#16 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#17 D:\Faisal\xampp\htdocs\hms\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/hms/user/create
+HTTP_REFERER=http://localhost/hms/user/create
+---
+2014/09/18 13:01:19 [warning] [application] Failed to set unsafe attribute "password_repeat" of "User".
+in D:\Faisal\xampp\htdocs\hms\protected\controllers\UserController.php (66)
+in D:\Faisal\xampp\htdocs\hms\index.php (13)
+2014/09/18 13:01:33 [warning] [application] Failed to set unsafe attribute "password_repeat" of "User".
+in D:\Faisal\xampp\htdocs\hms\protected\controllers\UserController.php (66)
+in D:\Faisal\xampp\htdocs\hms\index.php (13)
+2014/09/18 13:02:23 [warning] [application] Failed to set unsafe attribute "password_repeat" of "User".
+in D:\Faisal\xampp\htdocs\hms\protected\controllers\UserController.php (66)
+in D:\Faisal\xampp\htdocs\hms\index.php (13)
+2014/09/18 13:03:13 [warning] [application] Failed to set unsafe attribute "password_repeat" of "User".
+in D:\Faisal\xampp\htdocs\hms\protected\controllers\UserController.php (66)
+in D:\Faisal\xampp\htdocs\hms\index.php (13)
+2014/09/18 14:45:16 [warning] [application] Failed to set unsafe attribute "password_repeat" of "User".
+in D:\Faisal\xampp\htdocs\hms\protected\controllers\UserController.php (66)
+in D:\Faisal\xampp\htdocs\hms\index.php (13)
+2014/09/18 14:46:09 [warning] [application] Failed to set unsafe attribute "password_repeat" of "User".
+in D:\Faisal\xampp\htdocs\hms\protected\controllers\UserController.php (66)
+in D:\Faisal\xampp\htdocs\hms\index.php (13)
+2014/09/18 14:58:09 [error] [exception.CException] exception 'CException' with message 'Property "CCompareValidator.0" is not defined.' in D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\base\CComponent.php:173
+Stack trace:
+#0 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\validators\CValidator.php(189): CComponent->__set('0', Array)
+#1 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\base\CModel.php(287): CValidator::createValidator('compare', Object(User), 'password', Array)
+#2 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\base\CModel.php(260): CModel->createValidators()
+#3 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\base\CModel.php(547): CModel->getValidators()
+#4 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\base\CModel.php(468): CModel->getSafeAttributeNames()
+#5 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\base\CComponent.php(152): CModel->setAttributes(Array)
+#6 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\db\ar\CActiveRecord.php(161): CComponent->__set('attributes', Array)
+#7 D:\Faisal\xampp\htdocs\hms\protected\controllers\UserController.php(66): CActiveRecord->__set('attributes', Array)
+#8 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\actions\CInlineAction.php(49): UserController->actionCreate()
+#9 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#10 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#12 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#13 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#14 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CController.php(291): CFilterChain->run()
+#16 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CWebApplication.php(282): CController->run('create')
+#18 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CWebApplication.php(141): CWebApplication->runController('user/create')
+#19 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#20 D:\Faisal\xampp\htdocs\hms\index.php(13): CApplication->run()
+#21 {main}
+REQUEST_URI=/hms/user/create
+HTTP_REFERER=http://localhost/hms/user/create
+---
+2014/09/18 14:58:31 [warning] [application] Failed to set unsafe attribute "password_repeat" of "User".
+in D:\Faisal\xampp\htdocs\hms\protected\controllers\UserController.php (66)
+in D:\Faisal\xampp\htdocs\hms\index.php (13)
+2014/09/18 15:04:16 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\auth\CAccessControlFilter.php:182
+Stack trace:
+#0 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(WebUser), 'You are not aut...')
+#1 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CController.php(291): CFilterChain->run()
+#6 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CWebApplication.php(282): CController->run('admin')
+#8 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CWebApplication.php(141): CWebApplication->runController('user/admin')
+#9 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#10 D:\Faisal\xampp\htdocs\hms\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/hms/user/admin
+HTTP_REFERER=http://localhost/hms/user
+---
+2014/09/18 15:04:31 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\auth\CAccessControlFilter.php:182
+Stack trace:
+#0 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(WebUser), 'You are not aut...')
+#1 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CController.php(291): CFilterChain->run()
+#6 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CWebApplication.php(282): CController->run('admin')
+#8 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CWebApplication.php(141): CWebApplication->runController('user/admin')
+#9 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#10 D:\Faisal\xampp\htdocs\hms\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/hms/user/admin
+HTTP_REFERER=http://localhost/hms/user/index
+---
+2014/09/18 15:05:45 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\auth\CAccessControlFilter.php:182
+Stack trace:
+#0 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(WebUser), 'You are not aut...')
+#1 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CController.php(291): CFilterChain->run()
+#6 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CWebApplication.php(282): CController->run('')
+#8 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CWebApplication.php(141): CWebApplication->runController('user')
+#9 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#10 D:\Faisal\xampp\htdocs\hms\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/hms/user
+---
+2014/09/18 15:05:52 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\auth\CAccessControlFilter.php:182
+Stack trace:
+#0 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(WebUser), 'You are not aut...')
+#1 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CController.php(291): CFilterChain->run()
+#6 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CWebApplication.php(282): CController->run('create')
+#8 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CWebApplication.php(141): CWebApplication->runController('user/create')
+#9 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#10 D:\Faisal\xampp\htdocs\hms\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/hms/user/create
+---
+2014/09/18 15:05:57 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\auth\CAccessControlFilter.php:182
+Stack trace:
+#0 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(WebUser), 'You are not aut...')
+#1 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CController.php(291): CFilterChain->run()
+#6 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CWebApplication.php(282): CController->run('view')
+#8 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CWebApplication.php(141): CWebApplication->runController('user/view')
+#9 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#10 D:\Faisal\xampp\htdocs\hms\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/hms/user/view/1
+---
+2014/09/18 15:06:02 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\auth\CAccessControlFilter.php:182
+Stack trace:
+#0 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(WebUser), 'You are not aut...')
+#1 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CController.php(291): CFilterChain->run()
+#6 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CWebApplication.php(282): CController->run('index')
+#8 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CWebApplication.php(141): CWebApplication->runController('user/index')
+#9 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#10 D:\Faisal\xampp\htdocs\hms\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/hms/user/index
+---
+2014/09/18 15:06:06 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\auth\CAccessControlFilter.php:182
+Stack trace:
+#0 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\auth\CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(WebUser), 'You are not aut...')
+#1 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CController.php(291): CFilterChain->run()
+#6 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CWebApplication.php(282): CController->run('admin')
+#8 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\web\CWebApplication.php(141): CWebApplication->runController('user/admin')
+#9 D:\Faisal\xampp\htdocs\yiiframework\1.1.15\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#10 D:\Faisal\xampp\htdocs\hms\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/hms/user/admin
+---
