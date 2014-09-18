@@ -1,91 +1,95 @@
-<?php /* @var $this Controller */ ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="language" content="en" />
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="<?php echo Yii::app()->request->baseUrl; ?>/favicon.ico">
+    
+    <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 
-	<!-- blueprint CSS framework -->
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print" />
-	<!--[if lt IE 8]>
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
-	<![endif]-->
+    <!-- Custom styles for this template -->
+    <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/dashboard.css" rel="stylesheet">
 
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="<?php echo Yii::app()->request->baseUrl; ?>/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/ie-emulation-modes-warning.js"></script>
 
-	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
-	<?php Yii::app()->bootstrap->register(); ?>
-</head>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/html5shiv.min.js"></script>
+      <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
 
-<body>
-        <?php $this->widget('bootstrap.widgets.TbNavbar', array(
-            'brandLabel' => 'Housing Managment System',
-            'color' => TbHtml::NAVBAR_COLOR_INVERSE,
+  <body>
+    <?php 
+        echo CHtml::openTag('div', array('class' => 'bs-navbar-top-example navbar navbar-inverse navbar-fixed-top'));
+        $this->widget('booster.widgets.TbNavbar', array(
+            'brand' => Yii::app()->name,
+            'brandOptions' => array('style' => 'width:auto;margin-left: 0px;'),
+            'fixed' => 'top',
+            'fluid' => true,
             'collapse' => true,
-            'items' => array( array(
-                'class' => 'bootstrap.widgets.TbNav',
-                'items' => array(
-                    array('label'=>'Home', 'url'=>'/site/index'),
-                    array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-                    array('label'=>'Contact', 'url'=>array('/site/contact')),
-                    array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-                    array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-                ),
-			)),
-        )); ?> 
-<div class="container-fluid" id="page">
-
-	<!--div id="header">
-		<!--div id="logo"><?php // echo CHtml::encode(Yii::app()->name); ?></div>
-	</div><!-- header -->
-
-	<!--div id="mainmenu">
-		<?php //$this->widget('zii.widgets.CMenu',array(
-//			'items'=>array(
-//				array('label'=>'Home', 'url'=>array('/site/index')),
-//				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-//				array('label'=>'Contact', 'url'=>array('/site/contact')),
-//				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-//				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-//			),
-//		)); ?>
-        
-       
-	<!--/div><!-- mainmenu -->
-        <?php $this->widget('bootstrap.widgets.TbNavbar', array(
-            'brandLabel' => 'Housing Managment System',
-            'color' => TbHtml::NAVBAR_COLOR_INVERSE,
-            'collapse' => true,
-            'items' => array( array(
-                'class' => 'bootstrap.widgets.TbNav',
-                'items' => array(
-                    array('label'=>'Home', 'url'=>'/site/index'),
-                    array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-                    array('label'=>'Contact', 'url'=>array('/site/contact')),
-                    array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-                    array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-                ),
-			)),
-        )); ?> 
-	<?php if(isset($this->breadcrumbs)):?>
-		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
-			'links'=>$this->breadcrumbs,
-		)); ?><!-- breadcrumbs -->
-	<?php endif?>
-
-	<?php echo $content; ?>
-
-	<div class="clear"></div>
-
-	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
-		All Rights Reserved.<br/>
-		<?php echo Yii::powered(); ?>
-	</div><!-- footer -->
-
-</div><!-- page -->
-
-</body>
+            'type' => 'inverse',
+            'htmlOptions' => array('style' => 'position:absolute'),
+            'items' => array( 
+                array(
+                    'class' => 'booster.widgets.TbMenu',
+                    'type' => 'navbar',
+                    'items' => array(
+                        array('label'=>'Home', 'url'=>'site'),
+                        array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
+                        array('label'=>'Contact', 'url'=>array('/site/contact')),
+                        array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+                        array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+                    ),
+    			),
+            ),
+        )); 
+        echo CHtml::closeTag('div'); 
+    ?>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <?php
+            $this->widget('booster.widgets.TbMenu', array(
+                    'type' => 'list',
+                    'htmlOptions'=>array('class'=>'nav nav-sidebar'),
+                    'encodeLabel'=>false,
+                    'items' => array(
+                        array('label' => 'List header', 'itemOptions' => array('class' => 'nav-header')),
+                        array(
+                            'label' => '<span class="glyphicon glyphicon-home"></span> Home',
+                            'url' => 'site',
+                            'itemOptions' => array('class' => 'active')
+                        ),
+                        array('label' => 'Library', 'url' => '#'),
+                        array('label' => 'Applications', 'url' => '#'),
+                        array(
+                            'label' => 'Another list header',
+                            'itemOptions' => array('class' => 'nav-header')
+                        ),
+                        array('label' => 'Profile', 'url' => '#'),
+                        array('label' => 'Settings', 'url' => '#'),
+                        '',
+                        array('label' => 'Help', 'url' => '#'),
+                    )
+                )
+            );
+            ?>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            	<?php if(isset($this->breadcrumbs)){
+                    $this->widget('booster.widgets.TbBreadcrumbs', array(
+                        'links'=>$this->breadcrumbs,
+                    )); 
+                 }?>
+            <?php echo $content; ?>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

@@ -11,20 +11,24 @@ return array(
 
 	//added with YiiStrap
 	'aliases' => array(
-		'bootstrap' => realpath(__DIR__ . '/../extensions/bootstrap'),
+        'booster' => realpath(__DIR__ . '/../extensions/yiibooster'), // Yiibooster
+//		'bootstrap' => realpath(__DIR__ . '/../extensions/bootstrap'),
 		// yiiwheels configuration
-        'yiiwheels' => realpath(__DIR__ . '/../extensions/yiiwheels'),
+//        'yiiwheels' => realpath(__DIR__ . '/../extensions/yiiwheels'),
 	),
 	// preloading 'log' component
-	'preload'=>array('log'),
+	'preload'=>array(
+        'log',
+        'booster',
+    ),
 
 	// autoloading model and component classes
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
-		'bootstrap.helpers.*', //Yiistrap
-        'bootstrap.behaviors.*', //Yiistrap
-        'bootstrap.widgets.*', //Yiistrap
+//		'bootstrap.helpers.*', //Yiistrap
+//        'bootstrap.behaviors.*', //Yiistrap
+//        'bootstrap.widgets.*', //Yiistrap
 	),
 
 	'modules'=>array(
@@ -35,7 +39,7 @@ return array(
 			'password'=>'mygii',
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
-            'generatorPaths' => array('bootstrap.gii'), //Yiistrap
+            'generatorPaths' => array('booster.gii'), //Yiibooster
 		),
 		
 	),
@@ -92,20 +96,26 @@ return array(
 				*/
 			),
 		),
-		//Yiistrap
-		'bootstrap' => array(
-            'class' => 'bootstrap.components.TbApi',   
+        
+        //Yiibooster
+        'booster' => array(
+            'class' => 'booster.components.Booster',
         ),
+		
+        //Yiistrap
+//		'bootstrap' => array(
+//            'class' => 'bootstrap.components.TbApi',   
+//        ),
 		// yiiwheels configuration
-        'yiiwheels' => array(
-            'class' => 'yiiwheels.YiiWheels',   
-        ),
+//        'yiiwheels' => array(
+//            'class' => 'yiiwheels.YiiWheels',   
+//        ),
 	),
 
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
 	'params'=>array(
 		// this is used in contact page
-		'adminEmail'=>'webmaster@example.com',
+		'adminEmail'=>'faisalnazir80@gmail.com',
 	),
 );

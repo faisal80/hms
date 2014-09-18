@@ -40,6 +40,7 @@ class User extends HMSActiveRecord
 		return array(
 			array('fullname, username, password, date_format, create_user, create_time, update_user', 'required'),
 			array('fullname, password', 'length', 'max'=>255),
+            array('password', 'compare'),  // This confirms the repeat password
 			array('username, date_format, create_user, update_user', 'length', 'max'=>10),
 			array('update_time', 'safe'),
 			// The following rule is used by search().

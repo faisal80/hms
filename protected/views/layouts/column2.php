@@ -1,22 +1,25 @@
 <?php /* @var $this Controller */ ?>
-<?php $this->beginContent('//layouts/main'); ?>
-<div class="span-19">
-	<div id="content">
-		<?php echo $content; ?>
-	</div><!-- content -->
-</div>
-<div class="span-5 last">
-	<div id="sidebar">
-	<?php
-		$this->beginWidget('zii.widgets.CPortlet', array(
-			'title'=>'Operations',
-		));
-		$this->widget('zii.widgets.CMenu', array(
-			'items'=>$this->menu,
-			'htmlOptions'=>array('class'=>'operations'),
-		));
-		$this->endWidget();
-	?>
-	</div><!-- sidebar -->
-</div>
-<?php $this->endContent(); ?>
+<?php $this->beginContent('//layouts/main');
+
+echo '<div class="clearfix"> </div>';
+$this->widget('booster.widgets.TbPanel', array(
+        'title' => substr($this->pageTitle, strpos($this->pageTitle, '-')+1),
+        'headerIcon' => 'home',
+//        'context' => 'info',
+        'headerButtons' => array(
+            array(
+                'class' => 'booster.widgets.TbButtonGroup',
+                'context' => 'primary', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+                'size' => 'extra_small',
+                'buttons' => array( array(
+                    'label' => 'Actions',
+//                    array('label' => 'Other Actions', 'url' => '#'), // this makes it split :)
+                    'items' => $this->menu,
+                ))
+            ),
+        ),
+        'content'=>$content,
+    )
+);
+
+$this->endContent(); ?>
