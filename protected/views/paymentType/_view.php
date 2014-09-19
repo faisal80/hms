@@ -6,7 +6,13 @@
 		<dt><?php echo CHtml::encode($data->getAttributeLabel('category_id')); ?>:</dt>
 		<dd><?php echo CHtml::encode($data->category->category); ?></dd>
 
-		<dt><?php echo CHtml::encode($data->getAttributeLabel('payment_type')); ?>:</dt>
+		<dt><?php echo CHtml::encode($data->getAttributeLabel('category.plot_size')); ?>:</dt>
+		<dd><?php echo CHtml::encode($data->category->plot_size); ?></dd>
+        
+		<dt><?php echo CHtml::encode($data->getAttributeLabel('category.corner')); ?>:</dt>
+		<dd><?php echo CHtml::encode($data->category->corner?'Yes':'No'); ?></dd>
+
+        <dt><?php echo CHtml::encode($data->getAttributeLabel('payment_type')); ?>:</dt>
 		<dd><?php echo CHtml::encode($data->payment_type); ?></dd>
 
 		<dt><?php echo CHtml::encode($data->getAttributeLabel('amount')); ?>:</dt>

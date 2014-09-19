@@ -20,6 +20,11 @@ array('label'=>'Manage PaymentType','url'=>array('admin')),
 'attributes'=>array(
 		'id',
 		'category.category',
+        'category.plot_size',
+        'category.corner'=>array(
+            'type'=>'boolean',
+            'name'=>'category.corner',
+        ),
 		'payment_type',
 		'amount'=>array(
             'type'=>'raw',

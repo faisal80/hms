@@ -45,6 +45,7 @@ $this->widget('booster.widgets.TbGridView', array(
     'id' => 'category-grid',
     'dataProvider' => $model->search(),
     'filter' => $model,
+    'type'=> 'striped',
     'columns' => array(
         'id',
         'category',

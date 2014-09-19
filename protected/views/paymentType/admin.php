@@ -44,6 +44,7 @@ Yii::app()->clientScript->registerScript('search', "
 $this->widget('booster.widgets.TbGridView', array(
     'id' => 'payment-type-grid',
     'dataProvider' => $model->search(),
+    'type'=> 'striped',
     'filter' => $model,
     'columns' => array(
         'id',
