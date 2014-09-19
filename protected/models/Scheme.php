@@ -124,4 +124,12 @@ class Scheme extends HMSActiveRecord
 	{
 		return parent::model($className);
 	}
+    
+    public static function getSchemeOptions()
+    {
+		//lists all schemes
+		$_Schemes = Scheme::model()->findAll();
+	  	$schemesArray = CHtml::listData($_Schemes, 'id', 'name');
+	  	return $schemesArray;        
+    }
 }

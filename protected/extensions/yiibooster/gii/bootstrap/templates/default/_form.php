@@ -7,6 +7,7 @@
 <?php echo "<?php \$form=\$this->beginWidget('booster.widgets.TbActiveForm',array(
 	'id'=>'" . $this->class2id($this->modelClass) . "-form',
 	'enableAjaxValidation'=>false,
+    'type'=>'horizontal',
 )); ?>\n"; ?>
 
 <p class="help-block">Fields with <span class="required">*</span> are required.</p>
@@ -24,7 +25,7 @@ foreach ($this->tableSchema->columns as $column) {
 <?php
 }
 ?>
-<div class="form-actions">
+<div class="form-actions text-center">
 	<?php echo "<?php \$this->widget('booster.widgets.TbButton', array(
 			'buttonType'=>'submit',
 			'context'=>'primary',

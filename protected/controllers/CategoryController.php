@@ -1,6 +1,6 @@
 <?php
 
-class SchemeController extends Controller {
+class CategoryController extends Controller {
 
     /**
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -57,13 +57,13 @@ class SchemeController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
-        $model = new Scheme;
+        $model = new Category;
 
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Scheme'])) {
-            $model->attributes = $_POST['Scheme'];
+        if (isset($_POST['Category'])) {
+            $model->attributes = $_POST['Category'];
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->id));
         }
@@ -84,8 +84,8 @@ class SchemeController extends Controller {
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Scheme'])) {
-            $model->attributes = $_POST['Scheme'];
+        if (isset($_POST['Category'])) {
+            $model->attributes = $_POST['Category'];
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->id));
         }
@@ -117,7 +117,7 @@ class SchemeController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
-        $dataProvider = new CActiveDataProvider('Scheme');
+        $dataProvider = new CActiveDataProvider('Category');
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));
@@ -127,10 +127,10 @@ class SchemeController extends Controller {
      * Manages all models.
      */
     public function actionAdmin() {
-        $model = new Scheme('search');
+        $model = new Category('search');
         $model->unsetAttributes();  // clear any default values
-        if (isset($_GET['Scheme']))
-            $model->attributes = $_GET['Scheme'];
+        if (isset($_GET['Category']))
+            $model->attributes = $_GET['Category'];
 
         $this->render('admin', array(
             'model' => $model,
@@ -143,7 +143,7 @@ class SchemeController extends Controller {
      * @param integer the ID of the model to be loaded
      */
     public function loadModel($id) {
-        $model = Scheme::model()->findByPk($id);
+        $model = Category::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
@@ -154,7 +154,7 @@ class SchemeController extends Controller {
      * @param CModel the model to be validated
      */
     protected function performAjaxValidation($model) {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'scheme-form') {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'category-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

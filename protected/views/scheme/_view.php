@@ -1,54 +1,42 @@
-<div class="view">
+<div class="well well-sm">
+    <dl class="dl-horizontal">
+			<dt><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</dt>
+		<dd><?php echo CHtml::link(CHtml::encode($data->id),array('view','id'=>$data->id)); ?></dd>
 
-		<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id),array('view','id'=>$data->id)); ?>
-	<br />
+		<dt><?php echo CHtml::encode($data->getAttributeLabel('name')); ?>:</dt>
+		<dd><?php echo CHtml::encode($data->name); ?></dd>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('name')); ?>:</b>
-	<?php echo CHtml::encode($data->name); ?>
-	<br />
+		<dt><?php echo CHtml::encode($data->getAttributeLabel('draw_date')); ?>:</dt>
+		<dd><?php echo CHtml::encode($data->draw_date); ?></dd>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('draw_date')); ?>:</b>
-	<?php echo CHtml::encode($data->draw_date); ?>
-	<br />
+		<dt><?php echo CHtml::encode($data->getAttributeLabel('penalty')); ?>:</dt>
+		<dd><?php echo CHtml::encode($data->penalty); ?></dd>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('penalty')); ?>:</b>
-	<?php echo CHtml::encode($data->penalty); ?>
-	<br />
+		<dt><?php echo CHtml::encode($data->getAttributeLabel('occurence')); ?>:</dt>
+		<dd><?php echo CHtml::encode($data->occurence); ?></dd>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('occurence')); ?>:</b>
-	<?php echo CHtml::encode($data->occurence); ?>
-	<br />
+		<dt><?php echo CHtml::encode($data->getAttributeLabel('installment_interval')); ?>:</dt>
+		<dd><?php echo CHtml::encode($data->installment_interval); ?></dd>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('installment_interval')); ?>:</b>
-	<?php echo CHtml::encode($data->installment_interval); ?>
-	<br />
+		<dt><?php echo CHtml::encode($data->getAttributeLabel('account')); ?>:</dt>
+		<dd><?php echo CHtml::encode($data->account); ?></dd>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('account')); ?>:</b>
-	<?php echo CHtml::encode($data->account); ?>
-	<br />
+		<dt><?php echo CHtml::encode($data->getAttributeLabel('bank')); ?>:</dt>
+		<dd><?php echo CHtml::encode($data->bank); ?></dd>
+		
+        <?php /*
+		<dt><?php echo CHtml::encode($data->getAttributeLabel('create_user')); ?>:</dt>
+		<dd><?php echo CHtml::encode($data->create_user); ?></dd>
 
-	<?php /*
-	<b><?php echo CHtml::encode($data->getAttributeLabel('bank')); ?>:</b>
-	<?php echo CHtml::encode($data->bank); ?>
-	<br />
+		<dt><?php echo CHtml::encode($data->getAttributeLabel('create_time')); ?>:</dt>
+		<dd><?php echo CHtml::encode($data->create_time); ?></dd>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('create_user')); ?>:</b>
-	<?php echo CHtml::encode($data->create_user); ?>
-	<br />
+		<dt><?php echo CHtml::encode($data->getAttributeLabel('update_user')); ?>:</dt>
+		<dd><?php echo CHtml::encode($data->update_user); ?></dd>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('create_time')); ?>:</b>
-	<?php echo CHtml::encode($data->create_time); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('update_user')); ?>:</b>
-	<?php echo CHtml::encode($data->update_user); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('update_time')); ?>:</b>
-	<?php echo CHtml::encode($data->update_time); ?>
-	<br />
+		<dt><?php echo CHtml::encode($data->getAttributeLabel('update_time')); ?>:</dt>
+		<dd><?php echo CHtml::encode($data->update_time); ?></dd>
 
 	*/ ?>
-
+    </dl>
 </div>

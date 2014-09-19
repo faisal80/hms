@@ -52,6 +52,7 @@ class Category extends HMSActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+            'scheme'=>array(self::BELONGS_TO, 'Scheme', 'scheme_id'),
 		);
 	}
 
@@ -116,4 +117,17 @@ class Category extends HMSActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public static function getCategoryOptions()
+    {
+        $categoriesArray = array();
+		//lists all categories
+		$_categories = Category::model()->findAll();
+        foreach ($_categories as $category)
+        {
+            $categoriesArray = $categoriesArray + array($category['id'] => $category['category'] . ' ('. $category['plot_size']. ($category['corner']?' - Corner)': ')'));
+        }
+	  	return $categoriesArray;        
+    }
+    
 }

@@ -1,12 +1,12 @@
 <?php
 $this->breadcrumbs = array(
-    'Schemes' => array('index'),
+    'Payment Types' => array('index'),
     'Manage',
 );
 
 $this->menu = array(
-    array('label' => 'List Scheme', 'url' => array('index')),
-    array('label' => 'Create Scheme', 'url' => array('create')),
+    array('label' => 'List PaymentType', 'url' => array('index')),
+    array('label' => 'Create PaymentType', 'url' => array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -15,7 +15,7 @@ Yii::app()->clientScript->registerScript('search', "
         return false;
     });
     $('.search-form form').submit(function(){
-        $.fn.yiiGridView.update('scheme-grid', {
+        $.fn.yiiGridView.update('payment-type-grid', {
             data: $(this).serialize()
         });
         return false;
@@ -23,7 +23,7 @@ Yii::app()->clientScript->registerScript('search', "
 ");
 ?>
 
-<h1>Manage Schemes</h1>
+<h1>Manage Payment Types</h1>
 
 <p>
     You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>
@@ -42,27 +42,33 @@ Yii::app()->clientScript->registerScript('search', "
 
 <?php
 $this->widget('booster.widgets.TbGridView', array(
-    'id' => 'scheme-grid',
+    'id' => 'payment-type-grid',
     'dataProvider' => $model->search(),
     'filter' => $model,
     'columns' => array(
         'id',
-        'name',
-        'draw_date',
-        'penalty',
-        'occurence',
-        'installment_interval',
-        'account',
-        'bank',
-        /*
-          'create_user',
-          'create_time',
+        'category.category',
+        'name'=>'category.plot_size',
+        'corner'=>array(
+            'type'=>'boolean',
+            'name'=>'category.corner',
+        ),
+        'payment_type',
+        'amount'=>array(
+            'type'=>'raw',
+            'name'=>'amount',
+            'value'=>'number_format($data->amount)',
+            'htmlOptions'=>array('class'=>'text-right'),
+        ),
+        /*        'create_user',
+        'create_time',
+
           'update_user',
           'update_time',
          */
         array(
             'class' => 'booster.widgets.TbButtonColumn',
-            'htmlOptions' => array('nowrap'=>'nowrap'),
+            'htmlOptions' => array('nowrap' => 'nowrap'),
         ),
     ),
 ));

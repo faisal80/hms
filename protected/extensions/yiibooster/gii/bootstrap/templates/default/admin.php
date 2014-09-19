@@ -40,7 +40,7 @@ return false;
 	or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
 </p>
 
-<?php echo "<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn')); ?>"; ?>
+<?php echo "<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn btn-primary')); ?>"; ?>
 
 <div class="search-form" style="display:none">
 	<?php echo "<?php \$this->renderPartial('_search',array(
@@ -67,6 +67,7 @@ if ($count >= 7) {
 ?>
 array(
 'class'=>'booster.widgets.TbButtonColumn',
+'htmlOptions' => array('nowrap'=>'nowrap'),
 ),
 ),
 )); ?>

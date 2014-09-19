@@ -9,44 +9,34 @@ $this->breadcrumbs=array(
 );
 ?>
 
-<h1>Login</h1>
-
-<p>Please fill out the following form with your login credentials:</p>
-
 <div class="form">
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('booster.widgets.TbActiveForm', array(
 	'id'=>'login-form',
 	'enableClientValidation'=>true,
 	'clientOptions'=>array(
 		'validateOnSubmit'=>true,
 	),
+    'type'=>'horizontal',
+    'htmlOptions' => array('class' => 'well col-xs-5 center-block'), // for inset effect
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+    <legend>Login</legend>
+	<fieldset>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'username'); ?>
-		<?php echo $form->textField($model,'username'); ?>
-		<?php echo $form->error($model,'username'); ?>
-	</div>
+	<?php echo $form->textFieldGroup($model,'username',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>10)))); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'password'); ?>
-		<?php echo $form->passwordField($model,'password'); ?>
-		<?php echo $form->error($model,'password'); ?>
-		<p class="hint">
-			Hint: You may login with <kbd>demo</kbd>/<kbd>demo</kbd> or <kbd>admin</kbd>/<kbd>admin</kbd>.
-		</p>
-	</div>
+	<?php echo $form->passwordFieldGroup($model,'password',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>        
 
-	<div class="row rememberMe">
-		<?php echo $form->checkBox($model,'rememberMe'); ?>
-		<?php echo $form->label($model,'rememberMe'); ?>
-		<?php echo $form->error($model,'rememberMe'); ?>
-	</div>
+    <?php echo $form->checkboxGroup($model,'rememberMe'); ?>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Login'); ?>
+
+
+	<div class="form-actions text-center">
+		<?php $this->widget('booster.widgets.TbButton', array(
+            'buttonType' => 'submit',
+            'context' => 'primary',
+            'label' => 'Login',
+        )); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
