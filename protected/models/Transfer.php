@@ -117,4 +117,23 @@ class Transfer extends HMSActiveRecord
 	{
 		return parent::model($className);
 	}
+    
+    protected function beforeSave() 
+    {
+        $this->fixDate($this, 'transfer_date' );
+        return parent::beforeSave();
+    }
+
+    protected function beforeFind() 
+    {
+        $this->fixDate($this, 'transfer_date');
+        parent::beforeFind();
+    }
+
+    protected function afterFind() 
+    {
+        $this->fixDate($this, 'transfer_date', false);
+        parent::afterFind();
+    }
+    
 }

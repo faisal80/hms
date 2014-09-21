@@ -16,7 +16,20 @@
 
 	<?php echo $form->passwordFieldGroup($model,'password_repeat',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
 
-	<?php echo $form->textFieldGroup($model,'date_format',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>10)))); ?>
+	<?php echo $form->dropDownListGroup($model,'date_format',array(
+            'widgetOptions'=>array(
+                'htmlOptions'=>array(
+                    'class'=>'span5',
+                    'maxlength'=>10
+                    ),
+                'data'=>array(
+                    'd.m.Y'=>'dd.mm.yyyy',
+                    'd/m/Y'=>'dd/mm/yyyy',
+                    'd-m-Y'=>'dd-mm-yyyy',
+                )
+                )
+            )
+        ); ?>
 
 <div class="form-actions text-center">
 	<?php $this->widget('booster.widgets.TbButton', array(

@@ -1,6 +1,6 @@
 <?php
 
-class UserController extends Controller {
+class PaymentDetailController extends Controller {
 
     /**
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -24,13 +24,17 @@ class UserController extends Controller {
      */
     public function accessRules() {
         return array(
-            array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions' => array('admin', 'delete', 'index', 'view', 'update', 'create'),
-                'users' => array('admin'),
+            array('allow', // allow all users to perform 'index' and 'view' actions
+                'actions' => array('index', 'view'),
+                'users' => array('*'),
             ),
-            array('allow',
-                'actions'=>array('changepwd'),
-                'users'=>array('@'),
+            array('allow', // allow authenticated user to perform 'create' and 'update' actions
+                'actions' => array('create', 'update'),
+                'users' => array('@'),
+            ),
+            array('allow', // allow admin user to perform 'admin' and 'delete' actions
+                'actions' => array('admin', 'delete'),
+                'users' => array('@'),
             ),
             array('deny', // deny all users
                 'users' => array('*'),
@@ -53,13 +57,13 @@ class UserController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
-        $model = new User;
+        $model = new PaymentDetail;
 
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-        if (isset($_POST['User'])) {
-            $model->attributes = $_POST['User'];
+        if (isset($_POST['PaymentDetail'])) {
+            $model->attributes = $_POST['PaymentDetail'];
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->id));
         }
@@ -80,8 +84,8 @@ class UserController extends Controller {
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-        if (isset($_POST['User'])) {
-            $model->attributes = $_POST['User'];
+        if (isset($_POST['PaymentDetail'])) {
+            $model->attributes = $_POST['PaymentDetail'];
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->id));
         }
@@ -113,7 +117,7 @@ class UserController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
-        $dataProvider = new CActiveDataProvider('User');
+        $dataProvider = new CActiveDataProvider('PaymentDetail');
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));
@@ -123,35 +127,12 @@ class UserController extends Controller {
      * Manages all models.
      */
     public function actionAdmin() {
-        $model = new User('search');
+        $model = new PaymentDetail('search');
         $model->unsetAttributes();  // clear any default values
-        if (isset($_GET['User']))
-            $model->attributes = $_GET['User'];
+        if (isset($_GET['PaymentDetail']))
+            $model->attributes = $_GET['PaymentDetail'];
 
         $this->render('admin', array(
-            'model' => $model,
-        ));
-    }
-
-    /**
-     * Changes the password of the current user
-     */
-    public function actionChangepwd() {
-        $model = $this->loadModel(Yii::app()->user->id);
-        $model->scenario = 'changepwd';
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-        if (isset($_POST['User'])) {
-            $model->attributes = $_POST['User'];
-            if ($model->authenticate($model->username, $model->password)) {
-                $model->password = $model->newpassword;
-                if ($model->save()) {
-                    Yii::app()->user->setFlash('success', 'Password changed successfully.');
-                    //$this->redirect(array('/'));
-                }
-            }
-        }
-        $this->render('changepwd', array(
             'model' => $model,
         ));
     }
@@ -162,7 +143,7 @@ class UserController extends Controller {
      * @param integer the ID of the model to be loaded
      */
     public function loadModel($id) {
-        $model = User::model()->findByPk($id);
+        $model = PaymentDetail::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
@@ -173,7 +154,7 @@ class UserController extends Controller {
      * @param CModel the model to be validated
      */
     protected function performAjaxValidation($model) {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'user-form') {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'payment-detail-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

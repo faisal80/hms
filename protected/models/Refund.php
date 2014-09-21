@@ -116,4 +116,26 @@ class Refund extends HMSActiveRecord
 	{
 		return parent::model($className);
 	}
+    
+    protected function beforeSave() 
+    {
+        $this->fixDate($this, 'date' );
+        $this->fixDate($this, 'date_applied' );
+        return parent::beforeSave();
+    }
+
+    protected function beforeFind() 
+    {
+        $this->fixDate($this, 'date');
+        $this->fixDate($this, 'date_applied' );
+        parent::beforeFind();
+    }
+
+    protected function afterFind() 
+    {
+        $this->fixDate($this, 'date', false);
+        $this->fixDate($this, 'date_applied', false );
+        parent::afterFind();
+    }
+    
 }

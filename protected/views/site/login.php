@@ -17,7 +17,7 @@ $this->breadcrumbs=array(
 		'validateOnSubmit'=>true,
 	),
     'type'=>'horizontal',
-    'htmlOptions' => array('class' => 'well col-xs-5 center-block'), // for inset effect
+    'htmlOptions' => array('class' => 'well col-xs-12 col-sm-10 col-md-8 col-lg-6 center-block'), // for inset effect
 )); ?>
 
     <legend>Login</legend>

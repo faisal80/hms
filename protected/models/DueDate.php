@@ -49,6 +49,9 @@ class DueDate extends HMSActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+            'applicant' => array(self::BELONGS_TO, 'Applicant', 'applicant_id'),
+            'payment_type'=> array(self::BELONGS_TO, 'PaymentType', 'payment_type_id'),
+            'scheme' => array(self::BELONGS_TO, 'Scheme', 'scheme_id'),
 		);
 	}
 
@@ -113,4 +116,23 @@ class DueDate extends HMSActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    protected function beforeSave() 
+    {
+        $this->fixDate($this, 'date' );
+        return parent::beforeSave();
+    }
+
+    protected function beforeFind() 
+    {
+        $this->fixDate($this, 'date');
+        parent::beforeFind();
+    }
+
+    protected function afterFind() 
+    {
+        $this->fixDate($this, 'date', false);
+        parent::afterFind();
+    }
+
 }

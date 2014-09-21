@@ -40,11 +40,13 @@
                     'class' => 'booster.widgets.TbMenu',
                     'type' => 'navbar',
                     'items' => array(
-                        array('label'=>'Home', 'url'=>'site'),
-                        array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-                        array('label'=>'Contact', 'url'=>array('/site/contact')),
+                        array('label'=>'Applicants', 'url'=>'/hms/applicant'),
+                        array('label'=>'Categories', 'url'=>'/hms/category'),
+                        array('label'=>'Schemes', 'url'=>array('/hms/scheme')),
                         array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-                        array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+                        array('label'=>'<span class="user"></span> Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest, 'items'=>array(
+                            array('label'=>'Change Password', 'url'=>array('user/changepwd')),
+                        )),
                     ),
     			),
             ),
