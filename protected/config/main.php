@@ -100,6 +100,7 @@ return array(
         //Yiibooster
         'booster' => array(
             'class' => 'booster.components.Booster',
+            'fontAwesomeCss'=>true,
         ),
 		
         //Yiistrap

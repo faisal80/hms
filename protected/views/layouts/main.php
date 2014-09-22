@@ -29,7 +29,7 @@
         echo CHtml::openTag('div', array('class' => 'bs-navbar-top-example navbar navbar-inverse navbar-fixed-top'));
         $this->widget('booster.widgets.TbNavbar', array(
             'brand' => Yii::app()->name,
-            'brandOptions' => array('style' => 'width:auto;margin-left: 0px;'),
+            'brandOptions' => array('style' => 'width:auto;margin-left: 0px;font-family: "Impact" !important;'),
             'fixed' => 'top',
             'fluid' => true,
             'collapse' => true,
@@ -39,13 +39,15 @@
                 array(
                     'class' => 'booster.widgets.TbMenu',
                     'type' => 'navbar',
+                    'encodeLabel'=>false,
                     'items' => array(
-                        array('label'=>'Applicants', 'url'=>'/hms/applicant'),
-                        array('label'=>'Categories', 'url'=>'/hms/category'),
-                        array('label'=>'Schemes', 'url'=>array('/hms/scheme')),
+                        array('label'=>'Applicants', 'url'=>array('/applicant')),
+                        array('label'=>'Categories', 'url'=>array('/category')),
+                        array('label'=>'Schemes', 'url'=>array('/scheme')),
                         array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-                        array('label'=>'<span class="user"></span> Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest, 'items'=>array(
-                            array('label'=>'Change Password', 'url'=>array('user/changepwd')),
+                        array('label'=>'<span class="glyphicon glyphicon-user"></span> '.Yii::app()->user->name, 'url'=>'#', 'visible'=>!Yii::app()->user->isGuest, 'items'=>array(
+                            array('label'=>'Change Password', 'url'=>array('/user/changepwd')),
+                            array('label'=>'Logout', 'url'=>array('/site/logout')),
                         )),
                     ),
     			),
