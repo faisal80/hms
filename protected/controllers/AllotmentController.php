@@ -27,8 +27,8 @@ class AllotmentController extends Controller {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
                 'actions' => array('index', 'view'),
-//                'users' => array('*'),
-                'roles' => array('Authenticated'),
+                'users' => array('*'),
+//                'roles' => array('Authenticated'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
                 'actions' => array('create', 'update'),

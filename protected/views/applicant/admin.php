@@ -50,7 +50,7 @@ $this->widget('booster.widgets.TbGridView', array(
     'columns' => array(
         'id',
         'app_no',
-        'title',
+//        'title',
         'name',
         'fname',
         'nic',

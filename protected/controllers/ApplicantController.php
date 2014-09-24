@@ -14,7 +14,12 @@ class ApplicantController extends Controller {
     public function filters() {
         return array(
             'accessControl', // perform access control for CRUD operations
+            'rights',
         );
+    }
+
+    public function allowedActions() {
+        return 'index, view';
     }
 
     /**
@@ -26,7 +31,7 @@ class ApplicantController extends Controller {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
                 'actions' => array('index', 'view'),
-                'users' => array('*'),
+                'users' => array('@'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
                 'actions' => array('create', 'update'),
@@ -57,20 +62,22 @@ class ApplicantController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
-        $model = new Applicant;
+//        if (Yii::app()->user->checkAccess('Applicant.Create')) {
+            $model = new Applicant;
 
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Applicant'])) {
-            $model->attributes = $_POST['Applicant'];
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
-        }
+            if (isset($_POST['Applicant'])) {
+                $model->attributes = $_POST['Applicant'];
+                if ($model->save())
+                    $this->redirect(array('view', 'id' => $model->id));
+            }
 
-        $this->render('create', array(
-            'model' => $model,
-        ));
+            $this->render('create', array(
+                'model' => $model,
+            ));
+//        }
     }
 
     /**
