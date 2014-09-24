@@ -14,6 +14,7 @@ class AllotmentController extends Controller {
     public function filters() {
         return array(
             'accessControl', // perform access control for CRUD operations
+//            'rights',       //added by rights module
         );
     }
 
@@ -26,7 +27,8 @@ class AllotmentController extends Controller {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
                 'actions' => array('index', 'view'),
-                'users' => array('*'),
+//                'users' => array('*'),
+                'roles' => array('Authenticated'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
                 'actions' => array('create', 'update'),

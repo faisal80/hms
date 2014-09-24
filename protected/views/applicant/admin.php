@@ -46,6 +46,7 @@ $this->widget('booster.widgets.TbGridView', array(
     'dataProvider' => $model->search(),
     'filter' => $model,
     'type' => 'striped hover condensed',
+//    'fixedHeader' => true,
     'columns' => array(
         'id',
         'app_no',

@@ -29,7 +29,7 @@
         echo CHtml::openTag('div', array('class' => 'bs-navbar-top-example navbar navbar-inverse navbar-fixed-top'));
         $this->widget('booster.widgets.TbNavbar', array(
             'brand' => Yii::app()->name,
-            'brandOptions' => array('style' => 'width:auto;margin-left: 0px;font-family: "Impact" !important;'),
+            'brandOptions' => array('style' => 'width:auto;margin-left: 0px; font-family: "Arial Narrow", Arial, sans-serif;'),
             'fixed' => 'top',
             'fluid' => true,
             'collapse' => true,
@@ -44,6 +44,11 @@
                         array('label'=>'Applicants', 'url'=>array('/applicant')),
                         array('label'=>'Categories', 'url'=>array('/category')),
                         array('label'=>'Schemes', 'url'=>array('/scheme')),
+                        array('label'=>'Users', 'url'=>array('/user'), 'visible'=>(Yii::app()->user->name==='admin'? true: false), 'items'=>array(
+                            array('label'=>'Create', 'url'=>array('/user/create')),
+                            array('label'=>'List', 'url'=>array('/user/admin')),
+                            array('label'=>'Rights', 'url'=>array('/rights')),
+                        )),
                         array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
                         array('label'=>'<span class="glyphicon glyphicon-user"></span> '.Yii::app()->user->name, 'url'=>'#', 'visible'=>!Yii::app()->user->isGuest, 'items'=>array(
                             array('label'=>'Change Password', 'url'=>array('/user/changepwd')),

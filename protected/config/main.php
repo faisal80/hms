@@ -26,6 +26,8 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+        'application.modules.rights.*', //rights module
+        'application.modules.rights.components.*',  //rights module components
 //		'bootstrap.helpers.*', //Yiistrap
 //        'bootstrap.behaviors.*', //Yiistrap
 //        'bootstrap.widgets.*', //Yiistrap
@@ -41,6 +43,12 @@ return array(
 			'ipFilters'=>array('127.0.0.1','::1'),
             'generatorPaths' => array('booster.gii'), //Yiibooster
 		),
+        
+        // rights module
+        'rights'=>array(
+            'superuserName'=>'admin',
+//            'install'=>true,    //Enable the installer
+        ),
 		
 	),
 
@@ -48,11 +56,18 @@ return array(
 	'components'=>array(
 		'user'=>array(
 			// enable cookie-based authentication
-			'allowAutoLogin'=>true,
-            'class'=>'WebUser'
+			'allowAutoLogin'=>false,
+            'class'=>'WebUser'      // i've already extended my WebUser class from RWebUser
+//            'class'=>'RWebUser',    //amended by rights module
 		),
-		// uncomment the following to enable URLs in path-format
-		
+
+        //Auth Manager
+        'authManager'=>array(
+            'class'=>'RDbAuthManager',   //Class provided by rights module
+            'connectionID'=>'db',
+        ),
+        
+        // uncomment the following to enable URLs in path-format
 		'urlManager'=>array(
 			'urlFormat'=>'path',
             'showScriptName'=>false,
@@ -102,6 +117,7 @@ return array(
             'class' => 'booster.components.Booster',
             'fontAwesomeCss'=>true,
         ),
+        
 		
         //Yiistrap
 //		'bootstrap' => array(

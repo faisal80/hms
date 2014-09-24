@@ -3,7 +3,8 @@
 // this file must be stored in:
 // protected/components/WebUser.php
 
-class WebUser extends CWebUser {
+class WebUser extends RWebUser //RWebUser added by rights module old value CWebUser
+{
 
     // Store model to not repeat query.
     private $_model;
