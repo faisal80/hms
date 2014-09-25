@@ -52,8 +52,21 @@ class ApplicantController extends Controller {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id) {
+        // Query the rows from allotments relating to this applicant
+        $allotmentsDP = new CActiveDataProvider('Allotment', array(
+            'criteria' => array(
+                'condition' => 'applicant_id=:applicantId',
+                'params' => array(':applicantId' => $id),
+            ),
+            'pagination' => array(
+                'pageSize' => 10,
+            ),
+        ));
+        
+        
         $this->render('view', array(
             'model' => $this->loadModel($id),
+            'allotments'=> $allotmentsDP,
         ));
     }
 
@@ -62,7 +75,7 @@ class ApplicantController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
-        if (Yii::app()->user->checkAccess('Applicant.Create')) {
+        if (Yii::app()->user->checkAccess($this->id . '.' . $this->action->id)) {
             $model = new Applicant;
 
 // Uncomment the following line if AJAX validation is needed
@@ -89,7 +102,7 @@ class ApplicantController extends Controller {
      */
     public function actionUpdate($id) {
         $model = $this->loadModel($id);
-        if (Yii::app()->user->checkAccess('Applicant.Update', array('owner' => $model->create_user))) {
+        if (Yii::app()->user->checkAccess($this->id . '.' . $this->action->id, array('owner' => $model->create_user))) {
 
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
@@ -114,7 +127,7 @@ class ApplicantController extends Controller {
      * @param integer $id the ID of the model to be deleted
      */
     public function actionDelete($id) {
-        if (Yii::app()->user->checkAccess($this->id . '.' . $this->action->id, array('owner'=>$this->loadModel($id)->create_user))) {
+        if (Yii::app()->user->checkAccess($this->id . '.' . $this->action->id, array('owner' => $this->loadModel($id)->create_user))) {
             if (Yii::app()->request->isPostRequest) {
 // we only allow deletion via POST request
                 $this->loadModel($id)->delete();

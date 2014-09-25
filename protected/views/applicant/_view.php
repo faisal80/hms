@@ -3,7 +3,7 @@
     <dl class="dl-horizontal">        
         
         <dt><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</dt>
-        <dd><?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id' => $data->id)); ?></dd>
+        <dd><?php echo CHtml::link(CHtml::encode($data->id . ' (Click to view more)'), array('view', 'id' => $data->id)); ?></dd>
         
         <dt><?php echo CHtml::encode($data->getAttributeLabel('app_no')); ?>:</dt>
         <dd><?php echo CHtml::encode($data->app_no); ?></dd>
