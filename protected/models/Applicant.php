@@ -62,6 +62,8 @@ class Applicant extends HMSActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'allotments'=>array(self::HAS_MANY, 'Allotment', 'applicant_id'),
+            'payments_detail'=>array(self::HAS_MANY, 'PaymentDetail', 'applicant_id'),
+            'due_dates'=>array(self::HAS_MANY, 'DueDates', 'applicant_id'),
         );
     }
 

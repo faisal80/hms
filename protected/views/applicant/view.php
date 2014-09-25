@@ -50,9 +50,9 @@ $this->beginWidget('booster.widgets.TbPanel', array(
     'title' => 'Allotments',
     'headerIcon' => 'th-list',
     'padContent' => false,
+    'headerHtmlOptions'=>array('class'=>'small'),
     'htmlOptions' => array('class' => 'bootstrap-widget-table')
-    )
-);
+    ));
 
 $this->widget('booster.widgets.TbGridView', array(
     'id' => 'allotments-grid',
@@ -78,5 +78,83 @@ $this->widget('booster.widgets.TbGridView', array(
     ),
 ));
 
+$this->endWidget();
+
+$this->beginWidget('booster.widgets.TbPanel', array(
+    'title' => 'Payment Detail',
+    'headerIcon' => 'th-list',
+    'padContent' => false,
+    'headerHtmlOptions'=>array('class'=>'small'),
+    'htmlOptions' => array('class' => 'bootstrap-widget-table col-xs-12 col-sm-10 col-md-8 col-lg-6 ')
+    ));
+
+$this->widget('booster.widgets.TbGridView', array(
+    'id' => 'payment_detail-grid',
+    'dataProvider' => $payment_detail,
+//    'filter' => $model,
+    'type' => 'striped hover condensed',
+//    'hideHeader' => true,
+    'template'=>'{items}',
+    'columns' => array(
+        'id',
+        'date',
+        'payment_type' =>array(
+            'name' =>'payment_type_id',
+            'value'=> '$data->payment_type->payment_type',
+        ),
+        'amount'=>array(
+            'name'=>'amount',
+            'type'=>'number',
+            'htmlOptions'=>array('class'=>'text-right'),
+        ),
+        'remarks',
+        array(
+            'class' => 'booster.widgets.TbButtonColumn',
+//            'htmlOptions' => array('nowrap' => 'nowrap'),
+            'template' => '{view}',
+            'viewButtonUrl' => 'Yii::app()->createUrl("paymentDetail/view", array("id"=>$data->id))',
+        ),
+    ),
+));
+
+$this->endWidget();
+
+$this->beginWidget('booster.widgets.TbPanel', array(
+    'title' => 'Due Dates',
+    'headerIcon' => 'th-list',
+    'padContent' => false,
+    'headerHtmlOptions'=>array('class'=>'small'),
+    'htmlOptions' => array('class' => 'bootstrap-widget-table col-xs-12 col-sm-10 col-md-8 col-lg-6 ')
+    ));
+
+$this->widget('booster.widgets.TbGridView', array(
+    'id' => 'payment_detail-grid',
+    'dataProvider' => $due_dates,
+//    'filter' => $model,
+    'type' => 'striped hover condensed',
+//    'hideHeader' => true,
+    'template'=>'{items}',
+    'columns' => array(
+        'id',
+        'date',
+        'payment_type' =>array(
+            'name' =>'payment_type_id',
+            'value'=> '$data->payment_type->payment_type',
+        ),
+        'amount' =>array(
+            'name' =>'amount',
+            'header'=>'Amount',
+            'value'=> '$data->payment_type->amount',
+            'type'=>'number',
+            'htmlOptions'=>array('class'=>'text-right'),
+        ),
+        array(
+            'class' => 'booster.widgets.TbButtonColumn',
+//            'htmlOptions' => array('nowrap' => 'nowrap'),
+            'template' => '{view}',
+            'viewButtonUrl' => 'Yii::app()->createUrl("paymentDetail/view", array("id"=>$data->id))',
+        ),
+    ),
+));
 $this->endWidget();
 ?>

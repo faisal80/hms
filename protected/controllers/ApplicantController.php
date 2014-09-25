@@ -59,14 +59,31 @@ class ApplicantController extends Controller {
                 'params' => array(':applicantId' => $id),
             ),
             'pagination' => array(
-                'pageSize' => 10,
+                'pageSize' => 100,
             ),
         ));
         
+        $paymentDetailDP = new CActiveDataProvider('PaymentDetail', array(
+            'criteria' => array(
+                'condition' => 'applicant_id=:applicantId',
+                'params' => array(':applicantId'=>$id),
+            ),
+            'pagination' => array('pageSize'=>100),
+        ));
+        
+        $duedatesDP = new CActiveDataProvider('DueDate', array(
+            'criteria' => array(
+                'condition' => 'applicant_id=:applicantId',
+                'params' => array(':applicantId'=>$id),
+            ),
+            'pagination' => array('pageSize'=>100),
+        ));
         
         $this->render('view', array(
             'model' => $this->loadModel($id),
             'allotments'=> $allotmentsDP,
+            'payment_detail'=>$paymentDetailDP,
+            'due_dates' =>$duedatesDP,
         ));
     }
 
