@@ -26,7 +26,7 @@ class DueDateController extends Controller {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
                 'actions' => array('index', 'view'),
-                'users' => array('*'),
+                'users' => array('@'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
                 'actions' => array('create', 'update'),
@@ -57,20 +57,24 @@ class DueDateController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
-        $model = new DueDate;
+        if (Yii::app()->user->checkAccess($this->id . '.' . $this->action->id)) {
+            $model = new DueDate;
 
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-        if (isset($_POST['DueDate'])) {
-            $model->attributes = $_POST['DueDate'];
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
-        }
+            if (isset($_POST['DueDate'])) {
+                $model->attributes = $_POST['DueDate'];
+                if ($model->save())
+                    $this->redirect(array('view', 'id' => $model->id));
+            }
 
-        $this->render('create', array(
-            'model' => $model,
-        ));
+            $this->render('create', array(
+                'model' => $model,
+            ));
+        }else {
+            $this->accessDenied();
+        }
     }
 
     /**
@@ -80,19 +84,23 @@ class DueDateController extends Controller {
      */
     public function actionUpdate($id) {
         $model = $this->loadModel($id);
+        if (Yii::app()->user->checkAccess($this->id . '.' . $this->action->id, array('owner' => $model->create_user))) {
 
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-        if (isset($_POST['DueDate'])) {
-            $model->attributes = $_POST['DueDate'];
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
-        }
+            if (isset($_POST['DueDate'])) {
+                $model->attributes = $_POST['DueDate'];
+                if ($model->save())
+                    $this->redirect(array('view', 'id' => $model->id));
+            }
 
-        $this->render('update', array(
-            'model' => $model,
-        ));
+            $this->render('update', array(
+                'model' => $model,
+            ));
+        } else {
+            $this->accessDenied();
+        }
     }
 
     /**
@@ -101,16 +109,20 @@ class DueDateController extends Controller {
      * @param integer $id the ID of the model to be deleted
      */
     public function actionDelete($id) {
-        if (Yii::app()->request->isPostRequest) {
+        if (Yii::app()->user->checkAccess($this->id . '.' . $this->action->id, array('owner' => $this->loadModel($id)->create_user))) {
+            if (Yii::app()->request->isPostRequest) {
 // we only allow deletion via POST request
-            $this->loadModel($id)->delete();
+                $this->loadModel($id)->delete();
 
 // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-            if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+                if (!isset($_GET['ajax']))
+                    $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+            }
+            else
+                throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+        }else {
+            $this->accessDenied();
         }
-        else
-            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
     /**
@@ -127,14 +139,18 @@ class DueDateController extends Controller {
      * Manages all models.
      */
     public function actionAdmin() {
-        $model = new DueDate('search');
-        $model->unsetAttributes();  // clear any default values
-        if (isset($_GET['DueDate']))
-            $model->attributes = $_GET['DueDate'];
+        if (Yii::app()->user->checkAccess($this->id . '.' . $this->action->id)) {
+            $model = new DueDate('search');
+            $model->unsetAttributes();  // clear any default values
+            if (isset($_GET['DueDate']))
+                $model->attributes = $_GET['DueDate'];
 
-        $this->render('admin', array(
-            'model' => $model,
-        ));
+            $this->render('admin', array(
+                'model' => $model,
+            ));
+        }else {
+            $this->accessDenied();
+        }
     }
 
     /**

@@ -26,7 +26,7 @@ class PaymentTypeController extends Controller {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
                 'actions' => array('index', 'view'),
-                'users' => array('*'),
+                'users' => array('@'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
                 'actions' => array('create', 'update'),
@@ -57,20 +57,24 @@ class PaymentTypeController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
-        $model = new PaymentType;
+        if (Yii::app()->user->checkAccess($this->id . '.' . $this->action->id)) {
+            $model = new PaymentType;
 
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-        if (isset($_POST['PaymentType'])) {
-            $model->attributes = $_POST['PaymentType'];
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
-        }
+            if (isset($_POST['PaymentType'])) {
+                $model->attributes = $_POST['PaymentType'];
+                if ($model->save())
+                    $this->redirect(array('view', 'id' => $model->id));
+            }
 
-        $this->render('create', array(
-            'model' => $model,
-        ));
+            $this->render('create', array(
+                'model' => $model,
+            ));
+        }else {
+            $this->accessDenied();
+        }
     }
 
     /**
@@ -80,19 +84,23 @@ class PaymentTypeController extends Controller {
      */
     public function actionUpdate($id) {
         $model = $this->loadModel($id);
+        if (Yii::app()->user->checkAccess($this->id . '.' . $this->action->id, array('owner' => $model->create_user))) {
 
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-        if (isset($_POST['PaymentType'])) {
-            $model->attributes = $_POST['PaymentType'];
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
-        }
+            if (isset($_POST['PaymentType'])) {
+                $model->attributes = $_POST['PaymentType'];
+                if ($model->save())
+                    $this->redirect(array('view', 'id' => $model->id));
+            }
 
-        $this->render('update', array(
-            'model' => $model,
-        ));
+            $this->render('update', array(
+                'model' => $model,
+            ));
+        }else {
+            $this->accessDenied();
+        }
     }
 
     /**

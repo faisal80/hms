@@ -47,6 +47,7 @@ return array(
         // rights module
         'rights'=>array(
             'superuserName'=>'admin',
+//            'enableBizRuleData'=>true,
 //            'install'=>true,    //Enable the installer
         ),
 		

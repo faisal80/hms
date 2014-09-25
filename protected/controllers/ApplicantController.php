@@ -14,13 +14,13 @@ class ApplicantController extends Controller {
     public function filters() {
         return array(
             'accessControl', // perform access control for CRUD operations
-            'rights',
+//            'rights',
         );
     }
 
-    public function allowedActions() {
-        return 'index, view';
-    }
+//    public function allowedActions() {
+//        return 'index, view';
+//    }
 
     /**
      * Specifies the access control rules.
@@ -62,7 +62,7 @@ class ApplicantController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
-//        if (Yii::app()->user->checkAccess('Applicant.Create')) {
+        if (Yii::app()->user->checkAccess('Applicant.Create')) {
             $model = new Applicant;
 
 // Uncomment the following line if AJAX validation is needed
@@ -77,7 +77,9 @@ class ApplicantController extends Controller {
             $this->render('create', array(
                 'model' => $model,
             ));
-//        }
+        } else {
+            $this->accessDenied();
+        }
     }
 
     /**
@@ -87,19 +89,23 @@ class ApplicantController extends Controller {
      */
     public function actionUpdate($id) {
         $model = $this->loadModel($id);
+        if (Yii::app()->user->checkAccess('Applicant.Update', array('owner' => $model->create_user))) {
 
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Applicant'])) {
-            $model->attributes = $_POST['Applicant'];
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
-        }
+            if (isset($_POST['Applicant'])) {
+                $model->attributes = $_POST['Applicant'];
+                if ($model->save())
+                    $this->redirect(array('view', 'id' => $model->id));
+            }
 
-        $this->render('update', array(
-            'model' => $model,
-        ));
+            $this->render('update', array(
+                'model' => $model,
+            ));
+        } else {
+            $this->accessDenied();
+        }
     }
 
     /**
@@ -108,16 +114,20 @@ class ApplicantController extends Controller {
      * @param integer $id the ID of the model to be deleted
      */
     public function actionDelete($id) {
-        if (Yii::app()->request->isPostRequest) {
+        if (Yii::app()->user->checkAccess($this->id . '.' . $this->action->id, array('owner'=>$this->loadModel($id)->create_user))) {
+            if (Yii::app()->request->isPostRequest) {
 // we only allow deletion via POST request
-            $this->loadModel($id)->delete();
+                $this->loadModel($id)->delete();
 
 // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-            if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+                if (!isset($_GET['ajax']))
+                    $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+            }
+            else
+                throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+        }else {
+            $this->accessDenied();
         }
-        else
-            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
     /**
@@ -134,14 +144,18 @@ class ApplicantController extends Controller {
      * Manages all models.
      */
     public function actionAdmin() {
-        $model = new Applicant('search');
-        $model->unsetAttributes();  // clear any default values
-        if (isset($_GET['Applicant']))
-            $model->attributes = $_GET['Applicant'];
+        if (Yii::app()->user->checkAccess($this->id . '.' . $this->action->id)) {
+            $model = new Applicant('search');
+            $model->unsetAttributes();  // clear any default values
+            if (isset($_GET['Applicant']))
+                $model->attributes = $_GET['Applicant'];
 
-        $this->render('admin', array(
-            'model' => $model,
-        ));
+            $this->render('admin', array(
+                'model' => $model,
+            ));
+        } else {
+            $this->accessDenied();
+        }
     }
 
     /**

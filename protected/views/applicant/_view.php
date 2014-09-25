@@ -8,11 +8,8 @@
         <dt><?php echo CHtml::encode($data->getAttributeLabel('app_no')); ?>:</dt>
         <dd><?php echo CHtml::encode($data->app_no); ?></dd>
 
-        <dt><?php echo CHtml::encode($data->getAttributeLabel('title')); ?>:</dt>
-        <dd><?php echo CHtml::encode($data->title); ?></dd>
-
         <dt><?php echo CHtml::encode($data->getAttributeLabel('name')); ?>:</dt>
-        <dd><?php echo CHtml::encode($data->name); ?></dd>
+        <dd><?php echo CHtml::encode($data->NameWithTitle); ?></dd>
 
         <dt><?php echo CHtml::encode($data->getAttributeLabel('fname')); ?>:</dt>
         <dd><?php echo CHtml::encode($data->fname); ?></dd>

@@ -20,8 +20,11 @@ array('label'=>'Manage Applicant','url'=>array('admin')),
 'attributes'=>array(
 		'id',
 		'app_no',
-		'title',
-		'name',
+//		'title',
+		'name'=>array(
+            'name'=>'name',
+            'value'=>$model->NameWithTitle,
+        ),
 		'fname',
 		'nic',
 		'dob',

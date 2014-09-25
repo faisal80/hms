@@ -3,9 +3,8 @@
 // this file must be stored in:
 // protected/components/WebUser.php
 
-class WebUser extends RWebUser //RWebUser added by rights module old value CWebUser
+class WebUser extends RWebUser //RWebUser added by rights module old value CWebUser {
 {
-
     // Store model to not repeat query.
     private $_model;
 
@@ -77,25 +76,17 @@ class WebUser extends RWebUser //RWebUser added by rights module old value CWebU
     }
 
     /**
-     * @param document model for which the ownership is checked.
-     * @return boolean Is current user is owner of the document. 
-     * It checks duty id of the officers attached to current user
+     * @param model for which the ownership is checked.
+     * @return boolean Is current user is owner of the model. 
+     * It checks create_user of the model with the current user id
      */
-    public function isOwner($document) {
+    public function isOwner($model) {
         if (Yii::app()->user->isAdmin())
             return true;
 
         if (!Yii::app()->user->isGuest) {
-            $user = $this->loadUser(Yii::app()->user->id);
-            $officers = $user->officers;
-            foreach ($officers as $officer) {
-                $assignments = $officer->assignments;
-                foreach ($assignments as $assignment) {
-                    if ($assignment->duty_id === $document->owner_id) {
-                        return true;
-                    }
-                }
-            }
+            if ($model->create_user === Yii::app()->user->id)
+                return true;
         }
         return false;
     }

@@ -151,36 +151,43 @@ class Applicant extends HMSActiveRecord {
         $result = array();
         //lists all applicants
         $_applicants = Applicant::model()->findAll();
-        foreach ($_applicants as $applicant){
-           $result = $result + array($applicant['id']=> $applicant['name'] . ' S/D/o ' . $applicant['fname'] );
+        foreach ($_applicants as $applicant) {
+            $result = $result + array($applicant['id'] => $applicant['name'] . ' S/D/o ' . $applicant['fname']);
         }
         return $result;
     }
-    
-    protected function beforeSave() 
-    {
-        $this->fixDate($this, 'dob' );
+
+    protected function beforeSave() {
+        $this->fixDate($this, 'dob');
+        $this->formatNIC(true);
         return parent::beforeSave();
     }
 
-    protected function beforeFind() 
-    {
+    protected function beforeFind() {
         $this->fixDate($this, 'dob');
         parent::beforeFind();
     }
 
-    protected function afterFind() 
-    {
+    protected function afterFind() {
         $this->fixDate($this, 'dob', false);
         $this->formatNIC();
         parent::afterFind();
     }
-    
-    protected function formatNIC()
-    {
-        $result=$this->nic;
+
+    protected function formatNIC($forDB = false) {
+        $result = $this->nic;
         $result = str_replace('-', '', $result); //remove all occurences of '-'
-        $result = substr_replace($result, '-', 5, 0); // places '-' after 5th character place
-        $this->nic = substr_replace($result, '-', 13,0); //places '-' after 13 character place. 
+        if ($forDB) {
+            $this->nic = $result;
+        } else {
+            $result = substr_replace($result, '-', 5, 0); // places '-' after 5th character place
+            $this->nic = substr_replace($result, '-', 13, 0); //places '-' after 13 character place. 
+        }
     }
+    
+    public function getNameWithTitle()
+    {
+        return trim($this->title . ' '. $this->name);
+    }
+
 }

@@ -1,4 +1,4 @@
-<?php
+ <?php
 /**
 * Rights filter class file.
 *
