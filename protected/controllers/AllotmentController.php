@@ -58,7 +58,7 @@ class AllotmentController extends Controller {
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
-    public function actionCreate() {
+    public function actionCreate($app_id) {
         if (Yii::app()->user->checkAccess($this->id . '.' . $this->action->id)) {
             $model = new Allotment;
 
@@ -73,6 +73,7 @@ class AllotmentController extends Controller {
 
             $this->render('create', array(
                 'model' => $model,
+                'applicant' => Applicant::model()->findByPk($app_id),
             ));
         } else {
             $this->accessDenied();

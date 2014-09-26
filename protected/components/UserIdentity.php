@@ -32,7 +32,7 @@ class UserIdentity extends CUserIdentity
 			else
 			{
 				$this->_id = $user->id;
-				Yii::app()->user->setState('date_format', $user->date_format);
+//				Yii::app()->user->setState('date_format', $user->date_format);
 				$this->errorCode=self::ERROR_NONE;
 			}
 		}

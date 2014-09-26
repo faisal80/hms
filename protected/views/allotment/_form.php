@@ -10,16 +10,16 @@ $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
 
 <?php echo $form->errorSummary($model); ?>
 
-<?php echo $form->dropDownListGroup($model, 'applicant_id', array(
-    'widgetOptions' => array(
-        'htmlOptions' => array(
-            'class' => 'span5', 
-            'maxlength' => 10
-            ),
-        'data'=>  Applicant::getApplicantOptions(),
-        )
-    )
-); ?>
+<?php //echo $form->dropDownListGroup($model, 'applicant_id', array(
+//    'widgetOptions' => array(
+//        'htmlOptions' => array(
+//            'class' => 'span5', 
+//            'maxlength' => 10
+//            ),
+//        'data'=>  Applicant::getApplicantOptions(),
+//        )
+//    )
+//); ?>
 
 <?php echo $form->dropDownListGroup($model, 'scheme_id', array(
     'widgetOptions' => array(

@@ -24,6 +24,8 @@
                         'Ms.',
                         'Miss',
                         'Dr.',
+                        'Col.',
+                        'Maj.',
                     ) 
                 )
             )   
@@ -93,7 +95,7 @@
 			'buttonType'=>'submit',
 			'context'=>'primary',
 			'label'=>$model->isNewRecord ? 'Create' : 'Save',
-		)); ?>
+		)); ?> | <?php echo CHtml::link(Rights::t('yii', 'Cancel'), Yii::app()->user->rightsReturnUrl); ?>
 </div>
 
 <?php $this->endWidget(); ?>

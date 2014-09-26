@@ -44,7 +44,7 @@
                         array('label'=>'Applicants', 'url'=>array('/applicant')),
                         array('label'=>'Categories', 'url'=>array('/category')),
                         array('label'=>'Schemes', 'url'=>array('/scheme')),
-                        array('label'=>'Users', 'url'=>array('/user'), 'visible'=>(Yii::app()->user->name==='admin'? true: false), 'items'=>array(
+                        array('label'=>'Users', 'url'=>array('/user'), 'visible'=>(Yii::app()->user->isAdmin()), 'items'=>array(
                             array('label'=>'Create', 'url'=>array('/user/create')),
                             array('label'=>'List', 'url'=>array('/user/admin')),
                             array('label'=>'Rights', 'url'=>array('/rights')),

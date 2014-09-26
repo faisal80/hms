@@ -10,10 +10,11 @@ $this->menu = array(
     array('label' => 'Update Applicant', 'url' => array('update', 'id' => $model->id)),
     array('label' => 'Delete Applicant', 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Are you sure you want to delete this item?')),
     array('label' => 'Manage Applicant', 'url' => array('admin')),
+    array('label' => 'Allot to this applicant', 'url' => array('/allotment/create', 'app_id'=>$model->id)),
 );
 ?>
 
-<h1>View Applicant #<?php echo $model->id; ?></h1>
+<h2>View Applicant #<?php echo $model->id; ?></h2>
 
 <?php
 $this->widget('booster.widgets.TbDetailView', array(

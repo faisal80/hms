@@ -14,7 +14,7 @@
             'widgetOptions'=>array(
                 
                 'options'=>array(
-                    'format'=>'dd.mm.yyyy',
+                    'format'=>  Yii::app()->user->getDateFormat(true),
                     ),
                 'htmlOptions'=>array('class'=>'span5')
                 ), 

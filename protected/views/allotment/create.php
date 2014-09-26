@@ -10,6 +10,6 @@ array('label'=>'Manage Allotment','url'=>array('admin')),
 );
 ?>
 
-<h1>Create Allotment</h1>
+<h2>Create Allotment for <?php echo $applicant->NameWithTitle; ?></h2>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model, 'applicant'=>$applicant)); ?>

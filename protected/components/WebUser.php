@@ -21,7 +21,7 @@ class WebUser extends RWebUser //RWebUser added by rights module old value CWebU
     function isAdmin() {
         if (!Yii::app()->user->isGuest) {
             $user = $this->loadUser(Yii::app()->user->id);
-            return $user->username == 'admin';
+            return $user->username == 'Admin';
         }
         return false;
     }
@@ -37,20 +37,21 @@ class WebUser extends RWebUser //RWebUser added by rights module old value CWebU
 
     // Returns date format for this user
     public function getDateFormat($forJuiDatePicker = false) {
+        $user = User::model()->findByPk(Yii::app()->user->id);
         if ($forJuiDatePicker) {
-            if (Yii::app()->user->getState('date_format') == 'd.m.Y') {
+            if ($user->date_format == 'd.m.Y') {
                 return 'dd.mm.yyyy';
-            } elseif (Yii::app()->user->getState('date_format') == 'd/m/Y') {
+            } elseif ($user->date_format == 'd/m/Y') {
                 return 'dd/mm/yyyy';
-            } elseif (Yii::app()->user->getState('date_format') == 'd-m-Y') {
+            } elseif ($user->date_format == 'd-m-Y') {
                 return 'dd-mm-yyyy';
             }
         } else {
-            if (Yii::app()->user->getState('date_format') == 'd.m.Y') {
+            if ($user->date_format == 'd.m.Y') {
                 return 'dd.MM.yyyy';
-            } elseif (Yii::app()->user->getState('date_format') == 'd/m/Y') {
+            } elseif ($user->date_format == 'd/m/Y') {
                 return 'dd/MM/yyyy';
-            } elseif (Yii::app()->user->getState('date_format') == 'd-m-Y') {
+            } elseif ($user->date_format == 'd-m-Y') {
                 return 'dd-MM-yyyy';
             }
         }
