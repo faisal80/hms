@@ -8,9 +8,19 @@
 
 <?php echo $form->errorSummary($model); ?>
 
-	<?php echo $form->textFieldGroup($model,'user_id',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+	<?php echo $form->dropDownListGroup($model,'user_id',array(
+        'widgetOptions'=>array(
+            'htmlOptions'=>array('class'=>'span5'),
+            'data'=>User::getUserOptions(),
+            )
+        )); ?>
 
-	<?php echo $form->textFieldGroup($model,'scheme_id',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+	<?php echo $form->dropDownListGroup($model,'scheme_id',array(
+        'widgetOptions'=>array(
+            'htmlOptions'=>array('class'=>'span5'),
+            'data' => Scheme::getSchemeOptions(),
+            )
+        )); ?>
 
 <div class="form-actions text-center">
 	<?php $this->widget('booster.widgets.TbButton', array(

@@ -149,13 +149,13 @@ class User extends HMSActiveRecord {
 
     public static function getUserOptions()
     {
-        $result = array();
-        $paymenttypes = PaymentType::model()->findAll();
-        foreach ($paymenttypes as $paymenttype)
-        {
-            $result = $result + array($paymenttype['id']=> $paymenttype->category->category .' ('. $paymenttype->category->plot_size . ($paymenttype->category->corner?' - Corner)': ') '). $paymenttype['payment_type']);
-            
-        }
-        return $result;
+//        $result = array();
+        $users = User::model()->findAll('username<>\'Admin\'');
+//        foreach ($paymenttypes as $paymenttype)
+//        {
+//            $result = $result + array($paymenttype['id']=> $paymenttype->category->category .' ('. $paymenttype->category->plot_size . ($paymenttype->category->corner?' - Corner)': ') '). $paymenttype['payment_type']);
+//            
+//        }
+        return CHtml::listData($users, 'id', 'username');
     }
 }
