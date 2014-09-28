@@ -9,7 +9,7 @@ array('label'=>'Manage Category','url'=>array('admin')),
 );
 ?>
 
-<h1>Categories</h1>
+<h2>Categories</h2>
 
 <?php $this->widget('booster.widgets.TbListView',array(
 'dataProvider'=>$dataProvider,

@@ -47,8 +47,29 @@ class CategoryController extends Controller {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id) {
+        $payment_type = new PaymentType;
+
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
+
+        if (isset($_POST['PaymentType'])) {
+            $payment_type->attributes = $_POST['PaymentType'];
+            if ($payment_type->save())
+                Yii::app()->user->setFlash('success', 'Payment Type added successfully.');
+        }
+        
+        $paymentTypesDP = new CActiveDataProvider('PaymentType', array(
+            'criteria' => array(
+                'condition' => 'category_id=:categoryId',
+                'params' => array(':categoryId' => $id),
+            ),
+            'pagination' => array('pageSize' => 100),
+        ));
+
         $this->render('view', array(
             'model' => $this->loadModel($id),
+            'payment_types' => $paymentTypesDP,
+            'payment_type' => $payment_type,
         ));
     }
 
@@ -60,8 +81,8 @@ class CategoryController extends Controller {
         if (Yii::app()->user->checkAccess($this->id . '.' . $this->action->id)) {
             $model = new Category;
 
-// Uncomment the following line if AJAX validation is needed
-// $this->performAjaxValidation($model);
+            // Uncomment the following line if AJAX validation is needed
+            // $this->performAjaxValidation($model);
 
             if (isset($_POST['Category'])) {
                 $model->attributes = $_POST['Category'];

@@ -56,7 +56,7 @@ class PaymentTypeController extends Controller {
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
-    public function actionCreate() {
+    public function actionCreate($cat_id=null) {
         if (Yii::app()->user->checkAccess($this->id . '.' . $this->action->id)) {
             $model = new PaymentType;
 
@@ -65,8 +65,9 @@ class PaymentTypeController extends Controller {
 
             if (isset($_POST['PaymentType'])) {
                 $model->attributes = $_POST['PaymentType'];
+                $model->category_id = $cat_id;
                 if ($model->save())
-                    $this->redirect(array('view', 'id' => $model->id));
+                    $this->redirect(array('/category/view', 'id' => $model->category_id));
             }
 
             $this->render('create', array(

@@ -30,14 +30,22 @@ class WebUser extends RWebUser //RWebUser added by rights module old value CWebU
     protected function loadUser($id = null) {
         if ($this->_model === null) {
             if ($id !== null)
+            {
                 $this->_model = User::model()->findByPk($id);
+                return $this->_model;
+            }
+        } elseif (!$this->_model->id == $id)
+        {
+            $this->_model = User::model()->findByPk($id);
+            return $this->_model;
+        } else {
+            return $this->_model;
         }
-        return $this->_model;
     }
 
     // Returns date format for this user
     public function getDateFormat($forJuiDatePicker = false) {
-        $user = User::model()->findByPk(Yii::app()->user->id);
+        $user = $this->loadUser(Yii::app()->user->id);
         if ($forJuiDatePicker) {
             if ($user->date_format == 'd.m.Y') {
                 return 'dd.mm.yyyy';
@@ -47,19 +55,14 @@ class WebUser extends RWebUser //RWebUser added by rights module old value CWebU
                 return 'dd-mm-yyyy';
             }
         } else {
-            if ($user->date_format == 'd.m.Y') {
-                return 'dd.MM.yyyy';
-            } elseif ($user->date_format == 'd/m/Y') {
-                return 'dd/MM/yyyy';
-            } elseif ($user->date_format == 'd-m-Y') {
-                return 'dd-MM-yyyy';
-            }
+            return $user->date_format ;
         }
     }
 
     // Returns date separator for this user
     public function getDateSeparator() {
-        return substr(Yii::app()->user->getState('date_format'), 1, 1);
+        $user = $this->loadUser(Yii::app()->user->id); 
+        return substr($user->date_format, 1, 1);
     }
 
     /**

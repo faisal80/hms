@@ -8,16 +8,16 @@
 
 <?php echo $form->errorSummary($model); ?>
 
-	<?php echo $form->dropDownListGroup($model,'category_id',array(
-        'widgetOptions'=>array(
-            'htmlOptions'=>array(
-                'class'=>'span5',
-                'maxlength'=>10
-                ),
-            'data'=>  Category::getCategoryOptions(),
-            )
-        )
-    ); ?>
+	<?php // echo $form->dropDownListGroup($model,'category_id',array(
+//        'widgetOptions'=>array(
+//            'htmlOptions'=>array(
+//                'class'=>'span5',
+//                'maxlength'=>10
+//                ),
+//            'data'=>  Category::getCategoryOptions(),
+//            )
+//        )
+//    ); ?>
 
 	<?php echo $form->textFieldGroup($model,'payment_type',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>100)))); ?>
 

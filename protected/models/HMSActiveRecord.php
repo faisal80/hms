@@ -49,7 +49,7 @@ abstract class HMSActiveRecord extends CActiveRecord {
             if ($model->getAttribute($attribute) <> '') {
                 list($y, $m, $d) = explode('-', $model->getAttribute($attribute));
                 $mk = mktime(0, 0, 0, (int) $m, (int) $d, (int) $y);
-                $model->setAttribute($attribute, date(Yii::app()->user->getState('date_format'), $mk));
+                $model->setAttribute($attribute, date(Yii::app()->user->getDateFormat(false), $mk));
                 return true;
             }
         }

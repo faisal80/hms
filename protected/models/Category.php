@@ -53,6 +53,7 @@ class Category extends HMSActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
             'scheme'=>array(self::BELONGS_TO, 'Scheme', 'scheme_id'),
+            'payment_types'=>array(self::HAS_MANY, 'PaymentType', 'category_id'),
 		);
 	}
 
