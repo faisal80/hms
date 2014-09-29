@@ -34,7 +34,8 @@ class Scheme extends HMSActiveRecord {
         // will receive user inputs.
         return array(
             array('name, occurence, installment_interval, account, bank, create_user, create_time', 'required'),
-            array('penalty', 'numerical', 'integerOnly' => true),
+//            array('penalty', 'numerical', 'integerOnly' => true),
+            array('penalty', 'length', 'max'=>5),
             array('name, account, bank', 'length', 'max' => 255),
             array('occurence, installment_interval, create_user, update_user', 'length', 'max' => 10),
             array('draw_date, update_time', 'safe'),

@@ -13,17 +13,13 @@ array('label'=>'Manage SchemeAssignment','url'=>array('admin')),
 );
 ?>
 
-<h1>View SchemeAssignment #<?php echo $model->id; ?></h1>
+<h2>View SchemeAssignment #<?php echo $model->id; ?></h2>
 
 <?php $this->widget('booster.widgets.TbDetailView',array(
 'data'=>$model,
 'attributes'=>array(
 		'id',
-		'user_id',
-		'scheme_id',
-		'create_user',
-		'create_time',
-		'update_user',
-		'update_time',
+		'user.username',
+		'scheme.name',
 ),
 )); ?>

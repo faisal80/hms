@@ -48,6 +48,7 @@
                             array('label'=>'Create', 'url'=>array('/user/create')),
                             array('label'=>'List', 'url'=>array('/user/admin')),
                             array('label'=>'Rights', 'url'=>array('/rights')),
+                            array('label'=>'Assign Schemes', 'url'=>array('/schemeAssignment/create')),
                         )),
                         array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
                         array('label'=>'<span class="glyphicon glyphicon-user"></span> '.Yii::app()->user->name, 'url'=>'#', 'visible'=>!Yii::app()->user->isGuest, 'items'=>array(

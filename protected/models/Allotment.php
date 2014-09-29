@@ -39,6 +39,7 @@ class Allotment extends HMSActiveRecord {
             array('applicant_id, scheme_id, category_id, plot_no, street_no, sector, phase, create_user, update_user', 'length', 'max' => 10),
             array('order_no', 'length', 'max' => 255),
             array('update_time', 'safe'),
+            array('*', 'compositeUniqueKeysValidator'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, applicant_id, scheme_id, category_id, plot_no, street_no, sector, phase, date, order_no, create_user, create_time, update_user, update_time', 'safe', 'on' => 'search'),
@@ -161,4 +162,27 @@ class Allotment extends HMSActiveRecord {
         $this->fixDate($this, 'date', false);
         parent::afterFind();
     }    
+
+    public function behaviors() {
+        return array(
+            'ECompositeUniqueKeyValidatable' => array(// This behavior adds composite unique key validator
+                'class' => 'application.extensions.ECompositeUniqueKeyValidatable',
+                'uniqueKeys' => array(
+                    'attributes' => 'applicant_id, category_id, scheme_id, plot_no, sector, street_no, phase',
+                    'errorMessage' => 'This plot has already been allotted.',
+                )
+            ),
+        );
+    }
+
+    /**
+     * Validates composite unique keys
+     *
+     * Validates composite unique keys declared in the
+     * ECompositeUniqueKeyValidatable bahavior
+     */
+    public function compositeUniqueKeysValidator() {
+        $this->validateCompositeUniqueKeys();
+    }
+    
 }

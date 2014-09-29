@@ -74,6 +74,8 @@ $this->widget('booster.widgets.TbExtendedGridView', array(
 //        ),
         'amount' => array(
 //            'type' => 'number',
+//            'header'=>'Amount',
+            'headerHtmlOptions' => array('class'=>'text-right'),
             'name' => 'amount',
 //            'class' => 'booster.widgets.TbTotalSumColumn',
             'htmlOptions' => array('class' => 'text-right'),
@@ -81,6 +83,9 @@ $this->widget('booster.widgets.TbExtendedGridView', array(
         array(
             'class' => 'booster.widgets.TbButtonColumn',
             'htmlOptions' => array('nowrap' => 'nowrap'),
+            'viewButtonUrl'  =>'Yii::app()->createUrl("paymentType/view", array("id"=>$data->id))',
+            'updateButtonUrl'=>'Yii::app()->createUrl("paymentType/update", array("id"=>$data->id))',
+            'deleteButtonUrl'=>'Yii::app()->createUrl("paymentType/delete", array("id"=>$data->id))',
         ),
     ),
     'extendedSummary' => array(
@@ -121,7 +126,9 @@ $this->beginWidget('booster.widgets.TbModal', array('id' => 'myModal')
         'context' => 'primary',
         'label' => 'Save',
         'url' => '#',
-        'htmlOptions' => array('data-dismiss' => 'modal'),
+        'htmlOptions'=>array('onclick' => '$("#payment-type-form").submit(function(){
+            $("#myModal").close();
+            });'),
     ));
     ?>
     <?php

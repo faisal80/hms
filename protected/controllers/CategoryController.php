@@ -54,6 +54,7 @@ class CategoryController extends Controller {
 
         if (isset($_POST['PaymentType'])) {
             $payment_type->attributes = $_POST['PaymentType'];
+            $payment_type->category_id = $id;
             if ($payment_type->save())
                 Yii::app()->user->setFlash('success', 'Payment Type added successfully.');
         }
