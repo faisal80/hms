@@ -126,8 +126,10 @@ $this->beginWidget('booster.widgets.TbModal', array('id' => 'myModal')
         'context' => 'primary',
         'label' => 'Save',
         'url' => '#',
-        'htmlOptions'=>array('onclick' => '$("#payment-type-form").submit(function(){
-            $("#myModal").close();
+        'htmlOptions'=>array('onclick' => '$("#payment-type-form").submit(function(e){
+            e.preventDefault();
+            $("#myModal").modal("hide");
+            $.fn.yiiGridView.update("payment_types-grid");
             });'),
     ));
     ?>

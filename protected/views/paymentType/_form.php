@@ -1,13 +1,13 @@
 <?php
 $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
     'id' => 'payment-type-form',
-    'enableAjaxValidation' => true,
-    'enableClientValidation' => true,
-    'clientOptions' => array(
-        'validateOnSubmit' => true,
+    'enableAjaxValidation' => false,
+//    'enableClientValidation' => true,
+//    'clientOptions' => array(
+//        'validateOnSubmit' => true,
 //        'validateOnChange' => true,
 //        'validateOnType' => true
-    ),
+//    ),
     'type' => 'horizontal',
 ));
 ?>
@@ -33,14 +33,14 @@ $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
 
 <?php echo $form->textFieldGroup($model, 'amount', array('widgetOptions' => array('htmlOptions' => array('class' => 'span5', 'maxlength' => 10)))); ?>
 
-<!--<div class="form-actions text-center">
+<div class="form-actions text-center">
 <?php
-// $this->widget('booster.widgets.TbButton', array(
-//			'buttonType'=>'submit',
-//			'context'=>'primary',
-//			'label'=>$model->isNewRecord ? 'Create' : 'Save',
-//		)); 
+ $this->widget('booster.widgets.TbButton', array(
+			'buttonType'=>'submit',
+			'context'=>'primary',
+			'label'=>$model->isNewRecord ? 'Create' : 'Save',
+		)); 
 ?>
-</div>-->
+</div>
 
 <?php $this->endWidget(); ?>

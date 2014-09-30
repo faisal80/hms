@@ -67,7 +67,10 @@ class PaymentTypeController extends Controller {
                 $model->attributes = $_POST['PaymentType'];
                 $model->category_id = $cat_id;
                 if ($model->save())
-                    $this->redirect(array('/category/view', 'id' => $model->category_id));
+                {
+//                    Yii::app()->user->setFlash('success', 'Payment Type added successfully!');
+                    $this->redirect(array('view', 'id' => $model->id));
+                }
             }
 
             $this->render('create', array(
