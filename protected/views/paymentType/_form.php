@@ -1,14 +1,15 @@
 <?php
 $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
     'id' => 'payment-type-form',
-    'enableAjaxValidation' => false,
-//    'enableClientValidation' => true,
+//    'enableAjaxValidation' => true,
+    'enableClientValidation' => true,
 //    'clientOptions' => array(
 //        'validateOnSubmit' => true,
 //        'validateOnChange' => true,
 //        'validateOnType' => true
 //    ),
     'type' => 'horizontal',
+    'focus' =>array($model,'payment_type'),
 ));
 ?>
 

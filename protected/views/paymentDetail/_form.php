@@ -1,9 +1,10 @@
 <?php
 $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
     'id' => 'payment-detail-form',
-    'enableAjaxValidation' => false,
+//    'enableAjaxValidation' => true,
     'type' => 'horizontal',
-        ));
+//    'focus'=>array($model,'username'),
+    ));
 ?>
 
 <p class="help-block">Fields with <span class="required">*</span> are required.</p>

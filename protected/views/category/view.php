@@ -53,6 +53,7 @@ $this->beginWidget('booster.widgets.TbPanel', array(
                     'htmlOptions' => array(
                         'data-toggle' => 'modal',
                         'data-target' => '#myModal',
+                        'onclick' => "addPaymentType();",
                     )
                 ))
         ),
@@ -113,33 +114,36 @@ $this->beginWidget('booster.widgets.TbModal', array('id' => 'myModal')
 
 <div class="modal-header">
     <a class="close" data-dismiss="modal">&times;</a>
-    <h4>Add new Payment Type</h4>
+    <h4>Add Payment Type</h4>
 </div>
 
 <div class="modal-body">
-    <p><?php echo $this->renderPartial('/paymentType/_form', array('model'=>$payment_type)); ?></p>
-</div>
-
-<div class="modal-footer">
-    <?php
-    $this->widget('booster.widgets.TbButton', array(
-        'context' => 'primary',
-        'label' => 'Save',
-        'url' => '#',
-        'htmlOptions'=>array('onclick' => '$("#payment-type-form").submit(function(e){
-            e.preventDefault();
-            $("#myModal").modal("hide");
-            $.fn.yiiGridView.update("payment_types-grid");
-            });'),
-    ));
-    ?>
-    <?php
-    $this->widget('booster.widgets.TbButton', array(
-        'label' => 'Close',
-        'url' => '#',
-        'htmlOptions' => array('data-dismiss' => 'modal'),
-    ));
-    ?>
+    <p>Loading. Please wait...</p>
 </div>
 
 <?php $this->endWidget(); ?>
+
+<script type="text/javascript">
+    function addPaymentType()
+    {
+        <?php echo CHtml::ajax(array(
+            'url'=>array('/paymentType/create', 'id'=>$model->id),
+            'data'=>'js:$(this).serialize()',
+            'type'=>'post',
+            'dataType'=>'json',
+            'success'=>"function(data)
+                {
+                    if (data.status == 'failure')
+                    {
+                        $('#myModal div.modal-body').html(data.div);
+                        // Here is the trick: on submit-> once again thie function!
+                        $('#myModal div.modal-body').submit(addPaymentType);
+                    } else {
+                        $('#myModal div.modal-body').html(data.div);
+                        //setTimeout(\"$('#myModal').dialog('close')\", 3000);
+                    }
+                }",
+        )) ?> 
+        return false;
+    }
+</script>

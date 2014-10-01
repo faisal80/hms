@@ -59,24 +59,42 @@ class PaymentTypeController extends Controller {
     public function actionCreate($cat_id=null) {
         if (Yii::app()->user->checkAccess($this->id . '.' . $this->action->id)) {
             $model = new PaymentType;
-
-// Uncomment the following line if AJAX validation is needed
-// $this->performAjaxValidation($model);
+                $model->category_id = $cat_id;
+             // Uncomment the following line if AJAX validation is needed
+//             $this->performAjaxValidation($model);
 
             if (isset($_POST['PaymentType'])) {
                 $model->attributes = $_POST['PaymentType'];
-                $model->category_id = $cat_id;
+
                 if ($model->save())
                 {
-//                    Yii::app()->user->setFlash('success', 'Payment Type added successfully!');
-                    $this->redirect(array('view', 'id' => $model->id));
+                    if (Yii::app()->request->isAjaxRequest)
+                    {
+                        echo CJSON::encode(array(
+                            'status'=>'success',
+                            'div'=>'Payment Type successfully added.'
+                            ));
+                        exit;
+                    } else {
+                        // Yii::app()->user->setFlash('success', 'Payment Type added successfully!');
+                        $this->redirect(array('view', 'id' => $model->id));
+                    }
                 }
             }
 
-            $this->render('create', array(
-                'model' => $model,
-            ));
-        }else {
+            if (Yii::app()->request->isAjaxRequest)
+            {
+                echo CJSON::encode(array(
+                    'status'=>'failure',
+                    'div'=>$this->renderPartial('_form', array('model'=>$model), true, true)
+                    ));
+                exit;
+            } else {
+                $this->render('create', array(
+                    'model' => $model,
+                    ));
+            }
+        } else {
             $this->accessDenied();
         }
     }
