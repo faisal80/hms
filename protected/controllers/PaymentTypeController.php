@@ -59,13 +59,13 @@ class PaymentTypeController extends Controller {
     public function actionCreate($cat_id=null) {
         if (Yii::app()->user->checkAccess($this->id . '.' . $this->action->id)) {
             $model = new PaymentType;
-                $model->category_id = $cat_id;
+                
              // Uncomment the following line if AJAX validation is needed
 //             $this->performAjaxValidation($model);
 
             if (isset($_POST['PaymentType'])) {
                 $model->attributes = $_POST['PaymentType'];
-
+                $model->category_id = $cat_id;
                 if ($model->save())
                 {
                     if (Yii::app()->request->isAjaxRequest)
@@ -82,6 +82,7 @@ class PaymentTypeController extends Controller {
                 }
             }
 
+//            $model->category_id = $cat_id;
             if (Yii::app()->request->isAjaxRequest)
             {
                 echo CJSON::encode(array(

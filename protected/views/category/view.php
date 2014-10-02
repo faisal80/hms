@@ -118,7 +118,7 @@ $this->beginWidget('booster.widgets.TbModal', array('id' => 'myModal')
 </div>
 
 <div class="modal-body">
-    <p>Loading. Please wait...</p>
+    <p class="text-info">Loading. Please wait...</p>
 </div>
 
 <?php $this->endWidget(); ?>
@@ -127,8 +127,8 @@ $this->beginWidget('booster.widgets.TbModal', array('id' => 'myModal')
     function addPaymentType()
     {
         <?php echo CHtml::ajax(array(
-            'url'=>array('/paymentType/create', 'id'=>$model->id),
-            'data'=>'js:$(this).serialize()',
+            'url'=>array('/paymentType/create', 'cat_id'=>$model->id),
+            'data'=>'js:$("#payment-type-form").serialize()',
             'type'=>'post',
             'dataType'=>'json',
             'success'=>"function(data)
@@ -138,12 +138,32 @@ $this->beginWidget('booster.widgets.TbModal', array('id' => 'myModal')
                         $('#myModal div.modal-body').html(data.div);
                         // Here is the trick: on submit-> once again thie function!
                         $('#myModal div.modal-body').submit(addPaymentType);
-                    } else {
+                    } 
+                    else 
+                    {
                         $('#myModal div.modal-body').html(data.div);
-                        //setTimeout(\"$('#myModal').dialog('close')\", 3000);
+                        refreshGrid();
+//                        $('#myModal').toggle(
+//                            function(){ 
+//                                refreshGrid(); 
+//                            }, function(){ 
+//                                refreshGrid(); 
+//                            }
+//                        );
                     }
                 }",
         )) ?> 
         return false;
+    }
+    
+    function refreshGrid()
+    {
+        $('#payment_types-grid').yiiGridView('update', {
+                            type: 'POST',
+                            url: '/hms/category/paymentTypes?cat_id="<?php echo $model->id; ?>"',
+                            success: function(data){
+                                $('#payment_types-grid').yiiGridView('update');
+                                } 
+                            });
     }
 </script>

@@ -25,7 +25,7 @@ class CategoryController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view'),
+                'actions' => array('index', 'view', 'paymenttypes'),
                 'users' => array('@'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -74,6 +74,20 @@ class CategoryController extends Controller {
         ));
     }
 
+    public function actionPaymentTypes($cat_id)
+    {
+        $paymentTypesDP = new CActiveDataProvider('PaymentType', array(
+            'criteria' => array(
+                'condition' => 'category_id=:categoryId',
+                'params' => array(':categoryId' => $cat_id),
+            ),
+            'pagination' => array('pageSize' => 100),
+        ));
+
+        echo CJSON::encode($paymentTypesDP);
+
+    }
+    
     /**
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
