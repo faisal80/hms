@@ -131,4 +131,48 @@ class Category extends HMSActiveRecord
 	  	return $categoriesArray;        
     }
     
+    public function getNextId() {
+        $record = self::model()->find(array(
+            'condition' => 'id>:current_id',
+            'order' => 'id ASC',
+            'limit' => 1,
+            'params' => array(':current_id' => $this->id),
+        ));
+        if ($record !== null)
+            return $record->id;
+        return null;
+    }
+
+    public function getPreviousId() {
+        $record = self::model()->find(array(
+            'condition' => 'id<:current_id',
+            'order' => 'id DESC',
+            'limit' => 1,
+            'params' => array(':current_id' => $this->id),
+        ));
+        if ($record !== null)
+            return $record->id;
+        return null;
+    }    
+    
+    public function getFirstId() {
+        $record = self::model()->find(array(
+            'order' => 'id ASC',
+            'limit' => 1,
+        ));
+        if ($record !== null)
+            return $record->id;
+        return null;
+    }    
+
+    public function getLastId() {
+        $record = self::model()->find(array(
+            'order' => 'id DESC',
+            'limit' => 1,
+        ));
+        if ($record !== null)
+            return $record->id;
+        return null;
+    }    
+
 }

@@ -36,7 +36,7 @@ abstract class HMSActiveRecord extends CActiveRecord {
      * This method sets the date as per DB requirement or the App requirement
      */
     protected function fixDate(&$model, $attribute, $forDB = true) {
-        
+
         if ($forDB) { // Set for DB
             if ($model->getAttribute($attribute) <> '') {
                 $ds = Yii::app()->user->getDateSeparator();

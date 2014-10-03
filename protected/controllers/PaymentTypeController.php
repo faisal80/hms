@@ -115,7 +115,7 @@ class PaymentTypeController extends Controller {
             if (isset($_POST['PaymentType'])) {
                 $model->attributes = $_POST['PaymentType'];
                 if ($model->save())
-                    $this->redirect(array('view', 'id' => $model->id));
+                    $this->redirect(Yii::app()->user->returnUrl);
             }
 
             $this->render('update', array(
