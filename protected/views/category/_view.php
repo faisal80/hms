@@ -1,7 +1,7 @@
 <div class="well well-sm">
     <dl class="dl-horizontal">
 		<dt><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</dt>
-		<dd><?php echo CHtml::link(CHtml::encode($data->id),array('view','id'=>$data->id)); ?></dd>
+		<dd><?php echo CHtml::link(CHtml::encode($data->id . ' (Click here to view detail)'),array('view','id'=>$data->id)); ?></dd>
 
 		<dt><?php echo CHtml::encode($data->getAttributeLabel('category')); ?>:</dt>
 		<dd><?php echo CHtml::encode($data->category); ?></dd>

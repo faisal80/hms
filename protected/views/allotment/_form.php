@@ -75,6 +75,7 @@ $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
         'context' => 'primary',
         'label' => $model->isNewRecord ? 'Create' : 'Save',
     ));
+    echo ' | ' . CHtml::link('Cancel', Yii::app()->user->returnUrl);
     ?>
 </div>
 

@@ -78,7 +78,8 @@ $this->beginWidget('booster.widgets.TbPanel', array(
         array(
             'class' => 'booster.widgets.TbButton',
             'label' => 'Add Payment Type',
-            'url' => array('paymentType/create', 'id' => $model->id),
+            'buttonType'=>'link',
+            'url' => array('paymentType/create', 'cat_id' => $model->id),
             'context' => 'primary',
             'size' => 'extra_small',
         ),

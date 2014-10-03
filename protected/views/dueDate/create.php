@@ -10,6 +10,6 @@ array('label'=>'Manage DueDate','url'=>array('admin')),
 );
 ?>
 
-<h1>Create DueDate</h1>
+<h1>Enter Due Date</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

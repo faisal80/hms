@@ -77,7 +77,7 @@ class PaymentTypeController extends Controller {
                         exit;
                     } else {
                         // Yii::app()->user->setFlash('success', 'Payment Type added successfully!');
-                        $this->redirect(array('view', 'id' => $model->id));
+                        $this->redirect(Yii::app()->user->returnUrl);
                     }
                 }
             }

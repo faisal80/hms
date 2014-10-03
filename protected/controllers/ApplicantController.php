@@ -52,6 +52,8 @@ class ApplicantController extends Controller {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id) {
+        
+        Yii::app()->user->setReturnUrl($this->createUrl('view', array('id'=>$id)));
         // Query the rows from allotments relating to this applicant
         $allotmentsDP = new CActiveDataProvider('Allotment', array(
             'criteria' => array(

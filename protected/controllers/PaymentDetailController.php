@@ -66,7 +66,7 @@ class PaymentDetailController extends Controller {
             if (isset($_POST['PaymentDetail'])) {
                 $model->attributes = $_POST['PaymentDetail'];
                 if ($model->save())
-                    $this->redirect(array('view', 'id' => $model->id));
+                    $this->redirect(Yii::app()->user->returnUrl);
             }
 
             $this->render('create', array(
@@ -92,7 +92,7 @@ class PaymentDetailController extends Controller {
             if (isset($_POST['PaymentDetail'])) {
                 $model->attributes = $_POST['PaymentDetail'];
                 if ($model->save())
-                    $this->redirect(array('view', 'id' => $model->id));
+                    $this->redirect(Yii::app()->user->returnUrl);
             }
 
             $this->render('update', array(

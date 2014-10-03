@@ -131,6 +131,11 @@ class Category extends HMSActiveRecord
 	  	return $categoriesArray;        
     }
     
+    public function getFullCategory()
+    {
+        return $this->category . ' (' . $this->plot_size . ($this->corner? ' Corner)': ')');
+    }
+    
     public function getNextId() {
         $record = self::model()->find(array(
             'condition' => 'id>:current_id',

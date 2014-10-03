@@ -56,17 +56,25 @@ class DueDateController extends Controller {
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
-    public function actionCreate() {
+    public function actionCreate($app_id) {
         if (Yii::app()->user->checkAccess($this->id . '.' . $this->action->id)) {
+            $applicant = Applicant::model()->findByPk($app_id);
+            /////////////////////////////////////////////////////
+            // here check if applicant has already been allotted
+            // if yes then use category_id from allotment in due dates
+            // if not allotted abort and display to make allotment first.
+            //////////////////////////////////////////
+            if ($applicant !== null && $applicant->allotment )
             $model = new DueDate;
 
-// Uncomment the following line if AJAX validation is needed
-// $this->performAjaxValidation($model);
+            // Uncomment the following line if AJAX validation is needed
+            // $this->performAjaxValidation($model);    
 
             if (isset($_POST['DueDate'])) {
                 $model->attributes = $_POST['DueDate'];
+                $model->applicant_id = $app_id;
                 if ($model->save())
-                    $this->redirect(array('view', 'id' => $model->id));
+                    $this->redirect(Yii::app()->user->returnUrl);
             }
 
             $this->render('create', array(
@@ -92,7 +100,7 @@ class DueDateController extends Controller {
             if (isset($_POST['DueDate'])) {
                 $model->attributes = $_POST['DueDate'];
                 if ($model->save())
-                    $this->redirect(array('view', 'id' => $model->id));
+                    $this->redirect(Yii::app()->user->returnUrl);
             }
 
             $this->render('update', array(

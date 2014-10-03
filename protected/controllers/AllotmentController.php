@@ -62,13 +62,14 @@ class AllotmentController extends Controller {
         if (Yii::app()->user->checkAccess($this->id . '.' . $this->action->id)) {
             $model = new Allotment;
 
-// Uncomment the following line if AJAX validation is needed
-// $this->performAjaxValidation($model);
+            // Uncomment the following line if AJAX validation is needed
+            // $this->performAjaxValidation($model);
 
             if (isset($_POST['Allotment'])) {
                 $model->attributes = $_POST['Allotment'];
+                $model->applicant_id = $app_id;
                 if ($model->save())
-                    $this->redirect(array('view', 'id' => $model->id));
+                    $this->redirect(Yii::app()->user->returnUrl);
             }
 
             $this->render('create', array(
@@ -95,7 +96,7 @@ class AllotmentController extends Controller {
             if (isset($_POST['Allotment'])) {
                 $model->attributes = $_POST['Allotment'];
                 if ($model->save())
-                    $this->redirect(array('view', 'id' => $model->id));
+                    $this->redirect(Yii::app()->user->returnUrl);
             }
 
             $this->render('update', array(
