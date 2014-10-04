@@ -29,7 +29,7 @@
         echo CHtml::openTag('div', array('class' => 'bs-navbar-top-example navbar navbar-inverse navbar-fixed-top'));
         $this->widget('booster.widgets.TbNavbar', array(
             'brand' => Yii::app()->name,
-            'brandOptions' => array('style' => 'width:auto;margin-left: 0px; font-family: "Arial Narrow", Arial, sans-serif;'),
+            'brandOptions' => array('style' => 'width:auto;margin-left: 0px;'),
             'fixed' => 'top',
             'fluid' => true,
             'collapse' => true,

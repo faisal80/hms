@@ -108,7 +108,10 @@ $this->widget('booster.widgets.TbGridView', array(
     'template' => '{items}',
     'columns' => array(
         'id',
-        'category.fullCategory',
+        'category'=>array(
+            'name'=>'category.fullCategory',
+            'header'=>'Category',
+        ),
         'plot_no',
         'street_no',
         'sector',

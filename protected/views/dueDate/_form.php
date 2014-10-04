@@ -10,16 +10,16 @@ $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
 
 <?php echo $form->errorSummary($model); ?>
 
-<?php // echo $form->dropDownListGroup($model, 'applicant_id', array(
-//    'widgetOptions' => array(
-//        'htmlOptions' => array(
-//            'class' => 'span5', 
-//            'maxlength' => 10
-//            ),
-//        'data' => Applicant::getApplicantOptions(),
-//        )
-//    )
-//); ?>
+<?php echo $form->dropDownListGroup($model, 'payment_type_id', array(
+    'widgetOptions' => array(
+        'htmlOptions' => array(
+            'class' => 'span5', 
+            'maxlength' => 10
+            ),
+        'data' => $paymentTypesOption,
+        )
+    )
+); ?>
 
 <?php echo $form->datePickerGroup($model, 'date', array(
     'widgetOptions' => array(
@@ -33,27 +33,7 @@ $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
     'append' => 'Click on Month/Year to select a different Month/Year.')
 ); ?>
 
-<?php echo $form->dropDownListGroup($model, 'payment_type_id', array(
-    'widgetOptions' => array(
-        'htmlOptions' => array(
-            'class' => 'span5', 
-            'maxlength' => 10
-            ),
-        'data' => PaymentType::getPaymentTypes(),
-        )
-    )
-); ?>
 
-<?php echo $form->dropDownListGroup($model, 'scheme_id', array(
-    'widgetOptions' => array(
-        'htmlOptions' => array(
-            'class' => 'span5', 
-            'maxlength' => 10
-            ),
-        'data' => Scheme::getSchemeOptions(),
-        )
-    )
-); ?>
 
 <div class="form-actions text-center">
     <?php

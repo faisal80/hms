@@ -74,6 +74,12 @@ class DueDateController extends Controller {
                 exit;
             }
 
+            $paymentTypes = $allotments[0]->category->payment_types;
+            $paymentTypesOption = array();
+            foreach ($paymentTypes as $paymentType)
+            {
+                $paymentTypesOption = $paymentTypesOption + array ($paymentType->id=> $paymentType->payment_type);
+            }
 
             // Uncomment the following line if AJAX validation is needed
             // $this->performAjaxValidation($model);    
@@ -88,6 +94,8 @@ class DueDateController extends Controller {
             $this->render('create', array(
                 'model' => $model,
                 'applicant'=>$applicant,
+                'paymentTypesOption'=>$paymentTypesOption,
+                
             ));
         }else {
             $this->accessDenied();
