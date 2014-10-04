@@ -56,13 +56,23 @@ class PaymentDetailController extends Controller {
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
-    public function actionCreate() {
+    public function actionCreate($app_id) {
         if (Yii::app()->user->checkAccess($this->id . '.' . $this->action->id)) {
             $model = new PaymentDetail;
+            $applicant = Applicant::model()->findByPk($app_id);
+            // Uncomment the following line if AJAX validation is needed
+            // $this->performAjaxValidation($model);
 
-// Uncomment the following line if AJAX validation is needed
-// $this->performAjaxValidation($model);
-
+            $allotments =$applicant->allotments;
+            if ($applicant !== null && $allotments )
+            {
+                $model->allotment_id = $allotments[0]->id;
+                $model->applicant_id = $app_id;
+            } else {
+                throw new CHttpException('Please make allotment first. ' . CHtml::link('Click here to go Back', Yii::app()->user->returnUrl));
+                exit;
+            }
+            
             if (isset($_POST['PaymentDetail'])) {
                 $model->attributes = $_POST['PaymentDetail'];
                 if ($model->save())
@@ -71,6 +81,7 @@ class PaymentDetailController extends Controller {
 
             $this->render('create', array(
                 'model' => $model,
+                'applicant'=>$applicant,
             ));
         }else {
             $this->accessDenied();

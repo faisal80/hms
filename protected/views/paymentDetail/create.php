@@ -10,6 +10,6 @@ array('label'=>'Manage PaymentDetail','url'=>array('admin')),
 );
 ?>
 
-<h1>Create PaymentDetail</h1>
+<h2>Enter Payment Detail for <?php echo $applicant->NameWithTitle; ?></h2>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

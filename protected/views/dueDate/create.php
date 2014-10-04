@@ -10,6 +10,6 @@ array('label'=>'Manage DueDate','url'=>array('admin')),
 );
 ?>
 
-<h1>Enter Due Date</h1>
+<h2>Enter Due Date for <?php echo $applicant->NameWithTitle; ?></h2>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

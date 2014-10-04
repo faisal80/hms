@@ -58,14 +58,22 @@ class DueDateController extends Controller {
      */
     public function actionCreate($app_id) {
         if (Yii::app()->user->checkAccess($this->id . '.' . $this->action->id)) {
+            $model = new DueDate;
             $applicant = Applicant::model()->findByPk($app_id);
             /////////////////////////////////////////////////////
             // here check if applicant has already been allotted
             // if yes then use category_id from allotment in due dates
             // if not allotted abort and display to make allotment first.
             //////////////////////////////////////////
-            if ($applicant !== null && $applicant->allotment )
-            $model = new DueDate;
+            $allotments =$applicant->allotments;
+            if ($applicant !== null && $allotments )
+            {
+                $model->scheme_id = $allotments[0]->scheme_id;
+            } else {
+                throw new CHttpException('Please make allotment first. ' . CHtml::link('Click here to go Back', Yii::app()->user->returnUrl));
+                exit;
+            }
+
 
             // Uncomment the following line if AJAX validation is needed
             // $this->performAjaxValidation($model);    
@@ -79,6 +87,7 @@ class DueDateController extends Controller {
 
             $this->render('create', array(
                 'model' => $model,
+                'applicant'=>$applicant,
             ));
         }else {
             $this->accessDenied();
