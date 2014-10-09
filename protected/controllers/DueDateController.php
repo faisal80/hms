@@ -56,7 +56,7 @@ class DueDateController extends Controller {
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
-    public function actionCreate($app_id) {
+    public function actionCreate($app_id, $filldds = true) {
         if (Yii::app()->user->checkAccess($this->id . '.' . $this->action->id)) {
             $model = new DueDate;
             $applicant = Applicant::model()->findByPk($app_id);
@@ -65,9 +65,8 @@ class DueDateController extends Controller {
             // if yes then use category_id from allotment in due dates
             // if not allotted abort and display to make allotment first.
             //////////////////////////////////////////
-            $allotments =$applicant->allotments;
-            if ($applicant !== null && $allotments )
-            {
+            $allotments = $applicant->allotments;
+            if ($applicant !== null && $allotments) {
                 $model->scheme_id = $allotments[0]->scheme_id;
             } else {
                 throw new CHttpException('Please make allotment first. ' . CHtml::link('Click here to go Back', Yii::app()->user->returnUrl));
@@ -76,9 +75,8 @@ class DueDateController extends Controller {
 
             $paymentTypes = $allotments[0]->category->payment_types;
             $paymentTypesOption = array();
-            foreach ($paymentTypes as $paymentType)
-            {
-                $paymentTypesOption = $paymentTypesOption + array ($paymentType->id=> $paymentType->payment_type);
+            foreach ($paymentTypes as $paymentType) {
+                $paymentTypesOption = $paymentTypesOption + array($paymentType->id => $paymentType->payment_type);
             }
 
             // Uncomment the following line if AJAX validation is needed
@@ -88,16 +86,33 @@ class DueDateController extends Controller {
                 $model->attributes = $_POST['DueDate'];
                 $model->applicant_id = $app_id;
                 if ($model->save())
-                    $this->redirect(Yii::app()->user->returnUrl);
+                    if ($filldds) { // fills due dates
+                        $interval = $model->scheme->installment_interval;
+                        $date = $model->date;
+                        $scheme_id = $model->scheme_id;
+                        if (empty($interval)) {
+                            throw new CHttpException('Please specify installment interval for this scheme. ' . CHtml::link('Click here to resolve', array('/scheme/update', 'id' => $model->scheme_id )));
+                            exit;
+                        }
+                        foreach ($paymentTypesOption as $p_type)
+                        {
+                            $dds = DueDate::model()->findByAttributes($p_type[0]);
+                            if (!$dds) 
+                            {
+                                $
+                            }
+                        }
+                        
+                    }
+                $this->redirect(Yii::app()->user->returnUrl);
             }
 
             $this->render('create', array(
                 'model' => $model,
-                'applicant'=>$applicant,
-                'paymentTypesOption'=>$paymentTypesOption,
-                
+                'applicant' => $applicant,
+                'paymentTypesOption' => $paymentTypesOption,
             ));
-        }else {
+        } else {
             $this->accessDenied();
         }
     }
