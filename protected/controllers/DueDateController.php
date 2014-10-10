@@ -60,11 +60,11 @@ class DueDateController extends Controller {
         if (Yii::app()->user->checkAccess($this->id . '.' . $this->action->id)) {
             $model = new DueDate;
             $applicant = Applicant::model()->findByPk($app_id);
-            /////////////////////////////////////////////////////
-            // here check if applicant has already been allotted
-            // if yes then use category_id from allotment in due dates
-            // if not allotted abort and display to make allotment first.
-            //////////////////////////////////////////
+/////////////////////////////////////////////////////
+// here check if applicant has already been allotted
+// if yes then use category_id from allotment in due dates
+// if not allotted abort and display to make allotment first.
+//////////////////////////////////////////
             $allotments = $applicant->allotments;
             if ($applicant !== null && $allotments) {
                 $model->scheme_id = $allotments[0]->scheme_id;
@@ -79,32 +79,14 @@ class DueDateController extends Controller {
                 $paymentTypesOption = $paymentTypesOption + array($paymentType->id => $paymentType->payment_type);
             }
 
-            // Uncomment the following line if AJAX validation is needed
-            // $this->performAjaxValidation($model);    
+// Uncomment the following line if AJAX validation is needed
+// $this->performAjaxValidation($model);    
 
             if (isset($_POST['DueDate'])) {
                 $model->attributes = $_POST['DueDate'];
                 $model->applicant_id = $app_id;
                 if ($model->save())
-                    if ($filldds) { // fills due dates
-                        $interval = $model->scheme->installment_interval;
-                        $date = $model->date;
-                        $scheme_id = $model->scheme_id;
-                        if (empty($interval)) {
-                            throw new CHttpException('Please specify installment interval for this scheme. ' . CHtml::link('Click here to resolve', array('/scheme/update', 'id' => $model->scheme_id )));
-                            exit;
-                        }
-                        foreach ($paymentTypesOption as $p_type)
-                        {
-                            $dds = DueDate::model()->findByAttributes($p_type[0]);
-                            if (!$dds) 
-                            {
-                                $
-                            }
-                        }
-                        
-                    }
-                $this->redirect(Yii::app()->user->returnUrl);
+                    $this->redirect(Yii::app()->user->returnUrl);
             }
 
             $this->render('create', array(
@@ -114,6 +96,38 @@ class DueDateController extends Controller {
             ));
         } else {
             $this->accessDenied();
+        }
+    }
+
+    /**
+     * Fills remaining due dates after date of 1st installment
+     */
+    public function actionFilldds($appp_id) {
+        $applicant = Applicant::model()->findByPk($appp_id);
+        $due_dates = $applicant->due_dates;
+        if (!empty($due_dates)) {
+            $interval = $due_dates[0]->scheme->installment_interval;
+        } else {
+            throw new CHttpException('Please enter due date of 1st Installment');
+            exit;
+        }
+
+        if (empty($interval)) {
+            throw new CHttpException('Please specify installment interval for this scheme. ' . CHtml::link('Click here to resolve', array('/scheme/update', 'id' => $model->scheme_id)));
+            exit;
+        }
+        
+        $allotments = $applicant->allotments;
+        $payment_types = $allotments[0]->category->payment_types;
+        $IstInstDate = null;
+        
+        foreach ($payment_types as $payment_type) {
+            foreach ($due_dates as $due_date) {
+                if (preg_match('[1Ii][sS][tT]', $due_date->payment_type->payment_type))
+                    $IstInstDate = $due_date->date;
+
+                if ($payment_type->id === $due_date->payment_type_id)
+            }
         }
     }
 

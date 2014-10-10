@@ -121,7 +121,8 @@ $this->widget('booster.widgets.TbGridView', array(
         array(
             'class' => 'booster.widgets.TbButtonColumn',
 //            'htmlOptions' => array('nowrap' => 'nowrap'),
-            'template' => '{delete}',
+            'template' => '{update} {delete}',
+            'updateButtonUrl' => 'Yii::app()->createUrl("allotment/update", array("id"=>$data->id))',
             'deleteButtonUrl' => 'Yii::app()->createUrl("allotment/delete", array("id"=>$data->id))',
         ),
     ),
