@@ -56,6 +56,7 @@ class Allotment extends HMSActiveRecord {
             'applicant' => array(self::BELONGS_TO, 'Applicant', 'applicant_id'),
             'category' => array(self::BELONGS_TO, 'Category', 'category_id'),
             'scheme' => array(self::BELONGS_TO, 'Scheme', 'scheme_id'),
+            'transfers'=> array(self::HAS_MANY, 'Transfer', 'allotment_id'),
         );
     }
 

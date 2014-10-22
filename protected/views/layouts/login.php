@@ -22,7 +22,9 @@
     <body>
 
         <div class="container">
-
+            <div class="page-header text-center">
+                <h1><?php echo Yii::app()->name;  ?> <br /><small>1.0</small></h1>
+            </div>
             <?php echo $content; ?>
         </div> <!-- /container -->
 

@@ -52,40 +52,40 @@ class ApplicantController extends Controller {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id) {
-        
-        Yii::app()->user->setReturnUrl($this->createUrl('view', array('id'=>$id)));
+
+        Yii::app()->user->setReturnUrl($this->createUrl('view', array('id' => $id)));
         // Query the rows from allotments relating to this applicant
-        $allotmentsDP = new CActiveDataProvider('Allotment', array(
+//        $allotmentsDP = new CActiveDataProvider('Allotment', array(
+//            'criteria' => array(
+//                'condition' => 'applicant_id=:applicantId',
+//                'params' => array(':applicantId' => $id),
+//            ),
+//            'pagination' => array(
+//                'pageSize' => 100,
+//            ),
+//        ));
+
+        $paymentDetailDP = new CActiveDataProvider('PaymentDetail', array(
             'criteria' => array(
                 'condition' => 'applicant_id=:applicantId',
                 'params' => array(':applicantId' => $id),
             ),
-            'pagination' => array(
-                'pageSize' => 100,
-            ),
+            'pagination' => array('pageSize' => 100),
         ));
-        
-        $paymentDetailDP = new CActiveDataProvider('PaymentDetail', array(
-            'criteria' => array(
-                'condition' => 'applicant_id=:applicantId',
-                'params' => array(':applicantId'=>$id),
-            ),
-            'pagination' => array('pageSize'=>100),
-        ));
-        
+
         $duedatesDP = new CActiveDataProvider('DueDate', array(
             'criteria' => array(
                 'condition' => 'applicant_id=:applicantId',
-                'params' => array(':applicantId'=>$id),
+                'params' => array(':applicantId' => $id),
             ),
-            'pagination' => array('pageSize'=>100),
+            'pagination' => array('pageSize' => 100),
         ));
-        
+
         $this->render('view', array(
             'model' => $this->loadModel($id),
-            'allotments'=> $allotmentsDP,
-            'payment_detail'=>$paymentDetailDP,
-            'due_dates' =>$duedatesDP,
+            'allotments' => $this->getAllotment($id),
+            'payment_detail' => $paymentDetailDP,
+            'due_dates' => $duedatesDP,
         ));
     }
 
@@ -188,6 +188,25 @@ class ApplicantController extends Controller {
         } else {
             $this->accessDenied();
         }
+    }
+
+    public function getAllotment($id) {
+        return new CActiveDataProvider('Allotment', array(
+            'criteria' => array(
+                'select' => '*',
+                'join'=> 'LEFT JOIN transfer ON transfer.allotment_id=allotment.id',
+                'condition' => 'allotment.applicant_id=$id AND transfer.id IS NULL',
+            ),
+        ));
+        
+//        $_sql = "   SELECT      *  
+//                    FROM        allotment 
+//                    LEFT JOIN   transfer
+//                    ON          transfer.allotment_id=allotment.id 
+//                    WHERE       allotment.applicant_id=$id
+//                    AND         transfer.id IS NULL";
+//
+//        return new CSqlDataProvider($_sql);
     }
 
     /**
