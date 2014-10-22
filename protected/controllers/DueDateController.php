@@ -79,8 +79,8 @@ class DueDateController extends Controller {
                 $paymentTypesOption = $paymentTypesOption + array($paymentType->id => $paymentType->payment_type);
             }
 
-// Uncomment the following line if AJAX validation is needed
-// $this->performAjaxValidation($model);    
+            // Uncomment the following line if AJAX validation is needed
+            // $this->performAjaxValidation($model);    
 
             if (isset($_POST['DueDate'])) {
                 $model->attributes = $_POST['DueDate'];
@@ -102,8 +102,8 @@ class DueDateController extends Controller {
     /**
      * Fills remaining due dates after date of 1st installment
      */
-    public function actionFilldds($appp_id) {
-        $applicant = Applicant::model()->findByPk($appp_id);
+    public function actionFilldds($app_id) {
+        $applicant = Applicant::model()->findByPk($app_id);
         $due_dates = $applicant->due_dates;
         if (!empty($due_dates)) {
             $interval = $due_dates[0]->scheme->installment_interval;
@@ -113,7 +113,7 @@ class DueDateController extends Controller {
         }
 
         if (empty($interval)) {
-            throw new CHttpException('Please specify installment interval for this scheme. ' . CHtml::link('Click here to resolve', array('/scheme/update', 'id' => $model->scheme_id)));
+            throw new CHttpException('Please specify installment interval for this scheme. ' . CHtml::link('Click here to resolve', array('/scheme/update', 'id' => $applicant->allotments[0]->scheme_id)));
             exit;
         }
         

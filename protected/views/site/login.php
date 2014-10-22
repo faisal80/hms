@@ -16,16 +16,26 @@ $this->breadcrumbs=array(
 	'clientOptions'=>array(
 		'validateOnSubmit'=>true,
 	),
-    'type'=>'horizontal',
-    'htmlOptions' => array('class' => 'well col-xs-12 col-sm-10 col-md-8 col-lg-6 center-block'), // for inset effect
+//    'type'=>'horizontal',
+    'focus'=>array($model, 'username'),
+    'htmlOptions' => array('class' => 'form-login'),
 )); ?>
 
     <legend>Login</legend>
 	<fieldset>
 
-	<?php echo $form->textFieldGroup($model,'username',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>10)))); ?>
+	<?php echo $form->textFieldGroup($model,'username',array(
+        'label'=>false,
+        'widgetOptions'=>array(
+            'htmlOptions'=>array(
+//                'class'=>'span5',
+                'maxlength'=>10
+                )
+            )
+        )
+    ); ?>
 
-	<?php echo $form->passwordFieldGroup($model,'password',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>        
+	<?php echo $form->passwordFieldGroup($model,'password',array('label'=>false, 'widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>        
 
     <?php echo $form->checkboxGroup($model,'rememberMe'); ?>
 
@@ -35,7 +45,11 @@ $this->breadcrumbs=array(
 		<?php $this->widget('booster.widgets.TbButton', array(
             'buttonType' => 'submit',
             'context' => 'primary',
+            'size' => 'large',
             'label' => 'Login',
+            'htmlOptions'=>array(
+                'class'=>'btn-block',
+            ),
         )); ?>
 	</div>
 
