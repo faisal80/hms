@@ -194,8 +194,8 @@ class ApplicantController extends Controller {
         return new CActiveDataProvider('Allotment', array(
             'criteria' => array(
                 'select' => '*',
-                'join'=> 'LEFT JOIN transfer ON transfer.allotment_id=allotment.id',
-                'condition' => 'allotment.applicant_id=$id AND transfer.id IS NULL',
+                'join'=> 'LEFT JOIN transfer ON transfer.allotment_id=t.id',
+                'condition' => 't.applicant_id='.$id.' AND transfer.id IS NULL',
             ),
         ));
         

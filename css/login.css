@@ -1,40 +1,71 @@
 body {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: #eee;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #eee;
 }
 
+/*Apply this class to some text to unlock the secrets of the third dimension!*/
+.three-dee{
+    font-family: Garamond, serif;
+    line-height: 1em;
+    color: #31638f;
+    font-weight:bold;
+    font-size: 58px;
+    text-shadow:0px 0px 0 rgb(22,72,116),
+                0px 1px 0 rgb(4,54,98),
+                0px 2px 0 rgb(-13,37,81),
+                0px 3px 0 rgb(-31,19,63),
+                0px 4px 0 rgb(-48,2,46), 
+                0px 5px 0 rgb(-65,-15,29),
+                0px 6px 5px rgba(0,0,0,0.7),
+                0px 6px 1px rgba(0,0,0,0.5),
+                0px 0px 5px rgba(0,0,0,.2);
+}
+.app-name {
+    text-shadow: 0 1px 0 #ccc,
+        0 2px 0 #c9c9c9,
+        0 3px 0 #bbb,
+        0 4px 0 #b9b9b9,
+        0 5px 0 #aaa,
+        0 6px 1px rgba(0,0,0,.1),
+        0 0 5px rgba(0,0,0,.1),
+        0 1px 3px rgba(0,0,0,.3),
+        0 3px 5px rgba(0,0,0,.2),
+        0 5px 10px rgba(0,0,0,.25),
+        0 10px 10px rgba(0,0,0,.2),
+        0 20px 20px rgba(0,0,0,.15);
+}
 .form-login {
-  max-width: 330px;
-  padding: 15px;
-  margin: 0 auto;
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
 }
 .form-login .form-login-heading,
 .form-login .checkbox {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 .form-login .checkbox {
-  font-weight: normal;
+    font-weight: normal;
 }
 .form-login .form-control {
-  position: relative;
-  font-size: 16px;
-  height: auto;
-  padding: 10px;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 .form-login .form-control:focus {
-  z-index: 2;
+    z-index: 2;
 }
 .form-login input[type="text"] {
-  margin-bottom: -1px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+    margin-bottom: -1px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 .form-login input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
