@@ -191,13 +191,24 @@ class ApplicantController extends Controller {
     }
 
     public function getAllotment($id) {
-        return new CActiveDataProvider('Allotment', array(
+        $result = new CActiveDataProvider('Allotment', array(
             'criteria' => array(
                 'select' => '*',
                 'join'=> 'LEFT JOIN transfer ON transfer.allotment_id=t.id',
                 'condition' => 't.applicant_id='.$id.' AND transfer.id IS NULL',
             ),
         ));
+        
+        if (empty($result)){
+            $result = new CActiveDataProvider('Allotment', array(
+                'criteria' => array(
+                'select' => '*',
+                'join'=> 'RIGHT JOIN transfer ON transfer.allotment_id=t.id',
+                'condition' => 'transfer.applicant_id='.$id.' AND t.id IS NULL',
+                )
+            ));
+        }
+        return $result;
         
 //        $_sql = "   SELECT      *  
 //                    FROM        allotment 
