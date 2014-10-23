@@ -199,12 +199,14 @@ class ApplicantController extends Controller {
             ),
         ));
         
-        if (empty($result)){
+        if ($result->itemCount < 1){
             $result = new CActiveDataProvider('Allotment', array(
                 'criteria' => array(
                 'select' => '*',
                 'join'=> 'RIGHT JOIN transfer ON transfer.allotment_id=t.id',
-                'condition' => 'transfer.applicant_id='.$id.' AND t.id IS NULL',
+                'condition' => 'transfer.applicant_id='.$id,
+                'order' => 'id DESC',
+                'limit'=> '1',
                 )
             ));
         }

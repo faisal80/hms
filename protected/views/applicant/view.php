@@ -135,7 +135,7 @@ $this->beginWidget('booster.widgets.TbPanel', array(
     'headerIcon' => 'th-list',
     'padContent' => false,
 //    'headerHtmlOptions'=>array('class'=>'small'),
-    'htmlOptions' => array('class' => 'bootstrap-widget-table col-xs-12 col-sm-10 col-md-8 col-lg-6 '),
+    'htmlOptions' => array('class' => 'bootstrap-widget-table col-xs-12 col-sm-12 col-md-12 col-lg-6 '),
     'headerButtons' => array(
         array(
             'class' => 'booster.widgets.TbButton',
@@ -184,7 +184,7 @@ $this->beginWidget('booster.widgets.TbPanel', array(
     'headerIcon' => 'th-list',
     'padContent' => false,
     'headerHtmlOptions' => array('class' => 'small'),
-    'htmlOptions' => array('class' => 'bootstrap-widget-table col-xs-12 col-sm-10 col-md-8 col-lg-6 '),
+    'htmlOptions' => array('class' => 'bootstrap-widget-table col-xs-12 col-sm-12 col-md-12 col-lg-6 '),
     'headerButtons' => array(
         array(
             'class' => 'booster.widgets.TbButton',
