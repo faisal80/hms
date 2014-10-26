@@ -47,6 +47,7 @@ class PaymentType extends HMSActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'category' => array(self::BELONGS_TO, 'Category', 'category_id'),
+            'due_date' => array(self::HAS_MANY, 'DueDates', 'payment_type_id'),
         );
     }
 

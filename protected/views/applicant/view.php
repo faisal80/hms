@@ -10,7 +10,7 @@ $this->menu = array(
     array('label' => 'Update Applicant', 'url' => array('update', 'id' => $model->id)),
     array('label' => 'Delete Applicant', 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Are you sure you want to delete this item?')),
     array('label' => 'Manage Applicant', 'url' => array('admin')),
-    array('label' => 'Allot to this applicant', 'url' => array('/allotment/create', 'app_id' => $model->id)),
+    array('label' => 'Allotment Order', 'url' => array('allotmentOrder', 'id' => $model->id)),
 );
 ?>
 <div class="text-right">
@@ -58,7 +58,6 @@ $this->menu = array(
 $this->widget('booster.widgets.TbDetailView', array(
     'data' => $model,
     'attributes' => array(
-        'id',
         'app_no',
 //		'title',
         'name' => array(
@@ -84,6 +83,7 @@ $this->widget('booster.widgets.TbDetailView', array(
 $this->beginWidget('booster.widgets.TbPanel', array(
     'title' => 'Allotments',
     'headerIcon' => 'th-list',
+    'context' => 'primary',
     'padContent' => false,
     'headerHtmlOptions' => array('class' => 'small'),
     'htmlOptions' => array('class' => 'bootstrap-widget-table'),
@@ -93,7 +93,7 @@ $this->beginWidget('booster.widgets.TbPanel', array(
             'label' => 'Enter Allotment',
             'buttonType' => 'link',
             'url' => array('allotment/create', 'app_id' => $model->id),
-            'context' => 'primary',
+            'context' => 'success',
             'size' => 'extra_small',
         ),
     ),
@@ -134,6 +134,7 @@ $this->beginWidget('booster.widgets.TbPanel', array(
     'title' => 'Payment Detail',
     'headerIcon' => 'th-list',
     'padContent' => false,
+    'context' => 'primary',
 //    'headerHtmlOptions'=>array('class'=>'small'),
     'htmlOptions' => array('class' => 'bootstrap-widget-table col-xs-12 col-sm-12 col-md-12 col-lg-6 '),
     'headerButtons' => array(
@@ -142,7 +143,7 @@ $this->beginWidget('booster.widgets.TbPanel', array(
             'label' => 'Enter Payment Detail',
             'buttonType' => 'link',
             'url' => array('paymentDetail/create', 'app_id' => $model->id),
-            'context' => 'primary',
+            'context' => 'success',
             'size' => 'extra_small',
         ),
     ),
@@ -183,6 +184,7 @@ $this->beginWidget('booster.widgets.TbPanel', array(
     'title' => 'Due Dates',
     'headerIcon' => 'th-list',
     'padContent' => false,
+    'context' => 'primary',
     'headerHtmlOptions' => array('class' => 'small'),
     'htmlOptions' => array('class' => 'bootstrap-widget-table col-xs-12 col-sm-12 col-md-12 col-lg-6 '),
     'headerButtons' => array(
@@ -191,7 +193,7 @@ $this->beginWidget('booster.widgets.TbPanel', array(
             'label' => 'Enter Due Dates',
             'buttonType' => 'link',
             'url' => array('dueDate/create', 'app_id' => $model->id),
-            'context' => 'primary',
+            'context' => 'success',
             'size' => 'extra_small',
         ),
     ),

@@ -30,7 +30,7 @@ class ApplicantController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view'),
+                'actions' => array('index', 'view', 'allotmentOrder'),
                 'users' => array('@'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -194,24 +194,35 @@ class ApplicantController extends Controller {
         $result = new CActiveDataProvider('Allotment', array(
             'criteria' => array(
                 'select' => '*',
-                'join'=> 'LEFT JOIN transfer ON transfer.allotment_id=t.id',
-                'condition' => 't.applicant_id='.$id.' AND transfer.id IS NULL',
+                'join' => 'LEFT JOIN transfer ON transfer.allotment_id=t.id',
+                'condition' => 't.applicant_id=:id AND transfer.id IS NULL',
+                'params' => array(':id' => $id),
             ),
         ));
-        
-        if ($result->itemCount < 1){
+
+        if ($result->itemCount < 1) {
             $result = new CActiveDataProvider('Allotment', array(
                 'criteria' => array(
-                'select' => '*',
-                'join'=> 'RIGHT JOIN transfer ON transfer.allotment_id=t.id',
-                'condition' => 'transfer.applicant_id='.$id,
-                'order' => 'id DESC',
-                'limit'=> '1',
+                    'select' => array(
+                        'transfer.id',
+                        'category_id',
+                        'plot_no',
+                        'street_no',
+                        'sector',
+                        'phase',
+                        'transfer.transfer_date AS date',
+                        'transfer.deed_no AS order_no',
+                    ),
+                    'join' => 'RIGHT JOIN transfer ON transfer.allotment_id=t.id',
+                    'condition' => 'transfer.applicant_id=:id',
+                    'order' => 'id DESC',
+                    'limit' => 1,
+                    'params' => array(':id' => $id),
                 )
             ));
         }
         return $result;
-        
+
 //        $_sql = "   SELECT      *  
 //                    FROM        allotment 
 //                    LEFT JOIN   transfer
@@ -220,6 +231,13 @@ class ApplicantController extends Controller {
 //                    AND         transfer.id IS NULL";
 //
 //        return new CSqlDataProvider($_sql);
+    }
+
+    public function actionAllotmentOrder($id) {
+        $this->layout = 'print';
+        $model = $this->loadModel($id);
+        $this->render('_order', array('model'=>$model));
+        
     }
 
     /**

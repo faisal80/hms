@@ -61,10 +61,10 @@ class Applicant extends HMSActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'allotments'=>array(self::HAS_MANY, 'Allotment', 'applicant_id'), //all allotments whether transferred or not
-            'allotment'=>array(self::HAS_ONE, 'Allotment', 'applicant_id'), //only active allotment
-            'payments_detail'=>array(self::HAS_MANY, 'PaymentDetail', 'applicant_id'),
-            'due_dates'=>array(self::HAS_MANY, 'DueDates', 'applicant_id'),
+            'allotments' => array(self::HAS_MANY, 'Allotment', 'applicant_id'), //all allotments whether transferred or not
+            'allotment' => array(self::HAS_ONE, 'Allotment', 'applicant_id'), //only active allotment
+            'payments_detail' => array(self::HAS_MANY, 'PaymentDetail', 'applicant_id'),
+            'due_dates' => array(self::HAS_MANY, 'DueDate', 'applicant_id'),
         );
     }
 
@@ -151,6 +151,11 @@ class Applicant extends HMSActiveRecord {
         return parent::model($className);
     }
 
+    public function getPaymentAmount($ptypeid) {
+        $p_detail = PaymentDetail::model()->findByPk($ptypeid);
+        return $p_detail->amount;
+    }
+
     public static function getApplicantOptions() {
         $result = array();
         //lists all applicants
@@ -188,10 +193,9 @@ class Applicant extends HMSActiveRecord {
             $this->nic = substr_replace($result, '-', 13, 0); //places '-' after 13 character place. 
         }
     }
-    
-    public function getNameWithTitle()
-    {
-        return trim($this->title . ' '. $this->name);
+
+    public function getNameWithTitle() {
+        return trim($this->title . ' ' . $this->name);
     }
 
     public function getNextId() {
@@ -216,8 +220,8 @@ class Applicant extends HMSActiveRecord {
         if ($record !== null)
             return $record->id;
         return null;
-    }    
-    
+    }
+
     public function getFirstId() {
         $record = self::model()->find(array(
             'order' => 'id ASC',
@@ -226,7 +230,7 @@ class Applicant extends HMSActiveRecord {
         if ($record !== null)
             return $record->id;
         return null;
-    }    
+    }
 
     public function getLastId() {
         $record = self::model()->find(array(
@@ -236,5 +240,6 @@ class Applicant extends HMSActiveRecord {
         if ($record !== null)
             return $record->id;
         return null;
-    }    
+    }
+
 }

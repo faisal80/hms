@@ -54,6 +54,7 @@ class Category extends HMSActiveRecord
 		return array(
             'scheme'=>array(self::BELONGS_TO, 'Scheme', 'scheme_id'),
             'payment_types'=>array(self::HAS_MANY, 'PaymentType', 'category_id'),
+            'cost' => array(self::STAT, 'PaymentType', 'category_id', 'select'=>'SUM(amount)'),
 		);
 	}
 
