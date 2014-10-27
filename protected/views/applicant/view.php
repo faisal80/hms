@@ -172,7 +172,8 @@ $this->widget('booster.widgets.TbGridView', array(
         array(
             'class' => 'booster.widgets.TbButtonColumn',
 //            'htmlOptions' => array('nowrap' => 'nowrap'),
-            'template' => '{delete}',
+            'template' => '{update} {delete}',
+            'updateButtonUrl' => 'Yii::app()->createUrl("paymentDetail/update", array("id"=>$data->id))',
             'deleteButtonUrl' => 'Yii::app()->createUrl("paymentDetail/delete", array("id"=>$data->id))',
         ),
     ),
@@ -224,8 +225,9 @@ $this->widget('booster.widgets.TbGridView', array(
         array(
             'class' => 'booster.widgets.TbButtonColumn',
 //            'htmlOptions' => array('nowrap' => 'nowrap'),
-            'template' => '{delete}',
-            'deleteButtonUrl' => 'Yii::app()->createUrl("paymentDetail/delete", array("id"=>$data->id))',
+            'template' => '{update} {delete}',
+            'updateButtonUrl' => 'Yii::app()->createUrl("dueDate/update", array("id"=>$data->id, "app_id"=>$data->applicant_id))',
+            'deleteButtonUrl' => 'Yii::app()->createUrl("dueDate/delete", array("id"=>$data->id))',
         ),
     ),
 ));

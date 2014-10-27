@@ -60,11 +60,11 @@ class DueDateController extends Controller {
         if (Yii::app()->user->checkAccess($this->id . '.' . $this->action->id)) {
             $model = new DueDate;
             $applicant = Applicant::model()->findByPk($app_id);
-/////////////////////////////////////////////////////
-// here check if applicant has already been allotted
-// if yes then use category_id from allotment in due dates
-// if not allotted abort and display to make allotment first.
-//////////////////////////////////////////
+            /////////////////////////////////////////////////////
+            // here check if applicant has already been allotted
+            // if yes then use category_id from allotment in due dates
+            // if not allotted abort and display to make allotment first.
+            //////////////////////////////////////////
             $allotments = $applicant->allotments;
             if ($applicant !== null && $allotments) {
                 $model->scheme_id = $allotments[0]->scheme_id;
@@ -126,7 +126,7 @@ class DueDateController extends Controller {
                 if (preg_match('[1Ii][sS][tT]', $due_date->payment_type->payment_type))
                     $IstInstDate = $due_date->date;
 
-                if ($payment_type->id === $due_date->payment_type_id)
+                if ($payment_type->id === $due_date->payment_type_id){}
             }
         }
     }
@@ -136,12 +136,19 @@ class DueDateController extends Controller {
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id the ID of the model to be updated
      */
-    public function actionUpdate($id) {
+    public function actionUpdate($id, $app_id) {
         $model = $this->loadModel($id);
         if (Yii::app()->user->checkAccess($this->id . '.' . $this->action->id, array('owner' => $model->create_user))) {
 
-// Uncomment the following line if AJAX validation is needed
-// $this->performAjaxValidation($model);
+            $applicant = Applicant::model()->findByPk($app_id);
+            $paymentTypes = $applicant->allotment->category->payment_types;
+            $paymentTypesOption = array();
+            foreach ($paymentTypes as $paymentType) {
+                $paymentTypesOption = $paymentTypesOption + array($paymentType->id => $paymentType->payment_type);
+            }
+
+            // Uncomment the following line if AJAX validation is needed
+            // $this->performAjaxValidation($model);
 
             if (isset($_POST['DueDate'])) {
                 $model->attributes = $_POST['DueDate'];
@@ -151,6 +158,7 @@ class DueDateController extends Controller {
 
             $this->render('update', array(
                 'model' => $model,
+                'paymentTypesOption' => $paymentTypesOption,
             ));
         } else {
             $this->accessDenied();
