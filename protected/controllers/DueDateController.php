@@ -65,15 +65,15 @@ class DueDateController extends Controller {
             // if yes then use category_id from allotment in due dates
             // if not allotted abort and display to make allotment first.
             //////////////////////////////////////////
-            $allotments = $applicant->allotments;
-            if ($applicant !== null && $allotments) {
-                $model->scheme_id = $allotments[0]->scheme_id;
+            $allotment = $applicant->allotment;
+            if ($applicant !== null && $allotment) {
+                $model->scheme_id = $allotment->scheme_id;
             } else {
                 throw new CHttpException('Please make allotment first. ' . CHtml::link('Click here to go Back', Yii::app()->user->returnUrl));
                 exit;
             }
 
-            $paymentTypes = $allotments[0]->category->payment_types;
+            $paymentTypes = $allotment->category->payment_types;
             $paymentTypesOption = array();
             foreach ($paymentTypes as $paymentType) {
                 $paymentTypesOption = $paymentTypesOption + array($paymentType->id => $paymentType->payment_type);

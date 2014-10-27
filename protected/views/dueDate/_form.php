@@ -14,7 +14,8 @@ $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
     'widgetOptions' => array(
         'htmlOptions' => array(
             'class' => 'span5', 
-            'maxlength' => 10
+            'maxlength' => 10, 
+            'select' => $model->payment_type_id,
             ),
         'data' => $paymentTypesOption,
         )
