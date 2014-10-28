@@ -7,8 +7,8 @@
                     OFFICE OF THE DIRECTOR GENERAL<br />
                     PROVINCIAL HOUSING AUTHORITY</span></strong><br />
             (ATI Campus) Jamrud Road, Peshawar<br />
-            <small>Phone: +92 91 9218265, 9218445  Fax: +92 91 9218420</small><br />
-            <small>Website: www.housingkp.gov.pk  Email: dg.pha@hotmail.com</small>
+            <small>Phone: +92 91 9218265, 9218445 &nbsp; Fax: +92 91 9218420</small><br />
+            <small>Website: www.housingkp.gov.pk &nbsp; Email: dg.pha@hotmail.com</small>
         </address>
     </div>
 </div>
@@ -45,10 +45,11 @@
         <?php if (!empty($model->allotment->sector)): ?>
             , Sector <?php echo $model->allotment->sector; ?>
         <?php endif; ?> 
-        measuring <?php echo $model->allotment->category->plot_size; 
-        echo ($model->allotment->category->corner ? ' (corner)': ''); ?> in the 
+        measuring <?php echo $model->allotment->category->plot_size;
+        echo ($model->allotment->category->corner ? ' (corner)' : '');
+        ?> in the 
         category of <?php echo $model->allotment->category->category; ?> at
-        <?php echo $model->allotment->scheme->name; ?>, is hereby alloted to you in 
+<?php echo $model->allotment->scheme->name; ?>, is hereby alloted to you in 
         ballot draw held on <?php echo $model->allotment->scheme->draw_date; ?>,
         at a total cost of Rs.&nbsp;<?php echo number_format($model->allotment->category->cost); ?>
         (Down Payment of Rs.&nbsp;<?php echo number_format($model->payments_detail[0]->amount); ?>
@@ -76,33 +77,37 @@
             ?>
         </tbody>
     </table>
-    </p>
-    <p class="text-justify">
-        3.<span style="margin-left: 61px">A penalty of up to </span><?php echo $model->allotment->scheme->penalty; ?>
-        <?php echo substr($model->allotment->scheme->occurence, 0, 3) . " " . substr($model->allotment->scheme->occurence, 3); ?>
-        shall be charged on delayed installments. The allotment of plot shall be canceled by Provincial Housing Authority
-        due to non-payment of dues with a period of further one year from the date of which 1st Installment
-        of remaining 85% was due.
-    </p>
-    <p class="text-justify">
-        4.<span style="margin-left: 61px">Lucky</span> owners of corner plots shall pay an additional amount equal to 5% of the
-        total cost of the plot along with last installment.
-    </p>
-    <p class="text-justify">
-        5.<span style="margin-left: 61px">A</span> Collection Account No. <?php echo $model->allotment->scheme->account; ?> 
-        has been opened with the <?php echo $model->allotment->scheme->bank; ?>. 
-        Allottees may deposit payment direct into the said branch.
-    </p>
-    <p class="text-justify">
-        6.<span style="margin-left: 61px">Allottees</span> who want to remit money 
-        from out stations shall obtain a Bank Draft in the name of Director General 
-        (DG PHA Jalozai Housing Scheme Nowshera) from any bank and send the same
-        relating to the installment to the PHA, ATI Campus Jamrud Road, Peshawar.
-    </p>
-    <p class="text-justify">
-        7.<span style="margin-left: 61px">The</span> Provincial Housing Authority 
-        reserves the right to change the master plan and cancel / alter the location 
-        and dimensions until physical possession of the plot is handed over the allottee.
-    </p>
+</p>
+<p class="text-justify">
+    3.<span style="margin-left: 61px">A penalty of up to </span><?php echo $model->allotment->scheme->penalty; ?>%
+<?php echo substr($model->allotment->scheme->occurence, 0, 3) . " " . substr($model->allotment->scheme->occurence, 3); ?>
+    shall be charged on delayed installments. The allotment of plot shall be canceled by Provincial Housing Authority
+    due to non-payment of dues with a period of further one year from the date of which 1st Installment
+    of remaining 85% was due.
+</p>
+<p class="text-justify">
+    4.<span style="margin-left: 61px">Lucky</span> owners of corner plots shall pay an additional amount equal to 5% of the
+    total cost of the plot along with last installment.
+</p>
+<p class="text-justify">
+    5.<span style="margin-left: 61px">A</span> Collection Account No. <?php echo $model->allotment->scheme->account; ?> 
+    has been opened with the <?php echo $model->allotment->scheme->bank; ?>. 
+    Allottees may deposit payment direct into the said branch.
+</p>
+<p class="text-justify">
+    6.<span style="margin-left: 61px">Allottees</span> who want to remit money 
+    from out stations shall obtain a Bank Draft in the name of Director General 
+    (DG PHA Jalozai Housing Scheme Nowshera) from any bank and send the same
+    relating to the installment to the PHA, ATI Campus Jamrud Road, Peshawar.
+</p>
+<p class="text-justify">
+    7.<span style="margin-left: 61px">The</span> Provincial Housing Authority 
+    reserves the right to change the master plan and cancel / alter the location 
+    and dimensions until physical possession of the plot is handed over the allottee.
+</p>
 
+<div class="text-center pull-right" style="width: 200px; margin-top: 35px;">
+    <strong>Housing Officer-II</strong><br />
+    Provincial Housing Authority
+</div>
 </div>

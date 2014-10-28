@@ -48,8 +48,8 @@ class Transfer extends HMSActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'transfer_from' => array(self::BELONGS_TO, 'Applicant', 'applicant_id'),
-            'transfer_to'   => array(self::BELONGS_TO, 'Applicant', 'transfer_id'),
+            'transfer_from' => array(self::BELONGS_TO, 'Transfer', 'transfer_id'),
+            'transfer_to'   => array(self::BELONGS_TO, 'Applicant', 'applicant_id'),
             'allotment'=> array(self::BELONGS_TO, 'Allotment', 'allotment_id'),
         );
     }

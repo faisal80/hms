@@ -191,6 +191,20 @@ class ApplicantController extends Controller {
     }
 
     public function getAllotment($id) {
+        $applicant = $this->loadModel($id);
+        $allotments = $applicant->allotments;
+        if (!empty($allotments)) {
+            foreach ($allotments as $allotment){
+                $transfers = new CActiveDataProvider('Transfer', array(
+                    'criteria' => array(
+                        'condition'=> ''
+                    )
+                ));
+                if (!empty($transfers)){
+                    
+                }
+            }
+        }
         $result = new CActiveDataProvider('Allotment', array(
             'criteria' => array(
                 'select' => '*',
