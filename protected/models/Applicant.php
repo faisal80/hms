@@ -65,6 +65,7 @@ class Applicant extends HMSActiveRecord {
             'allotment' => array(self::HAS_ONE, 'Allotment', 'applicant_id', 'order'=>'id DESC'), //only active allotment
             'payments_detail' => array(self::HAS_MANY, 'PaymentDetail', 'applicant_id'),
             'due_dates' => array(self::HAS_MANY, 'DueDate', 'applicant_id'),
+            'transfers' => array(self::HAS_MANY, 'Transfer', 'applicant_id'),
         );
     }
 
@@ -151,6 +152,52 @@ class Applicant extends HMSActiveRecord {
         return parent::model($className);
     }
 
+    public function getAllotment() {
+        //$applicant = $this->loadModel($id);
+        $allotments = $this->allotments; // get all allotments made to this applicant
+        if (!empty($allotments)) { // if allotment(s) was made
+            $cnt = count($allotments);
+            for ($i = 0; $i < $cnt; $i++) {
+                //check if it was transferred to anyone else
+                $criteria = new CDbCriteria(array(
+                    'condition' => 'allotment_id=:aid',
+                    'order' => 'transfer_date DESC',
+                    'limit' => 1,
+                    'params' => array(':aid' => $allotments[$i]->id),
+                ));
+                $transfer = Transfer::model()->find($criteria);
+                if ($transfer != null) { //if transferred set $allotment date and deed_no
+                    if ($transfer->applicant_id === $this->id) {
+                        $allotments[$i]->date = $transfer->transfer_date;
+                        $allotments[$i]->order_no = $transfer->deed_no;
+                    } else {
+                        unset($allotments[$i]);
+                    }
+                }
+            }
+        }
+
+        //select allotments from transfers if any
+        $criteria = new CDbCriteria(array(
+            'condition' => 'applicant_id=:aid',
+            'order' => 'transfer_date DESC',
+            'limit' => 1,
+            'params' => array(':aid' => $this->id),
+        ));
+        $transfer = Transfer::model()->find($criteria);
+        if ($transfer != null) { //if transferred set $allotment date and deed_no
+            if ($transfer->applicant_id === $this->id) {
+                $allotment = $transfer->allotment;
+                $allotment->applicant_id = $transfer->applicant_id;
+                $allotment->date = $transfer->transfer_date;
+                $allotment->order_no = $transfer->deed_no;
+                $allotments[] = $allotment;
+            }
+        }
+
+        return new CArrayDataProvider($allotments);
+    }
+    
     public function getPaymentAmount($ptypeid) {
         $p_detail = PaymentDetail::model()->findByPk($ptypeid);
         return $p_detail->amount;

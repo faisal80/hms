@@ -63,16 +63,17 @@ class PaymentDetailController extends Controller {
             // Uncomment the following line if AJAX validation is needed
             // $this->performAjaxValidation($model);
 
-            $allotments =$applicant->allotments;
-            if ($applicant !== null && $allotments )
+            $allotments =$applicant->getAllotment();
+            if ($applicant !== null && !empty($allotments) )
             {
-                $model->allotment_id = $allotments[0]->id;
+                $model->allotment_id = $allotments->data[0]->id;
                 $model->applicant_id = $app_id;
             } else {
                 throw new CHttpException('Please make allotment first. ' . CHtml::link('Click here to go Back', Yii::app()->user->returnUrl));
                 exit;
             }
             
+            $paymentTypeOptions=  PaymentType::getPaymentTypes($allotments->data[0]->category_id);
             if (isset($_POST['PaymentDetail'])) {
                 $model->attributes = $_POST['PaymentDetail'];
                 if ($model->save())
@@ -82,6 +83,7 @@ class PaymentDetailController extends Controller {
             $this->render('create', array(
                 'model' => $model,
                 'applicant'=>$applicant,
+                'paymentTypeOptions'=>$paymentTypeOptions,
             ));
         }else {
             $this->accessDenied();
@@ -96,10 +98,12 @@ class PaymentDetailController extends Controller {
     public function actionUpdate($id) {
         $model = $this->loadModel($id);
         if (Yii::app()->user->checkAccess($this->id . '.' . $this->action->id, array('owner' => $model->create_user))) {
+            
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
 
-// Uncomment the following line if AJAX validation is needed
-// $this->performAjaxValidation($model);
-
+            $allotment=$model->applicant->getAllotment();
+            $paymentTypeOptions =  PaymentType::getPaymentTypes($allotment->data[0]->category_id);
             if (isset($_POST['PaymentDetail'])) {
                 $model->attributes = $_POST['PaymentDetail'];
                 if ($model->save())
@@ -108,8 +112,9 @@ class PaymentDetailController extends Controller {
 
             $this->render('update', array(
                 'model' => $model,
+                'paymentTypeOptions'=>$paymentTypeOptions,
             ));
-        }else {
+        } else {
             $this->accessDenied();
         }
     }

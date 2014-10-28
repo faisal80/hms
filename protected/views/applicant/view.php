@@ -101,7 +101,7 @@ $this->beginWidget('booster.widgets.TbPanel', array(
 
 $this->widget('booster.widgets.TbGridView', array(
     'id' => 'allotments-grid',
-    'dataProvider' => $allotments,
+    'dataProvider' => $model->getAllotment(),
 //    'filter' => $model,
     'type' => 'striped hover condensed',
 //    'hideHeader' => true,

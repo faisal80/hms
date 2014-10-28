@@ -108,10 +108,10 @@ class PaymentType extends HMSActiveRecord {
         return parent::model($className);
     }
 
-    public static function getPaymentTypes()
+    public static function getPaymentTypes($cat_id)
     {
         $result = array();
-        $paymenttypes = PaymentType::model()->findAll();
+        $paymenttypes = PaymentType::model()->findAll('category_id='.$cat_id);
         foreach ($paymenttypes as $paymenttype)
         {
             $result = $result + array($paymenttype['id']=> $paymenttype->category->category .' ('. $paymenttype->category->plot_size . ($paymenttype->category->corner?' - Corner)': ') '). $paymenttype['payment_type']);

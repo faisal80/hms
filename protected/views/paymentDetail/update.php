@@ -13,6 +13,9 @@ $this->breadcrumbs=array(
 	);
 	?>
 
-	<h1>Update PaymentDetail <?php echo $model->id; ?></h1>
+	<h1>Update Payment Detail <?php echo $model->id; ?></h1>
 
-<?php echo $this->renderPartial('_form',array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form',array(
+    'model'=>$model, 
+    'paymentTypeOptions'=>$paymentTypeOptions,
+    )); ?>

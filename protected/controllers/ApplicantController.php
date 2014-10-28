@@ -81,9 +81,10 @@ class ApplicantController extends Controller {
             'pagination' => array('pageSize' => 100),
         ));
 
+        
         $this->render('view', array(
             'model' => $this->loadModel($id),
-            'allotments' => $this->getAllotment($id),
+//            'allotments' => $this->getAllotment(),
             'payment_detail' => $paymentDetailDP,
             'due_dates' => $duedatesDP,
         ));
@@ -190,68 +191,11 @@ class ApplicantController extends Controller {
         }
     }
 
-    public function getAllotment($id) {
-        $applicant = $this->loadModel($id);
-        $allotments = $applicant->allotments;
-        if (!empty($allotments)) {
-            foreach ($allotments as $allotment){
-                $transfers = new CActiveDataProvider('Transfer', array(
-                    'criteria' => array(
-                        'condition'=> ''
-                    )
-                ));
-                if (!empty($transfers)){
-                    
-                }
-            }
-        }
-        $result = new CActiveDataProvider('Allotment', array(
-            'criteria' => array(
-                'select' => '*',
-                'join' => 'LEFT JOIN transfer ON transfer.allotment_id=t.id',
-                'condition' => 't.applicant_id=:id AND transfer.id IS NULL',
-                'params' => array(':id' => $id),
-            ),
-        ));
-
-        if ($result->itemCount < 1) {
-            $result = new CActiveDataProvider('Allotment', array(
-                'criteria' => array(
-                    'select' => array(
-                        'transfer.id',
-                        'category_id',
-                        'plot_no',
-                        'street_no',
-                        'sector',
-                        'phase',
-                        'transfer.transfer_date AS date',
-                        'transfer.deed_no AS order_no',
-                    ),
-                    'join' => 'RIGHT JOIN transfer ON transfer.allotment_id=t.id',
-                    'condition' => 'transfer.applicant_id=:id',
-                    'order' => 'id DESC',
-                    'limit' => 1,
-                    'params' => array(':id' => $id),
-                )
-            ));
-        }
-        return $result;
-
-//        $_sql = "   SELECT      *  
-//                    FROM        allotment 
-//                    LEFT JOIN   transfer
-//                    ON          transfer.allotment_id=allotment.id 
-//                    WHERE       allotment.applicant_id=$id
-//                    AND         transfer.id IS NULL";
-//
-//        return new CSqlDataProvider($_sql);
-    }
 
     public function actionAllotmentOrder($id) {
         $this->layout = 'print';
-        $model = $this->loadModel($id);
-        $this->render('_order', array('model'=>$model));
-        
+        $allotments = $this->loadModel($id)->getAllotment();
+        $this->render('_order', array('model' => $allotments->data[0]));
     }
 
     /**
