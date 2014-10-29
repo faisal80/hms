@@ -231,16 +231,24 @@ div.search-form
 /* My print Styles */
 
 .print_container {
-    width:595px;
+    width:695px;
 	height:auto;
 	background:#FFF;
 	margin:0px auto;
     padding-top: 0px;
-    padding-right: 15px;
+    padding-right: 72px;
     padding-bottom: 0px;
-    padding-left: 15px;
+    padding-left: 72px;
     -moz-box-shadow: 0 0 5px #888;
     -webkit-box-shadow: 0 0 5px#888;
     box-shadow: 0 0 5px #888;  
     /*border: 1px solid;*/
+}
+
+@media screen {
+    .print_container {
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+    
 }

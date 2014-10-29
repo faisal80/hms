@@ -49,8 +49,17 @@ class AllotmentController extends Controller {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id) {
+
+        $transfers = new CActiveDataProvider('Transfer', array(
+            'criteria' => array(
+                'condition' => 'allotment_id=:aid',
+                'params' => array(':aid' => $id),
+            )
+        ));
+        
         $this->render('view', array(
             'model' => $this->loadModel($id),
+            'transfers' => $transfers,
         ));
     }
 
@@ -156,7 +165,6 @@ class AllotmentController extends Controller {
             $this->accessDenied();
         }
     }
-
 
     /**
      * Returns the data model based on the primary key given in the GET variable.

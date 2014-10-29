@@ -57,6 +57,7 @@ class Allotment extends HMSActiveRecord {
             'category' => array(self::BELONGS_TO, 'Category', 'category_id'),
             'scheme' => array(self::BELONGS_TO, 'Scheme', 'scheme_id'),
             'transfers'=> array(self::HAS_MANY, 'Transfer', 'allotment_id'),
+            'payments_detail'=>array(self::HAS_MANY, 'PaymentDetail', 'allotment_id'),
         );
     }
 
@@ -184,6 +185,50 @@ class Allotment extends HMSActiveRecord {
      */
     public function compositeUniqueKeysValidator() {
         $this->validateCompositeUniqueKeys();
+    }
+
+    public function getNextId() {
+        $record = self::model()->find(array(
+            'condition' => 'id>:current_id',
+            'order' => 'id ASC',
+            'limit' => 1,
+            'params' => array(':current_id' => $this->id),
+        ));
+        if ($record !== null)
+            return $record->id;
+        return null;
+    }
+
+    public function getPreviousId() {
+        $record = self::model()->find(array(
+            'condition' => 'id<:current_id',
+            'order' => 'id DESC',
+            'limit' => 1,
+            'params' => array(':current_id' => $this->id),
+        ));
+        if ($record !== null)
+            return $record->id;
+        return null;
+    }
+
+    public function getFirstId() {
+        $record = self::model()->find(array(
+            'order' => 'id ASC',
+            'limit' => 1,
+        ));
+        if ($record !== null)
+            return $record->id;
+        return null;
+    }
+
+    public function getLastId() {
+        $record = self::model()->find(array(
+            'order' => 'id DESC',
+            'limit' => 1,
+        ));
+        if ($record !== null)
+            return $record->id;
+        return null;
     }
     
 }

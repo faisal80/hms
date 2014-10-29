@@ -12,6 +12,44 @@ $this->menu = array(
     array('label' => 'Manage Allotment', 'url' => array('admin')),
 );
 ?>
+<div class="text-right">
+    <?php
+    $firstID = $model->getFirstId();
+    $prevID = $model->getPreviousId();
+    $nextID = $model->getNextId();
+    $lastID = $model->getLastId();
+
+    if ($firstID !== null && $prevID !== null) {
+        echo CHtml::link('First', array('allotment/view', 'id' => $firstID));
+    } else {
+        echo 'First';
+    }
+
+    echo ' | ';
+
+    if ($prevID !== null) {
+        echo CHtml::link('Previous', array('allotment/view', 'id' => $prevID));
+    } else {
+        echo 'Previous';
+    }
+
+    echo ' | ';
+
+    if ($nextID !== null) {
+        echo CHtml::link('Next', array('allotment/view', 'id' => $nextID));
+    } else {
+        echo 'Next';
+    }
+
+    echo ' | ';
+
+    if ($lastID !== null && $nextID !== null) {
+        echo CHtml::link('Last', array('allotment/view', 'id' => $lastID));
+    } else {
+        echo 'Last';
+    }
+    ?>
+</div>
 
 <h1>View Allotment #<?php echo $model->id; ?></h1>
 
@@ -31,4 +69,52 @@ $this->widget('booster.widgets.TbDetailView', array(
         'order_no',
     ),
 ));
+?>
+
+
+<?php
+$this->beginWidget('booster.widgets.TbPanel', array(
+    'title' => 'Transfers Record',
+    'headerIcon' => 'th-list',
+    'context' => 'primary',
+    'padContent' => false,
+    'headerHtmlOptions' => array('class' => 'small'),
+    'htmlOptions' => array('class' => 'bootstrap-widget-table'),
+//    'headerButtons' => array(
+//        array(
+//            'class' => 'booster.widgets.TbButton',
+//            'label' => 'Enter Allotment',
+//            'buttonType' => 'link',
+//            'url' => array('allotment/create', 'app_id' => $model->id),
+//            'context' => 'success',
+//            'size' => 'extra_small',
+//        ),
+//    ),
+));
+
+$this->widget('booster.widgets.TbGridView', array(
+    'id' => 'transfers-grid',
+    'dataProvider' => $transfers,
+//    'filter' => $model,
+    'type' => 'striped hover condensed',
+//    'hideHeader' => true,
+    'template' => '{items}',
+    'columns' => array(
+        'id',
+        'transfer_date',
+        'transfer_from',
+        'applicant_id',
+        'deed_no',
+//        array(
+//            'class' => 'booster.widgets.TbButtonColumn',
+////            'htmlOptions' => array('nowrap' => 'nowrap'),
+//            'template' => '{update} {delete}',
+//            'updateButtonUrl' => 'Yii::app()->createUrl("transfer/update", array("id"=>$data->id))',
+//            'deleteButtonUrl' => 'Yii::app()->createUrl("transfer/delete", array("id"=>$data->id))',
+//        ),
+    ),
+));
+
+$this->endWidget();
+
 ?>
