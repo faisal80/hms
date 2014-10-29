@@ -117,15 +117,17 @@ class DueDateController extends Controller {
             exit;
         }
         
-        $allotments = $applicant->allotments;
-        $payment_types = $allotments[0]->category->payment_types;
+        $allotments = $applicant->getAllotment();
+        $payment_types = $allotments->data[0]->category->payment_types;
         $IstInstDate = null;
         
         foreach ($payment_types as $payment_type) {
             foreach ($due_dates as $due_date) {
-                if (preg_match('[1Ii][sS][tT]', $due_date->payment_type->payment_type))
+                if (preg_match('/[1Ii][sS][tT]/', $due_date->payment_type->payment_type)){
                     $IstInstDate = $due_date->date;
+                }
 
+                ///////////////////ypklkj;lk
                 if ($payment_type->id === $due_date->payment_type_id){}
             }
         }

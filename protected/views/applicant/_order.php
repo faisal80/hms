@@ -80,7 +80,7 @@
 <p class="text-justify">
     3.<span style="margin-left: 61px">A penalty of up to </span><?php echo $model->scheme->penalty; ?>%
 <?php echo substr($model->scheme->occurence, 0, 3) . " " . substr($model->scheme->occurence, 3); ?>
-    shall be charged on delayed installments. The allotment of plot shall be canceled by Provincial Housing Authority
+    shall be charged on delayed installments. The allotment of plot shall be cancelled by Provincial Housing Authority
     due to non-payment of dues with a period of further one year from the date of which 1st Installment
     of remaining 85% was due.
 </p>
