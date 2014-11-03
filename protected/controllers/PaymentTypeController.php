@@ -93,6 +93,7 @@ class PaymentTypeController extends Controller {
             } else {
                 $this->render('create', array(
                     'model' => $model,
+                    'cat_name' =>  Category::model()->findByPk($cat_id)->getFullCategory(),
                     ));
             }
         } else {

@@ -58,7 +58,7 @@ class CategoryController extends Controller {
 //            if ($payment_type->save())
 //                Yii::app()->user->setFlash('success', 'Payment Type added successfully.');
 //        }
-        Yii::app()->user->setReturnUrl('/hms/category/view/'.$id);
+        Yii::app()->user->setReturnUrl($this->createUrl('view', array('id' => $id)));
         $paymentTypesDP = new CActiveDataProvider('PaymentType', array(
             'criteria' => array(
                 'condition' => 'category_id=:categoryId',

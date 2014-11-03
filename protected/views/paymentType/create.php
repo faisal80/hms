@@ -10,6 +10,6 @@ array('label'=>'Manage PaymentType','url'=>array('admin')),
 );
 ?>
 
-<h1>Create Payment Type</h1>
+<h2>Create Payment Type for <?php echo $cat_name; ?> category</h2>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

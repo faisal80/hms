@@ -30,7 +30,7 @@ class ApplicantController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'allotmentOrder'),
+                'actions' => array('index', 'view', 'allotmentOrder', 'reminders'),
                 'users' => array('@'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -81,12 +81,13 @@ class ApplicantController extends Controller {
             'pagination' => array('pageSize' => 100),
         ));
 
-        
+
         $this->render('view', array(
             'model' => $this->loadModel($id),
 //            'allotments' => $this->getAllotment(),
             'payment_detail' => $paymentDetailDP,
             'due_dates' => $duedatesDP,
+            'penalties' => (empty($duedatesDP->data)) ? new CArrayDataProvider(array()) : $this->penalties($duedatesDP->data[0]->scheme->occurence, $duedatesDP->data[0]->scheme->penalty, $id),
         ));
     }
 
@@ -191,18 +192,59 @@ class ApplicantController extends Controller {
         }
     }
 
-
     public function actionAllotmentOrder($id) {
         Yii::app()->user->setReturnUrl($this->createUrl('view', array('id' => $id)));
         $this->layout = 'print';
         $allotments = $this->loadModel($id)->getAllotment();
-        if (empty($allotments->data[0]->payments_detail)){
+        if (empty($allotments->data[0]->payments_detail)) {
             throw new CHttpException('Please enter payment detail first. ' . CHtml::link('Click here to go Back', Yii::app()->user->returnUrl));
             exit;
         }
         $this->render('_order', array('model' => $allotments->data[0]));
     }
 
+    public function actionReminders() {
+        //$this->layout = 'print';
+        $sql='SELECT 
+            due_date.date, 
+            due_date.applicant_id, 
+            DATEDIFF(CURDATE(), due_date.date) AS days, 
+            payment_type.payment_type, 
+            payment_type.amount, 
+            '.(($occurence == 'permonth') ? '((payment_type.amount*' . $penalty . '/100)/30)*DATEDIFF(CURDATE(), due_date.date) AS penalty' : '(((payment_type.amount*' . $penalty . '/100)/12)/30)*DATEDIFF(CURDATE(), due_date.date) AS penalty'). ', 
+            title,
+            name, 
+            fname, 
+            applicant.postal_address, 
+            applicant.contact_1, 
+            applicant.contact_2, 
+            category.plot_size, 
+            category.category, 
+        FROM 
+            category 
+        RIGHT JOIN 
+            (applicants 
+            INNER JOIN 
+                (payment_types 
+                INNER JOIN 
+                    (due_dates 
+                    LEFT JOIN 
+                        payment_details 
+                    ON 
+                        due_dates.payment_type_id = payment_details.payment_type_id) 
+                ON 
+                    payment_types.id = due_dates.payment_type_id) 
+            ON 
+                applicants.id = due_dates.applicant_id) 
+        ON 
+            category.id = applicants.category_id
+        WHERE 
+            (((applicants.refunded)<>1) AND ((applicants.applied_for_refund)<>1) AND ((DateDiff("d",[due_dates]![date],Date()))>=0) AND ((payment_details.payment_type_id) Is Null));
+';
+        $rawData=Yii::app()->db->createCommand($sql)->queryAll();
+        $this->render('reminders', array('reminder'=>'1st Reminder'));
+    }
+    
     /**
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
@@ -224,6 +266,33 @@ class ApplicantController extends Controller {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
+    }
+
+    public function penalties($occurence, $penalty, $app_id) {
+        $rawData=Yii::app()->db->createCommand('
+            SELECT 
+                DATEDIFF(payment_detail.date, due_date.date) AS days, 
+                '.(($occurence == 'permonth') ? '((payment_type.amount*' . $penalty . '/100)/30)*DATEDIFF(payment_detail.date, due_date.date) AS penalty' : '(((payment_type.amount*' . $penalty . '/100)/12)/30)*DATEDIFF(payment_detail.date, due_date.date) AS penalty'). ', 
+                due_date.date AS ddate,
+                due_date.applicant_id AS app_id, 
+                payment_detail.payment_type_id,
+                payment_detail.amount, 
+                payment_detail.date AS pdate, 
+                payment_type.payment_type
+            FROM 
+                (payment_type INNER JOIN due_date ON payment_type.id = due_date.payment_type_id) 
+            INNER JOIN 
+                payment_detail ON (due_date.applicant_id = payment_detail.applicant_id) AND (payment_type.id = payment_detail.payment_type_id)
+            WHERE 
+                (DATEDIFF(payment_detail.date, due_date.date)>0) AND (due_date.applicant_id='.$app_id.');'
+            )->queryAll();
+        
+        return new CArrayDataProvider($rawData, array(
+            'keyField'=>'payment_type_id',
+            'pagination' => array(
+                'pageSize' => 200,
+            ),
+        ));
     }
 
 }

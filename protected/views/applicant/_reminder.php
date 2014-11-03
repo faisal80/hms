@@ -1,4 +1,6 @@
+<?php $this->layout = 'print'; ?>
 <div class="row clearfix">
+    <strong><em><u><?php echo $reminder; ?></u></em></strong>
     <img style="float: left; height: 100px;" src="<?php echo Yii::app()->request->baseUrl; ?>/images/kpk-logo.jpg"/>
 
     <div class="text-center pull-right" style="width: 350px;">
@@ -13,8 +15,8 @@
     </div>
 </div>
 <div class="text-right" id="ref" style="font-size: 12px; line-height: 13px;">
-    No. <?php echo $model->order_no; ?><br />
-    Dated: <?php echo $model->date; ?>
+    No. DG/PHA/____________________________<br />
+    Dated: <?php echo date(); ?>
 </div>
 <div class="row clearfix" style="font-size: 12px; line-height: 13px;">
     To

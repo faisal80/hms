@@ -191,6 +191,14 @@ $this->beginWidget('booster.widgets.TbPanel', array(
     'headerButtons' => array(
         array(
             'class' => 'booster.widgets.TbButton',
+            'label' => 'Fill Due Dates',
+            'buttonType' => 'link',
+            'url' => array('dueDate/filldds', 'app_id' => $model->id),
+            'context' => 'success',
+            'size' => 'extra_small',
+        ),
+        array(
+            'class' => 'booster.widgets.TbButton',
             'label' => 'Enter Due Dates',
             'buttonType' => 'link',
             'url' => array('dueDate/create', 'app_id' => $model->id),
@@ -202,7 +210,7 @@ $this->beginWidget('booster.widgets.TbPanel', array(
 ));
 
 $this->widget('booster.widgets.TbGridView', array(
-    'id' => 'payment_detail-grid',
+    'id' => 'due_dates-grid',
     'dataProvider' => $due_dates,
 //    'filter' => $model,
     'type' => 'striped hover condensed',
@@ -228,6 +236,62 @@ $this->widget('booster.widgets.TbGridView', array(
             'template' => '{update} {delete}',
             'updateButtonUrl' => 'Yii::app()->createUrl("dueDate/update", array("id"=>$data->id, "app_id"=>$data->applicant_id))',
             'deleteButtonUrl' => 'Yii::app()->createUrl("dueDate/delete", array("id"=>$data->id))',
+        ),
+    ),
+));
+$this->endWidget();
+
+$this->beginWidget('booster.widgets.TbPanel', array(
+    'title' => 'Penalties',
+    'headerIcon' => 'th-list',
+    'padContent' => false,
+    'context' => 'primary',
+    'headerHtmlOptions' => array('class' => 'small'),
+    'htmlOptions' => array('class' => 'bootstrap-widget-table col-xs-12 col-sm-12 col-md-12 col-lg-6 '),    
+));
+
+$this->widget('booster.widgets.TbGridView', array(
+    'id' => 'penalties-grid',
+    'dataProvider' => $penalties,
+//    'filter' => $model,
+    'type' => 'striped hover condensed',
+//    'hideHeader' => true,
+    'template' => '{items}',
+    'columns' => array(
+        'id'=>array(
+            'header'=>'ID',
+            'name'=>'payment_type_id',
+        ),
+        'payment_type'=>array(
+            'header'=>'Payment Type',
+            'name'=>'payment_type',
+        ),
+        'amount'=>array(
+            'header'=>'Amount',
+            'name'=>'amount',
+            'type' => 'number',
+            'htmlOptions' => array('class' => 'text-right'),
+            'headerHtmlOptions'=>array(
+                'class'=>'text-center',
+            ),
+        ),
+        'days'=>array(
+            'header'=>'Days Delayed',
+            'name'=>'days',
+            'type' => 'number',
+            'htmlOptions' => array('class' => 'text-center'),
+            'headerHtmlOptions'=>array(
+                'class'=>'text-center',
+            ),
+        ),
+        'penalty'=>array(
+            'header'=>'Penalty',
+            'name'=>'penalty',
+            'type' => 'number',
+            'htmlOptions' => array('class' => 'text-right'),
+            'headerHtmlOptions'=>array(
+                'class'=>'text-center',
+            ),
         ),
     ),
 ));

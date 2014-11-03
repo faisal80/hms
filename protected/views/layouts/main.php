@@ -26,7 +26,7 @@
 
   <body>
     <?php 
-        echo CHtml::openTag('div', array('class' => 'bs-navbar-top-example navbar navbar-inverse navbar-fixed-top'));
+        echo CHtml::openTag('div', array('class' => 'bs-navbar-top-example navbar navbar-inverse navbar-fixed-top hidden-print'));
         $this->widget('booster.widgets.TbNavbar', array(
             'brand' => Yii::app()->name,
             'brandOptions' => array('style' => 'width:auto;margin-left: 0px;'),
@@ -63,7 +63,7 @@
     ?>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
+        <div class="col-sm-3 col-md-2 sidebar hidden-print">
             <?php
             $this->widget('booster.widgets.TbMenu', array(
                     'type' => 'list',
