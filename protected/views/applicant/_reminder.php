@@ -16,7 +16,7 @@
 </div>
 <div class="text-right" id="ref" style="font-size: 12px; line-height: 13px;">
     No. DG/PHA/____________________________<br />
-    Dated: <?php echo date(); ?>
+    Dated: <?php echo date(Yii::app()->user->getDateFormat(false)); ?>
 </div>
 <div class="row clearfix" style="font-size: 12px; line-height: 13px;">
     To
@@ -24,9 +24,9 @@
 <div class="row clearfix" style="font-size: 12px; line-height: 13px;">
     <address style="margin-left: 72px;">
         <?php
-        echo $model->applicant->getNameWithTitle() . ' S/D/W/o ' . $model->applicant->fname . '<br />';
-        echo $model->applicant->postal_address . '<br />';
-        echo $model->applicant->contact_1 . ' ' . $model->applicant->contact_2;
+        echo $data['name'] . ' S/D/W/o ' . $data['fname'] . '<br />';
+        echo $data['postal_address'] . '<br />';
+        echo $data['contact_1'] . ' ' . $data['contact_2'];
         ?>
     </address>
 </div>
@@ -34,78 +34,36 @@
 <div class="row clearfix" style="font-size: 12px; line-height: 13px;">
     <strong>Subject:
         <span class="text-uppercase" style="margin-left: 22px"><u>
-                ALLOTMENT ORDER: <?php echo strtoupper($model->scheme->name); ?>
+                <?php echo strtoupper($data['payment_type'] . ' FOR '. $scheme); ?>
             </u></span></strong><br/><br/>
 </div>
 <div class="row" style="font-size: 12px; line-height: 13px;">
     <p class="text-justify" style="text-indent: 72px">
-        Residential Plot No. <?php echo $model->plot_no; ?>, Street No.
-        <?php echo $model->street_no; ?>,
+        Please refer to PHA's Allotment Order No. <?php echo $data['order_no']; ?>
+        dated <?php echo $data['adate']; ?>. You were alloted Plot No. <?php echo $data['plot_no'];?>,
+        Street No.<?php echo $data['street_no']; ?>,
         <?php 
-        if (!empty($model->phase))
-            echo ' Phase ' . $model->phase;
-        if (!empty($model->sector))
-            echo ', Sector ' . $model->sector; ?>
-        measuring <?php echo $model->category->plot_size;
-        echo ($model->category->corner ? ' (corner)' : '');
+        if (!empty($data['phase']))
+            echo ' Phase ' . $data['phase'];
+        if (!empty($data['sector']))
+            echo ', Sector ' . $data['sector']; ?>
+        measuring <?php echo $data['plot_size'];
+        echo ($data['corner'] ? ' (corner)' : '');
         ?> in the 
-        category of <?php echo $model->category->category; ?> at
-        <?php echo $model->scheme->name; ?>, is hereby alloted to you in 
-        ballot draw held on <?php echo $model->scheme->draw_date; ?>,
-        at a total cost of Rs.&nbsp;<?php echo number_format($model->category->cost); ?>
-        (Down Payment of Rs.&nbsp;<?php echo number_format($model->applicant->payments_detail[0]->amount); ?>
-        has already been received). Possession shall be given after completion of 
-        essential services and payment of all dues.
+        category of <?php echo $data['category']; ?>. 
+        <?php echo $data['payment_type']; ?> of Rs.<?php echo number_format($data['amount']);?>/- 
+        was due on <?php echo $data['ddate'];?>. But till date you have not deposited
+        <?php echo $data['payment_type'];?>.
     </p>
 
     <p>
-        2.<span style="margin-left: 61px">Payment schedule for balance amount is as under: </span>
-    <table style="font-size: 12px; margin: 0px 0px 0px 72px; width: 300px; line-height: 0px;">
-        <thead>
-            <tr class="text-center">
-                <td></td>
-                <td style="border-bottom: 1px solid; text-align: right;"><b>Amount</b></td>
-                <td style="border-bottom: 1px solid; text-align: center;"><b>Due Date</b></td>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            foreach ($model->applicant->due_dates as $due_date) {
-                echo '<tr><td>' . $due_date->payment_type->payment_type . '</td>';
-                echo '<td class="text-right">' . number_format($due_date->payment_type->amount) . '</td>';
-                echo '<td class="text-center">' . $due_date->date . '</td></tr>';
-            }
-            ?>
-        </tbody>
-    </table>
-</p>
-<p class="text-justify">
-    3.<span style="margin-left: 61px">A penalty of up to </span><?php echo $model->scheme->penalty; ?>%
-<?php echo substr($model->scheme->occurence, 0, 3) . " " . substr($model->scheme->occurence, 3); ?>
-    shall be charged on delayed installments. The allotment of plot shall be cancelled by Provincial Housing Authority
-    due to non-payment of dues with a period of further one year from the date of which 1st Installment
-    of remaining 85% was due.
-</p>
-<p class="text-justify">
-    4.<span style="margin-left: 61px">Lucky</span> owners of corner plots shall pay an additional amount equal to 5% of the
-    total cost of the plot along with last installment.
-</p>
-<p class="text-justify">
-    5.<span style="margin-left: 61px">A</span> Collection Account No. <?php echo $model->scheme->account; ?> 
-    has been opened with the <?php echo $model->scheme->bank; ?>. 
-    Allottees may deposit payment direct into the said branch.
-</p>
-<p class="text-justify">
-    6.<span style="margin-left: 61px">Allottees</span> who want to remit money 
-    from out stations shall obtain a Bank Draft in the name of Director General 
-    (DG PHA <?php echo $model->scheme->name; ?>) from any bank and send the same
-    relating to the installment to the PHA, ATI Campus Jamrud Road, Peshawar.
-</p>
-<p class="text-justify">
-    7.<span style="margin-left: 61px">The</span> Provincial Housing Authority 
-    reserves the right to change the master plan and cancel / alter the location 
-    and dimensions until physical possession of the plot is handed over the allottee.
-</p>
+        2.<span style="margin-left: 61px">You are directed to deposit <?php echo $data['payment_type']; ?> 
+            amounting to Rs. <?php echo number_format($data['amount']); ?>/- plus Rs.99999/- as a 
+        penalty @ (2% per month) for each day of delay for the amount in default. 
+        Failure to pay the installment along with penalty charges within 12 months
+        shall make your allotment liable to cancellation without any notice.</span>
+
+    </p>
 
 <div class="text-center pull-right" style="width: 200px; margin-top: 35px;">
     <strong>Housing Officer-II</strong><br />

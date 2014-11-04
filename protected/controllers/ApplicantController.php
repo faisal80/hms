@@ -213,10 +213,19 @@ class ApplicantController extends Controller {
                 category.scheme_id, 
                 category.corner, 
                 applicant.name, 
-                applicant.fname, 		
-                due_date.date, 
+                applicant.fname,
+                applicant.postal_address,
+                applicant.contact_1,
+                applicant.contact_2,
+                due_date.date ddate, 
                 payment_type.payment_type, 
                 payment_type.amount
+                allotment.order_no,
+                allotment.date adate,
+                allotment.plot_no,
+                allotment.street_no,
+                allotment.sector,
+                allotment.phase
             FROM 
                 category
             INNER JOIN 
@@ -249,11 +258,16 @@ class ApplicantController extends Controller {
                 payment_detail.payment_type_id IS NULL
             AND
                 payment_type.payment_type=\''.$payment_type.'\'';
-        $rawData=Yii::app()->db->createCommand($sql)->queryAll();
-        $dp = new CArrayDataProvider($rawData);
+//        $rawData=Yii::app()->db->createCommand($sql)->queryAll();
+        $dp = new CSqlDataProvider($sql, array(
+            'pagination'=>array(
+                'pageSize'=>99999,
+            )
+        ));
         $this->render('reminders', array(
             'dp'=>$dp,
-            'reminder'=>'1st Reminder'
+            'reminder'=>'1st Reminder',
+            'scheme'=>'Jalozai Housing Scheme',
             ));
     }
     
