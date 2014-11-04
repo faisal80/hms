@@ -51,6 +51,7 @@ class Transfer extends HMSActiveRecord {
             'transfer_from' => array(self::BELONGS_TO, 'Transfer', 'transfer_id'),
             'transfer_to'   => array(self::BELONGS_TO, 'Applicant', 'applicant_id'),
             'allotment'=> array(self::BELONGS_TO, 'Allotment', 'allotment_id'),
+            'applicant'=> array(self::BELONGS_TO, 'Applicant', 'applicant_id'),
         );
     }
 

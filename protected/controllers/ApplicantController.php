@@ -203,46 +203,58 @@ class ApplicantController extends Controller {
         $this->render('_order', array('model' => $allotments->data[0]));
     }
 
-    public function actionReminders() {
+    public function actionReminders($payment_type) {
         //$this->layout = 'print';
-        $sql='SELECT 
-            due_date.date, 
-            due_date.applicant_id, 
-            DATEDIFF(CURDATE(), due_date.date) AS days, 
-            payment_type.payment_type, 
-            payment_type.amount, 
-            '.(($occurence == 'permonth') ? '((payment_type.amount*' . $penalty . '/100)/30)*DATEDIFF(CURDATE(), due_date.date) AS penalty' : '(((payment_type.amount*' . $penalty . '/100)/12)/30)*DATEDIFF(CURDATE(), due_date.date) AS penalty'). ', 
-            title,
-            name, 
-            fname, 
-            applicant.postal_address, 
-            applicant.contact_1, 
-            applicant.contact_2, 
-            category.plot_size, 
-            category.category, 
-        FROM 
-            category 
-        RIGHT JOIN 
-            (applicants 
+        $sql='
+            SELECT 
+                category.id, 
+                category.category, 
+                category.plot_size, 
+                category.scheme_id, 
+                category.corner, 
+                applicant.name, 
+                applicant.fname, 		
+                due_date.date, 
+                payment_type.payment_type, 
+                payment_type.amount
+            FROM 
+                category
             INNER JOIN 
-                (payment_types 
-                INNER JOIN 
-                    (due_dates 
-                    LEFT JOIN 
-                        payment_details 
-                    ON 
-                        due_dates.payment_type_id = payment_details.payment_type_id) 
-                ON 
-                    payment_types.id = due_dates.payment_type_id) 
+                (refund 
+                 RIGHT JOIN 
+                    (allotment 
+                     RIGHT JOIN 
+                        (applicant 
+                         LEFT JOIN 
+                            (due_date 
+                             INNER JOIN 
+                                (payment_type
+                                 LEFT JOIN
+                                    payment_detail
+                                 ON
+                                    payment_type.id=payment_detail.payment_type_id)
+                             ON 
+                                due_date.payment_type_id=payment_type.id)
+                         ON 
+                            applicant.id=due_date.applicant_id)
+                     ON 
+                        allotment.applicant_id=applicant.id)
+                 ON 
+                    allotment.id=refund.allotment_id)
             ON 
-                applicants.id = due_dates.applicant_id) 
-        ON 
-            category.id = applicants.category_id
-        WHERE 
-            (((applicants.refunded)<>1) AND ((applicants.applied_for_refund)<>1) AND ((DateDiff("d",[due_dates]![date],Date()))>=0) AND ((payment_details.payment_type_id) Is Null));
-';
+                category.id=allotment.category_id
+            WHERE
+                refund.allotment_id IS NULL
+            AND
+                payment_detail.payment_type_id IS NULL
+            AND
+                payment_type.payment_type=\''.$payment_type.'\'';
         $rawData=Yii::app()->db->createCommand($sql)->queryAll();
-        $this->render('reminders', array('reminder'=>'1st Reminder'));
+        $dp = new CArrayDataProvider($rawData);
+        $this->render('reminders', array(
+            'dp'=>$dp,
+            'reminder'=>'1st Reminder'
+            ));
     }
     
     /**

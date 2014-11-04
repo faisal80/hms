@@ -49,7 +49,7 @@ class AllotmentController extends Controller {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id) {
-
+        
         $transfers = new CActiveDataProvider('Transfer', array(
             'criteria' => array(
                 'condition' => 'allotment_id=:aid',

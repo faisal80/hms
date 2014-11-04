@@ -101,10 +101,13 @@ $this->widget('booster.widgets.TbGridView', array(
     'template' => '{items}',
     'columns' => array(
         'id',
-        'transfer_date',
-        'transfer_from',
-        'applicant_id',
+        'transferred_to'=>array(
+            'name'=> 'transfer_to.name',
+            'header'=>'Transferred to',
+        ),
         'deed_no',
+        'transfer_date',
+
 //        array(
 //            'class' => 'booster.widgets.TbButtonColumn',
 ////            'htmlOptions' => array('nowrap' => 'nowrap'),

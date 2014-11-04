@@ -1,11 +1,10 @@
 <?php
 
-foreach ($applicants as $applicant){
+foreach ($dp as $data){
     $this->renderPartial('_reminder', array(
-            'applicant'=>$applicant,
+            'data'=>$data,
             'reminder'=>$reminder,
-            'installment'=>$installment,
-            'scheme'=>$scheme,
+            //'scheme'=>$scheme,
         )
     );
 }
