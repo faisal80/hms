@@ -219,7 +219,7 @@ class ApplicantController extends Controller {
                 applicant.contact_2,
                 due_date.date ddate, 
                 payment_type.payment_type, 
-                payment_type.amount
+                payment_type.amount,
                 allotment.order_no,
                 allotment.date adate,
                 allotment.plot_no,

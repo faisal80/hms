@@ -37,8 +37,8 @@
                 <?php echo strtoupper($data['payment_type'] . ' FOR '. $scheme); ?>
             </u></span></strong><br/><br/>
 </div>
-<div class="row" style="font-size: 12px; line-height: 13px;">
-    <p class="text-justify" style="text-indent: 72px">
+<div class="row text-justify" style="font-size: 12px; line-height: 13px;">
+    <p style="text-indent: 72px">
         Please refer to PHA's Allotment Order No. <?php echo $data['order_no']; ?>
         dated <?php echo $data['adate']; ?>. You were alloted Plot No. <?php echo $data['plot_no'];?>,
         Street No.<?php echo $data['street_no']; ?>,
