@@ -204,7 +204,7 @@ class ApplicantController extends Controller {
     }
 
     public function actionReminders($payment_type) {
-        //$this->layout = 'print';
+        $this->layout = 'main';
         $sql='
             SELECT 
                 category.id, 

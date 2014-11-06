@@ -1,4 +1,3 @@
-<?php $this->layout = 'print'; ?>
 <div class="row clearfix">
     <strong><em><u><?php echo $reminder; ?></u></em></strong>
     <img style="float: left; height: 100px;" src="<?php echo Yii::app()->request->baseUrl; ?>/images/kpk-logo.jpg"/>
