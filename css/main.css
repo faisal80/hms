@@ -232,7 +232,7 @@ div.search-form
 
 .print_container {
     width:210mm;
-	min-height:297mm;
+	height:297mm;
 	background:#FFF;
 	margin:0px auto 20px auto;
     padding-top: 0px;
