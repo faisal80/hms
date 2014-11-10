@@ -65,7 +65,7 @@ class DueDateController extends Controller {
             // if yes then use category_id from allotment in due dates
             // if not allotted abort and display to make allotment first.
             //////////////////////////////////////////
-            $allotment = $applicant->getAllotment();
+            $allotment = $applicant->getAllotments();
             if ($applicant !== null && !empty($allotment->data)) {
                 $model->scheme_id = $allotment->data[0]->scheme_id;
             } else {
@@ -125,7 +125,7 @@ class DueDateController extends Controller {
             }
 
             //get allotment of this applicant
-            $allotments = $applicant->getAllotment();
+            $allotments = $applicant->getAllotments();
             //get his payment types for this allotment
             $payment_types = $allotments->data[0]->category->payment_types;
             $IstInstDate = null;
@@ -169,7 +169,7 @@ class DueDateController extends Controller {
         if (Yii::app()->user->checkAccess($this->id . '.' . $this->action->id, array('owner' => $model->create_user))) {
 
             $applicant = Applicant::model()->findByPk($app_id);
-            $allotment = $applicant->getAllotment();
+            $allotment = $applicant->getAllotments();
             $paymentTypes = $allotment->data[0]->category->payment_types;
             $paymentTypesOption = array();
             foreach ($paymentTypes as $paymentType) {

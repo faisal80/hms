@@ -63,7 +63,7 @@ class PaymentDetailController extends Controller {
             // Uncomment the following line if AJAX validation is needed
             // $this->performAjaxValidation($model);
 
-            $allotments =$applicant->getAllotment();
+            $allotments =$applicant->getAllotments();
             if ($applicant !== null && !empty($allotments) )
             {
                 $model->allotment_id = $allotments->data[0]->id;
@@ -102,7 +102,7 @@ class PaymentDetailController extends Controller {
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-            $allotment=$model->applicant->getAllotment();
+            $allotment=$model->applicant->getAllotments();
             $paymentTypeOptions =  PaymentType::getPaymentTypes($allotment->data[0]->category_id);
             if (isset($_POST['PaymentDetail'])) {
                 $model->attributes = $_POST['PaymentDetail'];

@@ -194,17 +194,17 @@ class ApplicantController extends Controller {
 
     public function actionAllotmentOrder($id) {
         Yii::app()->user->setReturnUrl($this->createUrl('view', array('id' => $id)));
-        $this->layout = 'print';
-        $allotments = $this->loadModel($id)->getAllotment();
-        if (empty($allotments->data[0]->payments_detail)) {
+        $this->layout = 'print_one';
+        $allotment = $this->loadModel($id)->getAllotment();
+        if (empty($allotment->payments_detail)) {
             throw new CHttpException('Please enter payment detail first. ' . CHtml::link('Click here to go Back', Yii::app()->user->returnUrl));
             exit;
         }
-        $this->render('_order', array('model' => $allotments->data[0]));
+        $this->render('_order', array('model' => $allotment));
     }
 
     public function actionReminders($payment_type) {
-        $this->layout = 'main';
+        $this->layout = 'print_more';
         $sql='
             SELECT 
                 category.id, 
@@ -212,6 +212,7 @@ class ApplicantController extends Controller {
                 category.plot_size, 
                 category.scheme_id, 
                 category.corner, 
+                applicant.id aid,
                 applicant.name, 
                 applicant.fname,
                 applicant.postal_address,

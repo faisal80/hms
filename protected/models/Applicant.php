@@ -152,7 +152,7 @@ class Applicant extends HMSActiveRecord {
         return parent::model($className);
     }
 
-    public function getAllotment() {
+    public function getAllotments() {
         //$applicant = $this->loadModel($id);
         $allotments = $this->allotments; // get all allotments made to this applicant
         if (!empty($allotments)) { // if allotment(s) was made
@@ -177,7 +177,7 @@ class Applicant extends HMSActiveRecord {
             }
         }
 
-        //select allotments from transfers if any
+        //select allotments from transfers if any made only by transfer
         $criteria = new CDbCriteria(array(
             'condition' => 'applicant_id=:aid',
             'order' => 'transfer_date DESC',
@@ -194,10 +194,21 @@ class Applicant extends HMSActiveRecord {
                 $allotments[] = $allotment;
             }
         }
-
-        return new CArrayDataProvider($allotments);
+        return new CArrayDataProvider($allotments);        
     }
-    
+
+    public function getAllotment() {
+        $allotments = $this->getAllotments();
+        $allotments = $allotments->getData();
+        $result=$allotments[0];
+        foreach ($allotments as $key=>$val){
+            if ($result->date < $val->date){
+                $result=$val;
+            }
+        }
+        return $result;
+    }
+
     public function getPaymentAmount($ptypeid) {
         $p_detail = PaymentDetail::model()->findByPk($ptypeid);
         return $p_detail->amount;
@@ -287,6 +298,22 @@ class Applicant extends HMSActiveRecord {
         if ($record !== null)
             return $record->id;
         return null;
+    }
+
+    function array_orderby() {
+        $args = func_get_args();
+        $data = array_shift($args);
+        foreach ($args as $n => $field) {
+            if (is_string($field)) {
+                $tmp = array();
+                foreach ($data as $key => $row)
+                    $tmp[$key] = $row[$field];
+                $args[$n] = $tmp;
+            }
+        }
+        $args[] = &$data;
+        call_user_func_array('array_multisort', $args);
+        return array_pop($args);
     }
 
 }
