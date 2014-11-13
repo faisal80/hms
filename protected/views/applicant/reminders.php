@@ -7,7 +7,6 @@ foreach ($allData as $data){
             'data'=>$data,
             'allotment'=>$applicant->getAllotment(),
             'reminder'=>$reminder,
-            'scheme'=>$scheme,
         )
     );
     echo '</div>';

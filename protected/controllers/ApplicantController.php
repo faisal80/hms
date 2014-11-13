@@ -219,6 +219,7 @@ class ApplicantController extends Controller {
                 applicant.contact_1,
                 applicant.contact_2,
                 due_date.date ddate, 
+                payment_type.id pid,
                 payment_type.payment_type, 
                 payment_type.amount,
                 allotment.order_no,
@@ -268,7 +269,6 @@ class ApplicantController extends Controller {
         $this->render('reminders', array(
             'dp'=>$dp,
             'reminder'=>'1st Reminder',
-            'scheme'=>'Jalozai Housing Scheme',
             ));
     }
     
@@ -320,6 +320,27 @@ class ApplicantController extends Controller {
                 'pageSize' => 200,
             ),
         ));
+    }
+    
+    public function penalty($occurence, $penalty, $app_id, $payment_type_id){
+        $payment_type = PaymentType::model()->findByPk($payment_type_id);
+        $due_date = DueDate::model()->find(
+                'applicant_id=:aid AND payment_type_id=:pid',
+                array(
+                    ':aid'=>$app_id,
+                    ':pid'=>$payment_type_id,
+                )
+        );
+        
+        $date_now = DateTime::createFromFormat(Yii::app()->user->getDateFormat(false), date(Yii::app()->user->getDateFormat(false)));
+        $due_date = DateTime::createFromFormat(Yii::app()->user->getDateFormat(false), $due_date->date);
+        $date_diff = date_diff($date_now, $due_date);
+        if ($occurence=='permonth'){
+            return (($payment_type->amount*$penalty/100)/30)*$date_diff->d;
+        } else {
+            return ((($payment_type->amount*$penalty/100)/12)/30)*$date_diff->d;
+        }
+        return false;
     }
 
 }

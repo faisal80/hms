@@ -33,7 +33,7 @@
 <div class="row clearfix" style="font-size: 11pt; line-height: 14pt;">
     <strong>Subject:
         <span class="text-uppercase" style="margin-left: 0.37in"><u>
-                <?php echo strtoupper($data['payment_type'] . ' FOR ' . $scheme); ?>
+                <?php echo strtoupper($data['payment_type'] . ' FOR ' . $allotment->scheme->name); ?>
             </u>
         </span>
     </strong><br/><br/>
@@ -62,9 +62,17 @@
 
     <p>
         2.<span style="margin-left: 0.88in">You are directed to deposit <?php echo $data['payment_type']; ?> 
-            amounting to Rs. <?php echo number_format($data['amount']); ?>/- plus Rs.99999/- as a 
-            penalty @ (2% per month) for each day of delay for the amount in default. 
-            Failure to pay the installment along with penalty charges within 12 months
+            amounting to Rs.<?php echo number_format($data['amount']); ?>/- 
+            <?php if ($this->penalty($allotment->scheme->occurence, $allotment->scheme->penalty, $data['aid'], $data['pid'])){
+            echo 'plus Rs. ';
+            echo number_format($this->penalty($allotment->scheme->occurence, $allotment->scheme->penalty, $data['aid'], $data['pid'])). '/- '; 
+            echo 'as a penalty @ ' . $allotment->scheme->penalty . '% '; 
+            echo substr($allotment->scheme->occurence, 0, 3) . " " . substr($allotment->scheme->occurence, 3); 
+            echo 'for each day of delay for the amount in default.'; 
+            }?> 
+            Failure to pay the installment 
+            <?php if ($this->penalty($allotment->scheme->occurence, $allotment->scheme->penalty, $data['aid'], $data['pid']))
+            echo ' along with penalty charges '; ?> within 12 months
             shall make your allotment liable to cancellation without any notice.</span>
 
     </p>
