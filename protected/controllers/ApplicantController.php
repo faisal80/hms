@@ -64,7 +64,7 @@ class ApplicantController extends Controller {
 //                'pageSize' => 100,
 //            ),
 //        ));
-
+    
         $paymentDetailDP = new CActiveDataProvider('PaymentDetail', array(
             'criteria' => array(
                 'condition' => 'applicant_id=:applicantId',
@@ -84,7 +84,7 @@ class ApplicantController extends Controller {
 
         $this->render('view', array(
             'model' => $this->loadModel($id),
-//            'allotments' => $this->getAllotment(),
+//            'allotment' => $this->loadModel($id)->getAllotments(),
             'payment_detail' => $paymentDetailDP,
             'due_dates' => $duedatesDP,
             'penalties' => (empty($duedatesDP->data)) ? new CArrayDataProvider(array()) : $this->penalties($duedatesDP->data[0]->scheme->occurence, $duedatesDP->data[0]->scheme->penalty, $id),

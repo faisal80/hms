@@ -21,6 +21,7 @@
  */
 class Allotment extends HMSActiveRecord {
 
+    public $type = 'allotment';  // Type of allotment 'transfer' or 'allotment'
     /**
      * @return string the associated database table name
      */

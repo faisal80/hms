@@ -168,8 +168,9 @@ class Applicant extends HMSActiveRecord {
                 $transfer = Transfer::model()->find($criteria);
                 if ($transfer != null) { //if transferred set $allotment date and deed_no
                     if ($transfer->applicant_id === $this->id) {
-                        $allotments[$i]->date = $transfer->transfer_date;
-                        $allotments[$i]->order_no = $transfer->deed_no;
+                        $allotments[$i]->date       = $transfer->transfer_date;
+                        $allotments[$i]->order_no   = $transfer->deed_no;
+                        $allotments[$i]->type       = 'transfer'; 
                     } else {
                         unset($allotments[$i]);
                     }
@@ -187,11 +188,12 @@ class Applicant extends HMSActiveRecord {
         $transfer = Transfer::model()->find($criteria);
         if ($transfer != null) { //if transferred set $allotment date and deed_no
             if ($transfer->applicant_id === $this->id) {
-                $allotment = $transfer->allotment;
-                $allotment->applicant_id = $transfer->applicant_id;
-                $allotment->date = $transfer->transfer_date;
-                $allotment->order_no = $transfer->deed_no;
-                $allotments[] = $allotment;
+                $allotment                  = $transfer->allotment;
+                $allotment->applicant_id    = $transfer->applicant_id;
+                $allotment->date            = $transfer->transfer_date;
+                $allotment->order_no        = $transfer->deed_no;
+                $allotment->type            = 'transfer';
+                $allotments[]               = $allotment;
             }
         }
         return new CArrayDataProvider($allotments);        
