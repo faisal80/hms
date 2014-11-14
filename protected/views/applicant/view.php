@@ -118,6 +118,7 @@ $this->widget('booster.widgets.TbGridView', array(
         'phase',
         'date',
         'order_no',
+        'type',
         array(
             'class' => 'booster.widgets.TbButtonColumn',
 //            'htmlOptions' => array('nowrap' => 'nowrap'),

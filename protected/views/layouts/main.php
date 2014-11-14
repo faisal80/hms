@@ -63,35 +63,35 @@
     ?>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar hidden-print">
+<!--        <div class="col-sm-3 col-md-2 sidebar hidden-print">
             <?php
-            $this->widget('booster.widgets.TbMenu', array(
-                    'type' => 'list',
-                    'htmlOptions'=>array('class'=>'nav nav-sidebar'),
-                    'encodeLabel'=>false,
-                    'items' => array(
-                        array('label' => 'List header', 'itemOptions' => array('class' => 'nav-header')),
-                        array(
-                            'label' => '<span class="glyphicon glyphicon-home"></span> Home',
-                            'url' => 'site',
-                            'itemOptions' => array('class' => 'active')
-                        ),
-                        array('label' => 'Library', 'url' => '#'),
-                        array('label' => 'Applications', 'url' => '#'),
-                        array(
-                            'label' => 'Another list header',
-                            'itemOptions' => array('class' => 'nav-header')
-                        ),
-                        array('label' => 'Profile', 'url' => '#'),
-                        array('label' => 'Settings', 'url' => '#'),
-                        '',
-                        array('label' => 'Help', 'url' => '#'),
-                    )
-                )
-            );
+//            $this->widget('booster.widgets.TbMenu', array(
+//                    'type' => 'list',
+//                    'htmlOptions'=>array('class'=>'nav nav-sidebar'),
+//                    'encodeLabel'=>false,
+//                    'items' => array(
+//                        array('label' => 'List header', 'itemOptions' => array('class' => 'nav-header')),
+//                        array(
+//                            'label' => '<span class="glyphicon glyphicon-home"></span> Home',
+//                            'url' => 'site',
+//                            'itemOptions' => array('class' => 'active')
+//                        ),
+//                        array('label' => 'Library', 'url' => '#'),
+//                        array('label' => 'Applications', 'url' => '#'),
+//                        array(
+//                            'label' => 'Another list header',
+//                            'itemOptions' => array('class' => 'nav-header')
+//                        ),
+//                        array('label' => 'Profile', 'url' => '#'),
+//                        array('label' => 'Settings', 'url' => '#'),
+//                        '',
+//                        array('label' => 'Help', 'url' => '#'),
+//                    )
+//                )
+//            );
             ?>
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        </div>-->
+        <div class="main">
             	<?php if(isset($this->breadcrumbs)){
                     $this->widget('booster.widgets.TbBreadcrumbs', array(
                         'links'=>$this->breadcrumbs,
@@ -100,6 +100,6 @@
             <?php echo $content; ?>
         </div>
       </div>
-    </div>
+    </div>   
   </body>
 </html>

@@ -37,7 +37,6 @@ $this->breadcrumbs=array(
 
 	<?php echo $form->passwordFieldGroup($model,'password',array('label'=>false, 'widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>        
 
-    <?php echo $form->checkboxGroup($model,'rememberMe'); ?>
 
 
 

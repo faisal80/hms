@@ -202,6 +202,8 @@ class Applicant extends HMSActiveRecord {
     public function getAllotment() {
         $allotments = $this->getAllotments();
         $allotments = $allotments->getData();
+        if (empty($allotments))
+            return false;
         $result=$allotments[0];
         foreach ($allotments as $key=>$val){
             if ($result->date < $val->date){

@@ -64,7 +64,10 @@ class ApplicantController extends Controller {
 //                'pageSize' => 100,
 //            ),
 //        ));
-    
+        $applicant = $this->loadModel($id);
+        $allotment = $applicant->getAllotment();
+        
+        if ($allotment) {
         $paymentDetailDP = new CActiveDataProvider('PaymentDetail', array(
             'criteria' => array(
                 'condition' => 'applicant_id=:applicantId',
@@ -80,11 +83,15 @@ class ApplicantController extends Controller {
             ),
             'pagination' => array('pageSize' => 100),
         ));
+        } else {
+            $paymentDetailDP = new CActiveDataProvider();
+            $duedatesDP = new CActiveDataProvider();
+        }
 
 
         $this->render('view', array(
-            'model' => $this->loadModel($id),
-//            'allotment' => $this->loadModel($id)->getAllotments(),
+            'model' => $applicant,
+            'allotment' => $allotment,
             'payment_detail' => $paymentDetailDP,
             'due_dates' => $duedatesDP,
             'penalties' => (empty($duedatesDP->data)) ? new CArrayDataProvider(array()) : $this->penalties($duedatesDP->data[0]->scheme->occurence, $duedatesDP->data[0]->scheme->penalty, $id),
