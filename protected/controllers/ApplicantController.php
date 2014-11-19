@@ -66,23 +66,23 @@ class ApplicantController extends Controller {
 //        ));
         $applicant = $this->loadModel($id);
         $allotment = $applicant->getAllotment();
-        
-        if ($allotment) {
-        $paymentDetailDP = new CActiveDataProvider('PaymentDetail', array(
-            'criteria' => array(
-                'condition' => 'applicant_id=:applicantId',
-                'params' => array(':applicantId' => $id),
-            ),
-            'pagination' => array('pageSize' => 100),
-        ));
 
-        $duedatesDP = new CActiveDataProvider('DueDate', array(
-            'criteria' => array(
-                'condition' => 'applicant_id=:applicantId',
-                'params' => array(':applicantId' => $id),
-            ),
-            'pagination' => array('pageSize' => 100),
-        ));
+        if ($allotment) {
+            $paymentDetailDP = new CActiveDataProvider('PaymentDetail', array(
+                'criteria' => array(
+                    'condition' => 'applicant_id=:applicantId',
+                    'params' => array(':applicantId' => $id),
+                ),
+                'pagination' => array('pageSize' => 100),
+            ));
+
+            $duedatesDP = new CActiveDataProvider('DueDate', array(
+                'criteria' => array(
+                    'condition' => 'applicant_id=:applicantId',
+                    'params' => array(':applicantId' => $id),
+                ),
+                'pagination' => array('pageSize' => 100),
+            ));
         } else {
             $paymentDetailDP = new CActiveDataProvider();
             $duedatesDP = new CActiveDataProvider();
@@ -210,9 +210,11 @@ class ApplicantController extends Controller {
         $this->render('_order', array('model' => $allotment));
     }
 
-    public function actionReminders($payment_type) {
+    public function actionReminders() {
         $this->layout = 'print_more';
-        $sql='
+        if (isset($_POST['reminder']) && isset($_POST['payment_type'])) {
+
+            $sql = '
             SELECT 
                 category.id, 
                 category.category, 
@@ -266,19 +268,21 @@ class ApplicantController extends Controller {
             AND
                 payment_detail.payment_type_id IS NULL
             AND
-                payment_type.payment_type=\''.$payment_type.'\'';
+                payment_type.payment_type=\'' . $_POST['payment_type'] . '\'';
 //        $rawData=Yii::app()->db->createCommand($sql)->queryAll();
-        $dp = new CSqlDataProvider($sql, array(
-            'pagination'=>array(
-                'pageSize'=>99999,
-            )
-        ));
-        $this->render('reminders', array(
-            'dp'=>$dp,
-            'reminder'=>'1st Reminder',
+            $dp = new CSqlDataProvider($sql, array(
+                'pagination' => array(
+                    'pageSize' => 99999,
+                )
             ));
+            $this->render('reminders', array(
+                'dp' => $dp,
+                'reminder' => $_POST['reminder'],
+            ));
+        }
+        $this->render('reminders_params');
     }
-    
+
     /**
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
@@ -303,10 +307,10 @@ class ApplicantController extends Controller {
     }
 
     public function penalties($occurence, $penalty, $app_id) {
-        $rawData=Yii::app()->db->createCommand('
+        $rawData = Yii::app()->db->createCommand('
             SELECT 
                 DATEDIFF(payment_detail.date, due_date.date) AS days, 
-                '.(($occurence == 'permonth') ? '((payment_type.amount*' . $penalty . '/100)/30)*DATEDIFF(payment_detail.date, due_date.date) AS penalty' : '(((payment_type.amount*' . $penalty . '/100)/12)/30)*DATEDIFF(payment_detail.date, due_date.date) AS penalty'). ', 
+                ' . (($occurence == 'permonth') ? '((payment_type.amount*' . $penalty . '/100)/30)*DATEDIFF(payment_detail.date, due_date.date) AS penalty' : '(((payment_type.amount*' . $penalty . '/100)/12)/30)*DATEDIFF(payment_detail.date, due_date.date) AS penalty') . ', 
                 due_date.date AS ddate,
                 due_date.applicant_id AS app_id, 
                 payment_detail.payment_type_id,
@@ -318,34 +322,33 @@ class ApplicantController extends Controller {
             INNER JOIN 
                 payment_detail ON (due_date.applicant_id = payment_detail.applicant_id) AND (payment_type.id = payment_detail.payment_type_id)
             WHERE 
-                (DATEDIFF(payment_detail.date, due_date.date)>0) AND (due_date.applicant_id='.$app_id.');'
-            )->queryAll();
-        
+                (DATEDIFF(payment_detail.date, due_date.date)>0) AND (due_date.applicant_id=' . $app_id . ');'
+                )->queryAll();
+
         return new CArrayDataProvider($rawData, array(
-            'keyField'=>'payment_type_id',
+            'keyField' => 'payment_type_id',
             'pagination' => array(
                 'pageSize' => 200,
             ),
         ));
     }
-    
-    public function penalty($occurence, $penalty, $app_id, $payment_type_id){
+
+    public function penalty($occurence, $penalty, $app_id, $payment_type_id) {
         $payment_type = PaymentType::model()->findByPk($payment_type_id);
         $due_date = DueDate::model()->find(
-                'applicant_id=:aid AND payment_type_id=:pid',
-                array(
-                    ':aid'=>$app_id,
-                    ':pid'=>$payment_type_id,
+                'applicant_id=:aid AND payment_type_id=:pid', array(
+            ':aid' => $app_id,
+            ':pid' => $payment_type_id,
                 )
         );
-        
+
         $date_now = DateTime::createFromFormat(Yii::app()->user->getDateFormat(false), date(Yii::app()->user->getDateFormat(false)));
         $due_date = DateTime::createFromFormat(Yii::app()->user->getDateFormat(false), $due_date->date);
         $date_diff = date_diff($date_now, $due_date);
-        if ($occurence=='permonth'){
-            return (($payment_type->amount*$penalty/100)/30)*$date_diff->d;
+        if ($occurence == 'permonth') {
+            return (($payment_type->amount * $penalty / 100) / 30) * $date_diff->d;
         } else {
-            return ((($payment_type->amount*$penalty/100)/12)/30)*$date_diff->d;
+            return ((($payment_type->amount * $penalty / 100) / 12) / 30) * $date_diff->d;
         }
         return false;
     }
