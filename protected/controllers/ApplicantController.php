@@ -268,6 +268,8 @@ class ApplicantController extends Controller {
             AND
                 payment_detail.payment_type_id IS NULL
             AND
+                due_date.date <= CURDATE()
+            AND
                 payment_type.payment_type=\'' . $_POST['payment_type'] . '\'';
 //        $rawData=Yii::app()->db->createCommand($sql)->queryAll();
             $dp = new CSqlDataProvider($sql, array(

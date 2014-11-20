@@ -19,14 +19,25 @@ array('label'=>'Manage Transfer','url'=>array('admin')),
 'data'=>$model,
 'attributes'=>array(
 		'id',
-		'allotment_id',
+		'allotment'=>array(
+            'label'=>'Allotment',
+            'value'=>"Plot No. " .$model->allotment->plot_no . 
+                      " Street No. ".$model->allotment->street_no .
+                      (empty($model->allotment->sector)?" ":" Sector ".$model->allotment->sector) . 
+                      (empty($model->allotment->phase)?" ":" Phase ".$model->allotment->phase) . 
+                      $model->allotment->category->fullCategory,
+        ),
+		'transfer_from'=>array(
+            'label'=>'Transferred From',
+            'value'=>$model->transfer_id == null? 
+                $model->allotment->applicant->name:
+                $model->transfer_from->transfer_to->name,
+        ),
+		'transfer_to'=>array(
+            'label'=>'Transferred To',
+            'name'=> 'transfer_to.name',
+        ),
 		'transfer_date',
-		'transfer_id',
-		'applicant_id',
 		'deed_no',
-		'create_user',
-		'create_time',
-		'update_user',
-		'update_time',
 ),
 )); ?>

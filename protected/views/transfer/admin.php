@@ -41,14 +41,29 @@ return false;
 <?php $this->widget('booster.widgets.TbGridView',array(
 'id'=>'transfer-grid',
 'dataProvider'=>$model->search(),
-'filter'=>$model,
+//'filter'=>$model,
 'type'=>'striped',
 'columns'=>array(
 		'id',
-		'allotment_id',
+		'allotment'=>array(
+            'header'=>'Allotment',
+            'value'=>'"Plot No. " .$data->allotment->plot_no . 
+                      " Street No. ".$data->allotment->street_no .
+                      (empty($data->allotment->sector)?" ":" Sector ".$data->allotment->sector) . 
+                      (empty($data->allotment->phase)?" ":" Phase ".$data->allotment->phase) . 
+                      $data->allotment->category->fullCategory',
+        ),
+		'transfer_from'=>array(
+            'header'=>'Transferred From',
+            'value'=>'$data->transfer_id == null? 
+                $data->allotment->applicant->name:
+                $data->transfer_from->transfer_to->name',
+        ),
+		'transfer_to'=>array(
+            'header'=>'Transferred To',
+            'name'=> 'transfer_to.name',
+        ),
 		'transfer_date',
-		'transfer_id',
-		'applicant_id',
 		'deed_no',
 		/*
 		'create_user',

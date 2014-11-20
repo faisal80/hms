@@ -34,7 +34,7 @@ class TransferController extends Controller {
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
                 'actions' => array('admin', 'delete'),
-                'users' => array('admin'),
+                'users' => array('@'),
             ),
             array('deny', // deny all users
                 'users' => array('*'),
@@ -59,6 +59,7 @@ class TransferController extends Controller {
     public function actionCreate() {
         if (Yii::app()->user->checkAccess($this->id . '.' . $this->action->id)) {
             $model = new Transfer;
+            $model->transfer_date = date(Yii::app()->user->getDateFormat(false), time());
 
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);

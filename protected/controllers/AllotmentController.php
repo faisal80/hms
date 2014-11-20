@@ -26,7 +26,7 @@ class AllotmentController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view'),
+                'actions' => array('index', 'view', 'findAllotment'),
                 'users' => array('@'),
 //                'roles' => array('Authenticated'),
             ),
@@ -49,14 +49,14 @@ class AllotmentController extends Controller {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id) {
-        
+
         $transfers = new CActiveDataProvider('Transfer', array(
             'criteria' => array(
                 'condition' => 'allotment_id=:aid',
                 'params' => array(':aid' => $id),
             )
         ));
-        
+
         $this->render('view', array(
             'model' => $this->loadModel($id),
             'transfers' => $transfers,
@@ -88,6 +88,15 @@ class AllotmentController extends Controller {
         } else {
             $this->accessDenied();
         }
+    }
+
+    public function actionFindAllotment() {
+        if (isset($_POST['plot_no']) && isset($_POST['street_no']) ) {
+            $criteria = new CDbCriteria();
+            $criteria->compare('plot_no',$_POST['plot_no']);
+            $criteria->compare('street_no', $_POST['street_no']);
+        }
+        $this->render('transfer_params');
     }
 
     /**

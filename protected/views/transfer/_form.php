@@ -10,17 +10,6 @@ $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
 
 <?php echo $form->errorSummary($model); ?>
 
-<?php echo $form->dropDownListGroup($model, 'allotment_id', array(
-    'widgetOptions' => array(
-        'htmlOptions' => array(
-            'class' => 'span5', 
-            'maxlength' => 10
-            ),
-        'data'=>  Allotment::getAllotmentOptions(),
-        )
-    )
-); ?>
-
 <?php echo $form->datePickerGroup($model, 'transfer_date', array(
     'widgetOptions' => array(
         'options' => array(
@@ -31,17 +20,6 @@ $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
         ), 
     'prepend' => '<i class="glyphicon glyphicon-calendar"></i>', 
     'append' => 'Click on Month/Year to select a different Month/Year.'
-    )
-); ?>
-
-<?php echo $form->dropDownListGroup($model, 'transfer_id', array(
-    'widgetOptions' => array(
-        'htmlOptions' => array(
-            'class' => 'span5', 
-            'maxlength' => 10
-            ),
-        'data'=>  Applicant::getApplicantOptions(),
-        )
     )
 ); ?>
 
