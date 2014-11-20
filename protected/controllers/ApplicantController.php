@@ -279,8 +279,9 @@ class ApplicantController extends Controller {
                 'dp' => $dp,
                 'reminder' => $_POST['reminder'],
             ));
+        } else {
+            $this->render('reminders_params');
         }
-        $this->render('reminders_params');
     }
 
     /**

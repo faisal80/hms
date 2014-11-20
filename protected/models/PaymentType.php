@@ -123,10 +123,14 @@ class PaymentType extends HMSActiveRecord {
     public static function getPaymentTypesByText()
     {
         $result = array();
-        $paymenttypes = PaymentType::model()->findAll('category_id='.$cat_id);
+        $criteria = new CDbCriteria();
+        $criteria->select = 'id, payment_type';
+        $criteria->distinct = true;
+        $criteria->order = 'id';
+        $paymenttypes = PaymentType::model()->findAll($criteria);
         foreach ($paymenttypes as $paymenttype)
         {
-            $result = $result + array($paymenttype['id']=> $paymenttype->category->category .' ('. $paymenttype->category->plot_size . ($paymenttype->category->corner?' - Corner)': ') '). $paymenttype['payment_type']);
+            $result = $result + array($paymenttype->payment_type=>$paymenttype->payment_type);
             
         }
         return $result;
