@@ -26,7 +26,7 @@ class AllotmentController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'findAllotment'),
+                'actions' => array('index', 'view', 'find'),
                 'users' => array('@'),
 //                'roles' => array('Authenticated'),
             ),
@@ -90,13 +90,29 @@ class AllotmentController extends Controller {
         }
     }
 
-    public function actionFindAllotment() {
+    public function actionFind() {
         if (isset($_POST['plot_no']) && isset($_POST['street_no']) ) {
             $criteria = new CDbCriteria();
             $criteria->compare('plot_no',$_POST['plot_no']);
             $criteria->compare('street_no', $_POST['street_no']);
+            if (isset($_POST['sector']))
+                $criteria->compare ('sector', $_POST['sector'], true);
+            if (isset($_POST['phase']))
+                $criteria->compare ('phase', $_POST['phase'], true);
+            $allotments = Allotment::model()->findAll($criteria);
+            if (empty($allotments)) {
+                $user = Yii::app()->getComponent('user');
+                $user->setFlash('error', '<strong>Plot No. '.$_POST['plot_no'] . ' not Found!</strong>');
+                $this->render('transfer_params');
+            } else {
+                $allotments = new CArrayDataProvider($allotments);
+                $this->render('allotments', array(
+                    'allotments'=>$allotments,
+                ));
+            }
+        } else {
+            $this->render('transfer_params');
         }
-        $this->render('transfer_params');
     }
 
     /**

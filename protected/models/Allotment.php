@@ -148,6 +148,10 @@ class Allotment extends HMSActiveRecord {
         return $result;
     }
 
+    public function getCurrentOwner(){
+        
+    }
+    
     protected function beforeSave() 
     {
         $this->fixDate($this, 'date' );
