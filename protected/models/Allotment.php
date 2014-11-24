@@ -18,10 +18,11 @@
  * @property string $create_time
  * @property string $update_user
  * @property string $update_time
+ * @property string $type 'allotment' or 'transfer' not a db field.
  */
 class Allotment extends HMSActiveRecord {
 
-    public $type = 'allotment';  // Type of allotment 'transfer' or 'allotment'
+    public $_type = 'allotment';  // Type of allotment 'transfer' or 'allotment'
     /**
      * @return string the associated database table name
      */
@@ -59,6 +60,7 @@ class Allotment extends HMSActiveRecord {
             'scheme' => array(self::BELONGS_TO, 'Scheme', 'scheme_id'),
             'transfers'=> array(self::HAS_MANY, 'Transfer', 'allotment_id'),
             'payments_detail'=>array(self::HAS_MANY, 'PaymentDetail', 'allotment_id'),
+            'latest_transfer'=>array(self::HAS_ONE, 'Transfer', 'allotment_id', 'order'=>'latest_transfer.id DESC'),
         );
     }
 
@@ -148,8 +150,24 @@ class Allotment extends HMSActiveRecord {
         return $result;
     }
 
-    public function getCurrentOwner(){
-        
+    public function getCurrentAllottee(){
+        if ($this->latest_transfer) { 
+            $this->applicant_id = $this->latest_transfer->transfer_to->id;
+            $this->date = $this->latest_transfer->transfer_date;
+            $this->order_no = $this->latest_transfer->deed_no;
+            $this->type = 'transfer';
+        }
+        return $this;
+    }
+    
+    public function getType(){
+        if ($this->latest_transfer)
+            $this->_type = 'transfer';
+        return $this->_type;
+    }
+    
+    public function setType($type){
+        $this->_type = $type;
     }
     
     protected function beforeSave() 
