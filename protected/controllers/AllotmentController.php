@@ -49,7 +49,8 @@ class AllotmentController extends Controller {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id) {
-
+        Yii::app()->user->setReturnUrl($this->createUrl('view', array('id'=>$id)));
+        $model = $this->loadModel($id);
         $transfers = new CActiveDataProvider('Transfer', array(
             'criteria' => array(
                 'condition' => 'allotment_id=:aid',
@@ -58,7 +59,8 @@ class AllotmentController extends Controller {
         ));
 
         $this->render('view', array(
-            'model' => $this->loadModel($id),
+            'model' => $model,
+            'callottee' => $model->currentAllottee,
             'transfers' => $transfers,
         ));
     }

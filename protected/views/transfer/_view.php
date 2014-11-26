@@ -7,13 +7,13 @@
 		<dd><?php echo CHtml::encode('Plot No. ' .$data->allotment->plot_no . 
                                      ' Street No. '.$data->allotment->street_no .
                                      (empty($data->allotment->sector)?' ':' Sector '.$data->allotment->sector) . 
-                                     (empty($data->allotment->phase)?' ':' Phase '.$data->allotment->phase) . 
+                                     (empty($data->allotment->phase)?' ':' Phase '.$data->allotment->phase. ' ') . 
                                      $data->allotment->category->fullCategory); ?></dd>
 
 		<dt><?php echo CHtml::encode('Transferred From'); ?>:</dt>
 		<dd><?php echo CHtml::encode(($data->transfer_id == null? 
                 $data->allotment->applicant->name:
-                $data->transfer_from->transfer_to->name)); ?></dd>
+                $data->transfer_from->applicant->name)); ?></dd>
 
 		<dt><?php echo CHtml::encode('Transferred To'); ?>:</dt>
 		<dd><?php echo CHtml::encode($data->transfer_to->name); ?></dd>

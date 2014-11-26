@@ -23,6 +23,7 @@
 class Allotment extends HMSActiveRecord {
 
     public $_type = 'allotment';  // Type of allotment 'transfer' or 'allotment'
+    public $_transfer_id = null;  // If $_type is 'transfer' then transfer_id
     /**
      * @return string the associated database table name
      */
@@ -151,13 +152,15 @@ class Allotment extends HMSActiveRecord {
     }
 
     public function getCurrentAllottee(){
+        $result = Allotment::model()->findByPk($this->id);
         if ($this->latest_transfer) { 
-            $this->applicant_id = $this->latest_transfer->transfer_to->id;
-            $this->date = $this->latest_transfer->transfer_date;
-            $this->order_no = $this->latest_transfer->deed_no;
-            $this->type = 'transfer';
+            $result->applicant_id = $this->latest_transfer->transfer_to->id;
+            $result->date = $this->latest_transfer->transfer_date;
+            $result->order_no = $this->latest_transfer->deed_no;
+            $result->type = 'transfer';
+            $result->_transfer_id = $this->latest_transfer->id;
         }
-        return $this;
+        return $result;
     }
     
     public function getType(){

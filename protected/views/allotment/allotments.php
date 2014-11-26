@@ -63,7 +63,7 @@ $this->widget('booster.widgets.TbGridView', array(
             'template'=>'{transfer}',
             'buttons'=>array(
                 'transfer'=>array(
-                    'url'=>"Yii::app()->createUrl('/transfer/create')",
+                    'url'=>'Yii::app()->createUrl("/transfer/create", array("aid"=>$data->id, "tid"=>$data->_transfer_id))',
                     'label'=>false,
                     'options'=>array(
                         'class'=>'glyphicon glyphicon-export',

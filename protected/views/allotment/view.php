@@ -10,6 +10,7 @@ $this->menu = array(
     array('label' => 'Update Allotment', 'url' => array('update', 'id' => $model->id)),
     array('label' => 'Delete Allotment', 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Are you sure you want to delete this item?')),
     array('label' => 'Manage Allotment', 'url' => array('admin')),
+    array('label' => 'Transfer', 'url' => array('/transfer/create', 'aid'=>$callottee->id, 'tid'=>$callottee->_transfer_id)),
 );
 ?>
 <div class="text-right">
@@ -51,7 +52,7 @@ $this->menu = array(
     ?>
 </div>
 
-<h1>View Allotment #<?php echo $model->id; ?></h1>
+<h2>View Allotment #<?php echo $model->id; ?></h2>
 
 <?php
 $this->widget('booster.widgets.TbDetailView', array(
@@ -60,7 +61,7 @@ $this->widget('booster.widgets.TbDetailView', array(
         'id',
         'applicant.name',
         'scheme.name',
-        'category.category',
+        'category.fullcategory',
         'plot_no',
         'street_no',
         'sector',

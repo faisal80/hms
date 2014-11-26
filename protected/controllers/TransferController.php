@@ -55,17 +55,22 @@ class TransferController extends Controller {
     /**
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     * @param integer $aid Allotment ID
+     * @param integer $tid Transfer ID
      */
-    public function actionCreate() {
+    public function actionCreate($aid, $tid) {
         if (Yii::app()->user->checkAccess($this->id . '.' . $this->action->id)) {
             $model = new Transfer;
             $model->transfer_date = date(Yii::app()->user->getDateFormat(false), time());
 
-// Uncomment the following line if AJAX validation is needed
-// $this->performAjaxValidation($model);
+            // Uncomment the following line if AJAX validation is needed
+            // $this->performAjaxValidation($model);
 
             if (isset($_POST['Transfer'])) {
                 $model->attributes = $_POST['Transfer'];
+                $model->allotment_id = $aid;
+                if (!is_null($tid))
+                    $model->transfer_id = $tid;
                 if ($model->save())
                     $this->redirect(array('view', 'id' => $model->id));
             }

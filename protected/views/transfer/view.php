@@ -29,7 +29,7 @@ array('label'=>'Manage Transfer','url'=>array('admin')),
         ),
 		'transfer_from'=>array(
             'label'=>'Transferred From',
-            'value'=>$model->transfer_id == null? 
+            'value'=>$model->transfer_id === null? 
                 $model->allotment->applicant->name:
                 $model->transfer_from->transfer_to->name,
         ),
