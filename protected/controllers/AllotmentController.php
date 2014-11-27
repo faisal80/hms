@@ -117,6 +117,13 @@ class AllotmentController extends Controller {
         }
     }
 
+    public function actionViewTransferSheet($id){
+        $model = $this->loadModel($id);
+        $transfers = $model->last_2_transfers;
+        
+        $this->render('transfer_sheet')
+    }
+    
     /**
      * Updates a particular model.
      * If update is successful, the browser will be redirected to the 'view' page.

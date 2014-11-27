@@ -62,6 +62,7 @@ class Allotment extends HMSActiveRecord {
             'transfers'=> array(self::HAS_MANY, 'Transfer', 'allotment_id'),
             'payments_detail'=>array(self::HAS_MANY, 'PaymentDetail', 'allotment_id'),
             'latest_transfer'=>array(self::HAS_ONE, 'Transfer', 'allotment_id', 'order'=>'latest_transfer.id DESC'),
+            'last_2_transfers'=>array(self::HAS_MANY, 'Transfer', 'allotment_id', 'order'=>'last_2_transfers.id DESC', 'limit'=>2),
         );
     }
 

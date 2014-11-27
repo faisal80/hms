@@ -84,8 +84,8 @@ class ApplicantController extends Controller {
                 'pagination' => array('pageSize' => 100),
             ));
         } else {
-            $paymentDetailDP = new CActiveDataProvider();
-            $duedatesDP = new CActiveDataProvider();
+            $paymentDetailDP = new CArrayDataProvider(array());
+            $duedatesDP = new CArrayDataProvider(array());
         }
 
 
