@@ -26,7 +26,7 @@ class AllotmentController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'find'),
+                'actions' => array('index', 'view', 'find', 'viewTransferSheet'),
                 'users' => array('@'),
 //                'roles' => array('Authenticated'),
             ),
@@ -120,8 +120,11 @@ class AllotmentController extends Controller {
     public function actionViewTransferSheet($id){
         $model = $this->loadModel($id);
         $transfers = $model->last_2_transfers;
-        
-        $this->render('transfer_sheet')
+        $this->layout = 'print_one';
+        $this->render('transfer_sheet', array(
+            'allotment' => $model,
+            'transfers' => $transfers,
+        ));
     }
     
     /**

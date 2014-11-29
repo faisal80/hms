@@ -72,7 +72,7 @@ class TransferController extends Controller {
                 if (!is_null($tid))
                     $model->transfer_id = $tid;
                 if ($model->save())
-                    $this->redirect(array('view', 'id' => $model->id));
+                    $this->redirect(Yii::app()->user->returnUrl);
             }
 
             $this->render('create', array(
